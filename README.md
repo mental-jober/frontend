@@ -1,34 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ✔️ 정신줄 자버
 
-## Getting Started
+## 프로젝트 설치 방법
+Local에서 사용할 폴더 위치로 이동(cd '폴더위치')
 
-First, run the development server:
-
-```bashs
+``` cmd
+git init
+git clone https://github.com/mental-jober/frontend.git
+git fetch --all
+git pull origin main
+npm i
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✏️ Commit Convention
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- 되도록이면 구체적으로 적을 것! - git commit -m (X)
+- 반드시 vim으로 제목 / 본문에 구체적으로 작성
+- footer에는 이슈 트래커 ID를 명시할 때 작성
 
-## Learn More
+- 새로운 기능 추가 - Feat: 커밋 메시지(한글)
+- UI/ 스타일 관련 파일 추가 및 수정 - Design: 커밋 메시지(한글) #
+- 버그 수정 - Fix: 커밋 메시지(한글) #
+- 리팩토링(구조 변경) - Refactor: 커밋 메시지(한글)
+- 이름 / 경로 / route 변경 - Rename: 커밋 메시지(한글)
+- 빌드 업무 수정, 패키지 매니저 수정 - Chore: 커밋 메시지(한글)
+- 문서 추가 및 수정 - Docs: 커밋 메시지(한글)
+- 코드 / 파일 삭제 - Remove: 커밋 메시지(한글)
+- 급하게 치명적인 버그 수정 - !HOTFIX: 커밋 메시지(한글)
+- 테스트 추가, 테스트 리팩토링 - Test: 커밋 메시지(한글)
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
