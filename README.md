@@ -1,16 +1,13 @@
 # ✔️ 정신줄 자버
 
 ## 프로젝트 설치 방법
-Local에서 사용할 폴더 위치로 이동(cd '폴더위치')
+- Local에서 사용할 폴더(clone 받아올) 위치로 이동(cd '폴더위치')
 
 ``` cmd
-git init
-git clone https://github.com/mental-jober/frontend.git
-git fetch --all
-git pull origin main
-npm i
+git clone https://github.com/mental-jober/frontend.git 
+npm install
 npm run dev
-
+```
 
 ## ✏️ Commit Convention
 
