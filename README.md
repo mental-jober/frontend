@@ -10,7 +10,7 @@ git fetch --all
 git pull origin main
 npm i
 npm run dev
-
+```
 
 ## ✏️ Commit Convention
 
