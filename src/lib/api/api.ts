@@ -13,6 +13,6 @@ const fetchData = async (url: string, method: Method, reqData?: unknown) => {
 };
 
 // fetchData 사용예시
-export const exampleApi = async () => {
-  return await fetchData("/template", "get");
+export const exampleApi = () => {
+  return fetchData("/template", "get");
 };
