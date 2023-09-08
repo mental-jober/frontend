@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import "@/styles/globals.css";
 import { ReactNode } from "react";
@@ -9,7 +9,7 @@ import { theme } from "@/styles/theme";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="ko">
+    <html lang="ko" suppressHydrationWarning>
       <ThemeProvider theme={theme}>
         <body>
           <GlobalStyle />
