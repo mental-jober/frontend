@@ -2,8 +2,30 @@ import "styled-components";
 
 declare module "styled-components" {
   export interface DefaultTheme {
-    text: string;
-    background: string;
-    border: string;
+    red: {
+      light: string;
+      lightHover: string;
+      lightActive: string;
+      normal: string;
+      normalHover: string;
+      normalActive: string;
+      dark: string;
+      darkHover: string;
+      darkActive: string;
+      darker: string;
+    };
+    gray: {
+      light: string;
+      lightHover: string;
+      lightActive: string;
+      normal: string;
+      normalHover: string;
+      normalActive: string;
+      dark: string;
+      darkHover: string;
+      darkActive: string;
+      darker: string;
+    };
+    blue: string[];
   }
 }
