@@ -6,6 +6,7 @@ import RootStyleRegistry from "@/lib/RootStyleRegistry";
 import GlobalStyle from "@/styles/GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import { theme } from "@/styles/theme";
+import ReactQueryProviders from "@/queries/queryProvider";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -13,7 +14,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <ThemeProvider theme={theme}>
         <body>
           <GlobalStyle />
-          <RootStyleRegistry>{children}</RootStyleRegistry>
+          <ReactQueryProviders>
+            <RootStyleRegistry>{children}</RootStyleRegistry>
+          </ReactQueryProviders>
         </body>
       </ThemeProvider>
     </html>
