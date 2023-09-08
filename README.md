@@ -44,8 +44,9 @@ npm run dev
 
 - 컴포넌트 함수 포함해서 모든 함수는 화살표 함수로 표기합니다.
 - app 폴더 내에 페이지 컴포넌트를 작성할 때는 폴더를 만든 후 폴더 안에<br />page.tsx를 만듭니다. (ex. app/template/page.tsx)
-- interface와 type의 이름은 동일하게 첫글자는 대문자로 적어줍니다 (ex. Component)
+- interface와 type의 이름은 동일하게 첫글자는 파스칼 케이스로 적어줍니다 (ex. Component)
 - interface와 type의 이름은 이름 뒤에 명확히 어떤 역할을 하는지 명시합니다. (ex. ComponentProps)
 - 항상 구문 끝에는 세미콜론을 붙여줍니다.
 - 개발 중에 변수값을 변경하면 안되는 경우에는 변수명을 전부 대문자로 작성합니다.
 - styled-components를 사용할 때는 컴포넌트 함수 아래에서 작업합니다.
+- 컴포넌트 파일 및 컴포넌트 함수의 이름은 파스칼 케이스로 작성합니다.
