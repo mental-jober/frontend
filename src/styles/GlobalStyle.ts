@@ -7,7 +7,7 @@ h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, img, ins, kbd, q, s, samp,
 small, strike, sub, sup, tt, var,
-b, u, i, center,
+b, u, i, center, string, em
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
@@ -50,6 +50,22 @@ table {
 a {
   text-decoration: none;
   color: #000;
+}
+
+.fr-toolbar .fr-float-left {
+  margin: 0 !important;
+}
+
+.fr-toolbar .fr-float-right {
+  margin: 0 !important;
+}
+
+/* .fr-second-toolbar {
+  display: none;
+} */
+
+.fr-wrapper::-webkit-scrollbar {
+  display: none;
 }
 `;
 
