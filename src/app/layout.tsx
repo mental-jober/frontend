@@ -9,7 +9,7 @@ import ReactQueryProviders from "@/queries/queryProvider";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="ko">
+    <html lang="ko" suppressHydrationWarning>
       <ThemeProvider theme={theme}>
         <body>
           <ReactQueryProviders>
