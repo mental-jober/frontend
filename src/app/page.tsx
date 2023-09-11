@@ -5,7 +5,7 @@ import Button from "@/components/common/Button";
 const Home = () => {
   return (
     <div>
-      <Button>버튼</Button>
+      <Button $normal="true">버튼</Button>
     </div>
   );
 };
