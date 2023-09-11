@@ -1,5 +1,5 @@
 import { PLATE_CONFIG } from "@/lib/constants";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 interface PlateIconProps {
   name: string;
