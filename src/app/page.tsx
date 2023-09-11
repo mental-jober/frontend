@@ -1,9 +1,13 @@
 "use client";
 
-import styled from "styled-components";
+import Button from "@/components/common/Button";
 
 const Home = () => {
-  return null;
+  return (
+    <div>
+      <Button>버튼</Button>
+    </div>
+  );
 };
 
 export default Home;
