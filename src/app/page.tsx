@@ -1,12 +1,18 @@
 "use client";
 
-import Button from "@/components/common/Button";
+import NotFoundMemberModal from "@/components/modal/NotFoundMemberModal";
+import useModal from "../../hooks/UseModalHook";
 
 const Home = () => {
+  const { isOpen, onCloseModal, onOpenModal } = useModal();
+
   return (
-    <div>
-      <Button $normal="true">버튼</Button>
-    </div>
+    <>
+      <div>
+        <button onClick={onOpenModal}>모달 열기</button>
+      </div>
+      {isOpen && <NotFoundMemberModal onClose={onCloseModal} />}
+    </>
   );
 };
 
