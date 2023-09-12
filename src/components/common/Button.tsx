@@ -10,13 +10,13 @@ const Button = ({ ...props }: ButtonProps) => {
 
 const StyledButton = styled.button<{ $normal?: boolean }>`
   padding: 10px 20px;
-  background: ${(props) => props.theme.gray.normal};
+  background: ${({theme}) => theme.gray.normal};
   border-radius: 4px;
   font-weight: 800;
   border: none;
   outline: none;
   &:hover {
-    background: ${(props) => props.theme.gray.normalHover};
+    background: ${({theme}) => theme.gray.normalHover};
   }
   /* props 이름 앞에 $ 명시해야 경고가 뜨지 않습니다! */
   /* $: 임의의 props를 DOM까지 전달하게 만들어줍니다.*/
