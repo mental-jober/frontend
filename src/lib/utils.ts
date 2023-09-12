@@ -6,6 +6,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const getKRPlateTitle = (title: string) => {
-  return PLATE_CONFIG[title].title;
+export const getKRPlateTitle = (name: string) => {
+  return PLATE_CONFIG[name].title;
 };
