@@ -1,13 +1,11 @@
 "use client";
 
 import Button from "@/components/common/Button";
+import Plates from "@/components/layout/Plates";
+import { styled } from "styled-components";
 
 const Home = () => {
-  return (
-    <div>
-      <Button $normal="true">버튼</Button>
-    </div>
-  );
+  return null;
 };
 
 export default Home;

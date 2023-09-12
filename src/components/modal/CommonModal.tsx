@@ -1,6 +1,7 @@
 "use client";
 
 import React, { ReactNode, useRef } from "react";
+import { styled } from "styled-components";
 
 interface CommonModalProps {
   isOpen: boolean;
@@ -30,7 +31,7 @@ const CommonModal = ({
   };
 
   return (
-    <div className="flex justify-center items-center mx-auto">
+    <ModalBlock className="flex justify-center items-center mx-auto">
       <div
         ref={modalRef}
         onClick={modalClose}
@@ -52,8 +53,10 @@ const CommonModal = ({
           <div>{children}</div>
         </div>
       </div>
-    </div>
+    </ModalBlock>
   );
 };
+
+const ModalBlock = styled.div``;
 
 export default CommonModal;

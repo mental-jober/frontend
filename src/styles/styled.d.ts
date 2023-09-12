@@ -27,5 +27,8 @@ declare module "styled-components" {
       darker: string;
     };
     blue: string[];
+    button: {
+      bgColor: string;
+    };
   }
 }

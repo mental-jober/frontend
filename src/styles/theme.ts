@@ -38,4 +38,7 @@ export const theme: DefaultTheme = {
     "#114271",
     "#0d3358",
   ],
+  button: {
+    bgColor: "#2593fc"
+  }
 };
