@@ -1,9 +1,7 @@
 "use client";
 
+import Button from "@/components/common/Button";
 import TextEditor from "@/components/editor/FroalaTextEditor";
-import { OutPageModal } from "@/components/modal/OutPageModal";
-import { PostingModal } from "@/components/modal/PostingModal";
-import { PrivateModal } from "@/components/modal/PrivateModal";
 
 const TextEditPage = () => {
   return (
@@ -14,18 +12,16 @@ const TextEditPage = () => {
         </div>
 
         <div className="mt-8">
-          <button
+          <Button
+            $normal="true"
             className="w-[281px] h-[50px] text-center bg-[#919090] rounded-[7px] font-bold "
             onClick={() => {
               alert("확인 버튼이 클릭되었습니다!");
             }}
           >
             확인
-          </button>
+          </Button>
         </div>
-        <OutPageModal />
-        <PrivateModal />
-        <PostingModal />
       </div>
     </>
   );
