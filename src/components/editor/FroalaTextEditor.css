@@ -1,0 +1,33 @@
+.fr-toolbar .fr-float-left {
+  margin: 0 !important;
+}
+
+.fr-toolbar .fr-float-right {
+  margin: 0 !important;
+}
+
+/* .fr-second-toolbar {
+  visibility: hidden;
+} */
+
+.fr-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+textarea {
+  resize: none;
+}
+
+textarea::placeholder {
+  text-align: center;
+}
+
+.SpaceNametextarea::placeholder {
+  text-align: center;
+  line-height: 45px;
+}
+
+.Mytextarea::placeholder {
+  text-align: center;
+  line-height: 172px;
+}
