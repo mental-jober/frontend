@@ -393,3 +393,27 @@
     letter-spacing: -0.24px;
   }
 }
+
+/* froala editor 툴바 스타일 */
+
+.fr-toolbar .fr-float-left {
+  margin: 0 !important;
+}
+
+.fr-toolbar .fr-float-right {
+  margin: 0 !important;
+}
+
+.fr-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+/* textarea style */
+
+textarea {
+  resize: none;
+}
+
+textarea::placeholder {
+  text-align: center;
+}
