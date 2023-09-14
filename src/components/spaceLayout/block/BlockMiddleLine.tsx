@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function BlockLine() {
+export default function BlockMiddleLine() {
   return <Line />;
 }
 
