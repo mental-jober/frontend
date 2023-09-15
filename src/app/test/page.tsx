@@ -4,7 +4,7 @@ import {
   NotFoundMemberModal,
   DeletePermissonModal,
 } from "@/components/modal/Modal";
-import useModal from "../../../../../../hooks/UseModalHook";
+import useModal from "../../../hooks/UseModalHook";
 
 const ParentComponent = () => {
   const modalConfig = {
