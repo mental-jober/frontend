@@ -1,11 +1,15 @@
+import useStore from "@/lib/store/store.module";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/js/froala_editor.pkgd.min.js";
 import "froala-editor/js/languages/ko";
 import "froala-editor/js/plugins.pkgd.min.js";
 import FroalaEditorComponent from "react-froala-wysiwyg";
+import React from "react";
 
 const FroalaSetup = () => {
+  const { currentText, setCurrentText } = useStore();
+
   const config = {
     placeholderText: "내용을 입력하세요...",
     toolbarButtons: {
@@ -80,7 +84,14 @@ const FroalaSetup = () => {
     videoInsertButtons: ["videoBack", "|", "videoByURL", "videoUpload"],
   };
 
-  return <FroalaEditorComponent tag="textarea" config={config} />;
+  return (
+    <FroalaEditorComponent
+      tag="textarea"
+      config={config}
+      model={currentText}
+      onModelChange={setCurrentText}
+    />
+  );
 };
 
 export default FroalaSetup;
