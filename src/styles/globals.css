@@ -392,6 +392,15 @@
     line-height: normal;
     letter-spacing: -0.24px;
   }
+
+  .subhead2-semibold {
+    font-family: var(--font-family-pretendard);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.28px;
+  }
 }
 
 /* froala editor 툴바 스타일 */
@@ -416,4 +425,9 @@ textarea {
 
 textarea::placeholder {
   text-align: center;
+}
+
+button {
+  border: none;
+  cursor: pointer;
 }

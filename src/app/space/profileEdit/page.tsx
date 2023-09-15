@@ -1,13 +1,21 @@
 "use client";
 
 import { MyTextArea, SpaceNametextarea } from "@/components/TextArea";
+import useStore from "@/lib/store/store.module";
 import Image from "next/image";
-import { useState, ChangeEvent } from "react";
+import { useRouter } from "next/navigation";
+import { ChangeEvent, useEffect, useState } from "react";
 
 const ProfileEditPage = () => {
-  const [profileImage, setProfileImage] = useState("");
+  const [textValue, setTextValue] = useState("");
+  const { profileImage, titleText, currentText, setProfileImage } = useStore();
+  const router = useRouter();
 
-  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
+  useEffect(() => {
+    setTextValue(currentText);
+  }, [currentText]);
+
+  const onImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -20,6 +28,8 @@ const ProfileEditPage = () => {
       reader.readAsDataURL(file);
     }
   };
+
+  const onSave = () => {};
   return (
     <>
       <div className="min-w-[360px] max-w-[420px] px-5 h-screen mx-auto border border-solid">
@@ -38,7 +48,7 @@ const ProfileEditPage = () => {
           <input
             type="file"
             accept="image/*"
-            onChange={handleImageUpload}
+            onChange={onImageUpload}
             className="hidden"
             id="imageInput"
           />
@@ -63,6 +73,13 @@ const ProfileEditPage = () => {
             소개글
           </div>
           <MyTextArea />
+
+          <button
+            type="submit"
+            className="mt-5 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 cursor-pointer"
+          >
+            저장
+          </button>
         </form>
       </div>
     </>

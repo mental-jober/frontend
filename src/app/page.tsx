@@ -1,13 +1,7 @@
 "use client";
 
-import { OutPageModal } from "@/components/modal/OutPageModal";
-
 const Home = () => {
-  return (
-    <>
-      <OutPageModal />
-    </>
-  );
+  return <></>;
 };
 
 export default Home;
