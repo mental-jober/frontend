@@ -10,7 +10,7 @@ const Button = ({ ...props }: ButtonProps) => {
 
 const StyledButton = styled.button<{ $normal?: boolean; $modalbtn?: boolean }>`
   padding: 10px 24px;
-  background: ${({ theme }) => theme.gray.normal};
+  background: ${({ theme }) => theme.gray[2]};
   border-radius: 4px;
   font-weight: 600;
   border: none;
