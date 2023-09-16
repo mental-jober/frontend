@@ -44,6 +44,7 @@ const Top = styled.div`
 const StyledDragDots = styled(PiDotsSixVertical)`
   width: 18px;
   height: 18px;
+  margin-right: 10px;
   color: #b5b5b5;
 `;
 
@@ -61,6 +62,5 @@ const StyledArrow = styled(PiCaretRight)`
 const Line = styled.div`
   width: 210px;
   height: 4px;
-  flex-shrink: 0;
   background: #d9d9d9;
 `;
