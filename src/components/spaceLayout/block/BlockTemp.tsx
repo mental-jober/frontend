@@ -6,9 +6,10 @@ export default function BlockTemp() {
   return <TempBox>자버의 사용성 설문조사</TempBox>;
 }
 const TempBox = styled.div`
-  font-size: 13.971px;
+  color: #3b3b3b;
+  font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 150%; /* 20.957px */
-  letter-spacing: -0.265px;
+  line-height: normal;
+  letter-spacing: -0.32px;
 `;

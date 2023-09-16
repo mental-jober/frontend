@@ -10,10 +10,10 @@ export default function BlockText({ text }: BlockTextProps) {
 }
 
 const TextBox = styled.span`
-  color: #1a1a1a;
-  font-size: 18px;
-  font-style: normal;
+  font-size: 16px;
+  color: #3b3b3b;
   font-weight: 700;
+  font-style: normal;
   line-height: normal;
-  letter-spacing: -0.36px;
+  letter-spacing: -0.32px;
 `;

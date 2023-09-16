@@ -6,9 +6,10 @@ export default function BlockPage() {
   return <PageBox>자버의 자회사 룰루</PageBox>;
 }
 const PageBox = styled.div`
-  font-size: 13.971px;
-  font-style: normal;
+  font-size: 16px;
+  color: #3b3b3b;
   font-weight: 700;
-  line-height: 150%; /* 20.957px */
-  letter-spacing: -0.265px;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.32px;
 `;
