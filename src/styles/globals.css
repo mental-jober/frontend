@@ -401,6 +401,20 @@
     line-height: normal;
     letter-spacing: -0.28px;
   }
+
+  .profile-edit {
+    font-family: var(--font-family-pretendard);
+    font-size: 18px;
+    font-style: normal;
+    line-height: 150%;
+    letter-spacing: -0.342px;
+  }
+
+  .flexable {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 /* froala editor 툴바 스타일 */
@@ -421,10 +435,6 @@
 
 textarea {
   resize: none;
-}
-
-textarea::placeholder {
-  text-align: center;
 }
 
 button {
