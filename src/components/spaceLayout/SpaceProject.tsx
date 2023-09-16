@@ -1,0 +1,28 @@
+import styled from "styled-components";
+import Plates from "./Plates";
+import Block from "./Block";
+import IntroProject from "./IntroProject";
+
+// page로 이동 예정
+export default function SpaceProject() {
+  return (
+    <Container>
+      <IntroProject />
+      <Plates />
+      <Block name="text" />
+      <Block name="page" />
+      <Block name="line" />
+      <Block name="link" />
+      <Block name="temp" />
+    </Container>
+  );
+}
+
+const Container = styled.div`
+  gap: 10px;
+  width: 360px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #f6f8fb;
+`;
