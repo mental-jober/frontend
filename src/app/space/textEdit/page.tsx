@@ -48,11 +48,7 @@ const TextEditPage = () => {
         </div>
 
         <div className="mt-8">
-          <Button
-            $normal="true"
-            className="w-[281px] h-[50px] text-center bg-[#919090] rounded-[7px] font-bold"
-            onClick={onSave}
-          >
+          <Button $confrim="true" onClick={onSave}>
             확인
           </Button>
         </div>

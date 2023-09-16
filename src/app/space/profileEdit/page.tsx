@@ -1,19 +1,21 @@
 "use client";
 
 import { MyTextArea, SpaceNametextarea } from "@/components/TextArea";
-import useStore from "@/lib/store/store.module";
+import Button from "@/components/common/Button";
+
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { ChangeEvent, useEffect, useState } from "react";
+
+import { ChangeEvent, useRef, useState } from "react";
 
 const ProfileEditPage = () => {
-  const [textValue, setTextValue] = useState("");
-  const { profileImage, titleText, currentText, setProfileImage } = useStore();
-  const router = useRouter();
+  const [profileImage, setProfileImage] = useState("");
+  const inputFileRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    setTextValue(currentText);
-  }, [currentText]);
+  const handleImageClick = () => {
+    if (inputFileRef.current) {
+      inputFileRef.current.click();
+    }
+  };
 
   const onImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
@@ -29,18 +31,17 @@ const ProfileEditPage = () => {
     }
   };
 
-  const onSave = () => {};
   return (
     <>
       <div className="min-w-[360px] max-w-[420px] px-5 h-screen mx-auto border border-solid">
-        <div className="flex justify-center items-center mt-[87px] mb-9 w-[103px] h-[35px]  ml-[6px] font-bold text-[19px]">
-          프로필 편집
+        <div className="mt-[82px]">
+          <p className="profile-edit font-bold">프로필 편집</p>
         </div>
-        <div className="flex items-center flex-col">
+        <div className="flex items-center flex-col mt-6">
           <Image
             src={profileImage || "/Default_pfp.png"}
-            width={127}
-            height={127}
+            width={134}
+            height={134}
             alt="프로필 이미지"
             className="rounded-full"
           />
@@ -51,9 +52,10 @@ const ProfileEditPage = () => {
             onChange={onImageUpload}
             className="hidden"
             id="imageInput"
+            ref={inputFileRef}
           />
 
-          <label htmlFor="imageInput" className="cursor-pointer">
+          <div onClick={handleImageClick} className="cursor-pointer h-0">
             <Image
               src="/edit_icon.png"
               width={36}
@@ -61,25 +63,20 @@ const ProfileEditPage = () => {
               alt="편집"
               className="rounded-full border border-white relative top-[-36px] left-12 cursor-pointer"
             />
-          </label>
+          </div>
         </div>
 
         <form>
-          <div className="flex flex-col justify-center items-center ml-0.5 w-[107px] h-[30px] font-semibold text-[16px]">
-            스페이스 이름
-          </div>
+          <p className="profile-edit font-semibold mt-8">스페이스 이름</p>
           <SpaceNametextarea />
-          <div className="flex flex-col justify-center items-center ml-0.5 w-[52px] h-[30px] mt-[23px] font-semibold text-[16px]">
-            소개글
-          </div>
+          <p className="profile-edit font-semibold mt-8">소개글</p>
           <MyTextArea />
 
-          <button
-            type="submit"
-            className="mt-5 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 cursor-pointer"
-          >
-            저장
-          </button>
+          <div className="flexable mt-6">
+            <Button $save="true" type="submit">
+              저장
+            </Button>
+          </div>
         </form>
       </div>
     </>
