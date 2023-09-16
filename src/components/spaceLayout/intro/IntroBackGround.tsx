@@ -1,15 +1,11 @@
-import styled from "styled-components";
+import Image from "next/image";
 
 interface IntroBackGroundProps {
   imgURL?: string;
 }
 
-export default function IntroBackGround({ imgURL }: IntroBackGroundProps) {
-  return <BgBox $url={imgURL}></BgBox>;
+export default function IntroBackGround({
+  imgURL = "/default_background.png",
+}: IntroBackGroundProps) {
+  return <Image src={imgURL} width={360} height={138} alt="배경 이미지" />;
 }
-const BgBox = styled.div<{ $url?: string }>`
-  width: 360px;
-  height: 130px;
-  background: url(${({ $url }) => $url}), lightgray 50% / cover no-repeat,
-    #b3b3b3;
-`;
