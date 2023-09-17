@@ -20,16 +20,19 @@ const Header = () => {
 
   return (
     <HeaderBlock className={scroll ? "scrolled" : ""}>
-      <GrFormPrevious />
+      <HeaderContent>
+        <GrFormPrevious />
+      </HeaderContent>
     </HeaderBlock>
   );
 };
 
 const HeaderBlock = styled.div`
   width: 100%;
-  max-width: 420px;
+  min-width: 360px;
+  max-width: 430px;
   height: 58px;
-  background: #fff;
+  background: coral;
   padding: 0 20px;
   display: flex;
   align-items: center;
@@ -45,6 +48,11 @@ const HeaderBlock = styled.div`
   &.scrolled {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
   }
+`;
+
+const HeaderContent = styled.div`
+  background: #fff;
+  width: 100%;
 `;
 
 export default Header;
