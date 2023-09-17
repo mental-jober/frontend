@@ -29,32 +29,39 @@ export default function IntroProjectText() {
   };
 
   return (
-    <TextAreaBox>
-      {isEditing ? (
-        <TextInput
-          type="text"
-          value={text === "제목을 입력해주세요" ? "" : text}
-          onBlur={onBlurInput}
-          onKeyDown={onEnter}
-          onChange={onChangeInput}
-          ref={inputRef}
-        />
-      ) : (
-        <Text placeholder="제목을 입력해주세요" onClick={onClickText}>
-          {text}
-        </Text>
-      )}
-    </TextAreaBox>
+    <TextAreaBlock>
+      <TextAreaContent>
+        {isEditing ? (
+          <TextInput
+            type="text"
+            value={text === "제목을 입력해주세요" ? "" : text}
+            onBlur={onBlurInput}
+            onKeyDown={onEnter}
+            onChange={onChangeInput}
+            ref={inputRef}
+          />
+        ) : (
+          <Text placeholder="제목을 입력해주세요" onClick={onClickText}>
+            {text}
+          </Text>
+        )}
+      </TextAreaContent>
+    </TextAreaBlock>
   );
 }
 
-const TextAreaBox = styled.div`
-  flex-grow: 1;
-  width: 320px;
+const TextAreaBlock = styled.div`
+  width: 100%;
+  max-width: 430px;
   height: 30px;
   display: flex;
-  padding: 0 10px;
+  justify-content: center;
   align-items: center;
+`;
+
+const TextAreaContent = styled.div`
+  width: 320px;
+  padding: 0 10px;
   background-color: yellow;
   border-left: 2px solid #575e67;
 `;
