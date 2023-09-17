@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { GrFormPrevious } from "react-icons/gr";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const Header = () => {
   const [scroll, setScroll] = useState(false);
