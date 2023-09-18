@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PlateIcon from "./Plate/PlateIcon";
 import PlateLayout from "./Plate/PlateLayout";
-import { PlateTitle } from "./Plate/PlateTitle";
+import PlateTitle from "./Plate/PlateTitle";
 import { PLATE_CONFIG } from "@/lib/constants";
 
 export default function Plates() {

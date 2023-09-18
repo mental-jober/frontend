@@ -1,31 +1,61 @@
 "use client";
 
+import Button from "@/components/common/Button";
 import TextEditor from "@/components/editor/FroalaTextEditor";
-import { OutPageModal } from "@/components/modal/OutPageModal";
-import { PostingModal } from "@/components/modal/PostingModal";
-import { PrivateModal } from "@/components/modal/PrivateModal";
+import useStore from "@/lib/store/store.module";
+import { useRouter } from "next/navigation";
+import { ChangeEvent } from "react";
 
 const TextEditPage = () => {
+  const {
+    titleText,
+    setTitleText,
+    currentText,
+    currentIndex,
+    setCurrentText,
+    addBlock,
+    updateBlock,
+  } = useStore();
+  const router = useRouter();
+
+  const onTitleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setTitleText(e.target.value);
+  };
+
+  const onSave = () => {
+    if (!currentText.trim()) {
+      alert("비었음");
+      return;
+    }
+
+    if (currentIndex !== null) {
+      updateBlock(currentIndex, titleText, currentText);
+    } else {
+      addBlock(titleText, currentText);
+    }
+
+    setTitleText("");
+    setCurrentText("");
+    router.push("/space");
+  };
+
   return (
     <>
       <div className=" flex justify-center items-center flex-col">
+        <textarea value={titleText} onChange={onTitleChange}></textarea>
         <div>
           <TextEditor />
         </div>
 
         <div className="mt-8">
-          <button
-            className="w-[281px] h-[50px] text-center bg-[#919090] rounded-[7px] font-bold "
-            onClick={() => {
-              alert("확인 버튼이 클릭되었습니다!");
-            }}
+          <Button
+            $normal="true"
+            className="w-[281px] h-[50px] text-center bg-[#919090] rounded-[7px] font-bold"
+            onClick={onSave}
           >
             확인
-          </button>
+          </Button>
         </div>
-        <OutPageModal />
-        <PrivateModal />
-        <PostingModal />
       </div>
     </>
   );

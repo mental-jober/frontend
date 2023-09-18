@@ -14,18 +14,10 @@ declare module "styled-components" {
       darkActive: string;
       darker: string;
     };
-    gray: {
-      light: string;
-      lightHover: string;
-      lightActive: string;
-      normal: string;
-      normalHover: string;
-      normalActive: string;
-      dark: string;
-      darkHover: string;
-      darkActive: string;
-      darker: string;
-    };
+    gray: string[];
     blue: string[];
+    button: {
+      bgColor: string;
+    };
   }
 }

@@ -1,13 +1,27 @@
 "use client";
 
-import Button from "@/components/common/Button";
+import Header from "@/components/common/Header";
+import IntroProfile from "@/components/spaceLayout/IntroProfile";
+import IntroProjectText from "@/components/spaceLayout/intro/IntroProjectText";
+import { styled } from "styled-components";
 
 const Home = () => {
   return (
-    <div>
-      <Button $normal="true">버튼</Button>
-    </div>
+    <MainBlock>
+      <Header />
+      <HeaderMargin />
+      <IntroProfile />
+      <IntroProjectText />
+    </MainBlock>
   );
 };
+
+const MainBlock = styled.div`
+  height: 100vh;
+`;
+
+const HeaderMargin = styled.div`
+  margin-top: 58px;
+`;
 
 export default Home;
