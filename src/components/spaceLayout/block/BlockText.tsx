@@ -10,10 +10,5 @@ export default function BlockText({ text }: BlockTextProps) {
 }
 
 const TextBox = styled.span`
-  font-size: 16px;
-  color: #3b3b3b;
-  font-weight: 700;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: -0.32px;
+  ${({ theme }) => `${theme.text.title4.bold} ${theme.textColor.gray[950]}`}
 `;
