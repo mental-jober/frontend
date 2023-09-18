@@ -1,6 +1,6 @@
 "use client";
 
-import { MyTextArea, SpaceNametextarea } from "@/components/TextArea";
+import { MyTextInput, SpaceNameInput } from "@/components/textArea/TextArea";
 import Button from "@/components/common/Button";
 
 import Image from "next/image";
@@ -33,7 +33,7 @@ const ProfileEditPage = () => {
 
   return (
     <>
-      <div className="min-w-[360px] max-w-[420px] px-5 h-screen mx-auto border border-solid">
+      <div>
         <div className="mt-[82px]">
           <p className="profile-edit font-bold">프로필 편집</p>
         </div>
@@ -66,18 +66,18 @@ const ProfileEditPage = () => {
           </div>
         </div>
 
-        <form>
+        <div>
           <p className="profile-edit font-semibold mt-8">스페이스 이름</p>
-          <SpaceNametextarea />
+          <SpaceNameInput />
           <p className="profile-edit font-semibold mt-8">소개글</p>
-          <MyTextArea />
+          <MyTextInput />
 
           <div className="flexable mt-6">
-            <Button $save="true" type="submit">
+            <Button $confirm="true" type="submit">
               저장
             </Button>
           </div>
-        </form>
+        </div>
       </div>
     </>
   );

@@ -9,7 +9,7 @@ const FroalaEditor = dynamic(() => import("./FroalaSetup"), {
 
 function TextEditor() {
   return (
-    <div className="w-[354px] h-[434px]">
+    <div>
       <FroalaEditor />
     </div>
   );

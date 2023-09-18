@@ -423,8 +423,17 @@
   margin: 0 !important;
 }
 
+.fr-toolbar .fr-float-left > button {
+  width: 32px;
+  height: 32px;
+}
+
 .fr-toolbar .fr-float-right {
   margin: 0 !important;
+}
+
+.fr-box.fr-basic .fr-element.fr-view {
+  font-size: 14px;
 }
 
 .fr-wrapper::-webkit-scrollbar {
