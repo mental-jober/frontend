@@ -4,10 +4,10 @@ interface ButtonProps {
   [props: string]: any;
 }
 
-type customProps = {
+interface customProps {
   $normal?: boolean;
   $save?: boolean;
-};
+}
 
 const Button = ({ ...props }: ButtonProps) => {
   return <StyledButton {...props} />;
