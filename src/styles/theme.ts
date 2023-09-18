@@ -13,18 +13,18 @@ export const theme: DefaultTheme = {
     darkActive: "#6f1525",
     darker: "#56101d",
   },
-  gray: {
-    light: "#f9fbfd",
-    lightHover: "#f6f8fb",
-    lightActive: "#ecf1f7",
-    normal: "#c1d2e6",
-    normalHover: "#aebdcf",
-    normalActive: "#9aa8b8",
-    dark: "#919ead",
-    darkHover: "#747e8a",
-    darkActive: "#575e67",
-    darker: "#444a51",
-  },
+  gray: [
+    "#f9fbfd",
+    "#f6f8fb",
+    "#ecf1f7",
+    "#c1d2e6",
+    "#aebdcf",
+    "#9aa8b8",
+    "#919ead",
+    "#747e8a",
+    "#575e67",
+    "#444a51",
+  ],
   blue: [
     "#e9f4ff",
     "#deefff",
@@ -38,4 +38,7 @@ export const theme: DefaultTheme = {
     "#114271",
     "#0d3358",
   ],
+  button: {
+    bgColor: "#2593fc",
+  },
 };

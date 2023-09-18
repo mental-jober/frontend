@@ -6,7 +6,7 @@ interface PlateTitleProps {
   name: string;
 }
 
-export function PlateTitle({ name }: PlateTitleProps) {
+export default function PlateTitle({ name }: PlateTitleProps) {
   return <Title>{getKRPlateTitle(name)}</Title>;
 }
 

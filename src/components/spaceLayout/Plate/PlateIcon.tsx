@@ -1,6 +1,6 @@
 import { PLATE_CONFIG } from "@/lib/constants";
 import styled from "styled-components";
-import { PlateTitle } from "./PlateTitle";
+import PlateTitle from "./PlateTitle";
 
 interface PlateIconProps {
   name: string;
