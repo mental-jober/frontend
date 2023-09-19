@@ -1,0 +1,23 @@
+.SpaceNametextarea::placeholder {
+  color: #747e8a;
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 142%;
+  padding-left: 16px;
+  padding-top: 13px;
+}
+
+.Mytextarea::placeholder {
+  color: #747e8a;
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 142%;
+  padding-left: 16px;
+  padding-top: 16px;
+}
