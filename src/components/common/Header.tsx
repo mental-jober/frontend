@@ -32,7 +32,7 @@ const HeaderBlock = styled.div`
   min-width: 360px;
   max-width: 430px;
   height: 58px;
-  background: coral;
+  background: #fff;
   padding: 0 20px;
   display: flex;
   align-items: center;

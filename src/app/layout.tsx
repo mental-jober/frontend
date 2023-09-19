@@ -2,7 +2,7 @@
 
 import "@/styles/globals.css";
 import { ReactNode } from "react";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider, styled } from "styled-components";
 import { theme } from "@/styles/theme";
 import ReactQueryProviders from "@/queries/queryProvider";
 import GlobalStyle from "@/styles/GlobalStyle";
@@ -15,6 +15,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <body className="max-w-[430px] w-full m-auto border border-solid p-5 box-border">
           <GlobalStyle />
           <ReactQueryProviders>
+            <HeaderMargin />
             <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
           </ReactQueryProviders>
         </body>
@@ -22,3 +23,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     </html>
   );
 }
+
+const HeaderMargin = styled.div`
+  margin-top: 58px;
+`;

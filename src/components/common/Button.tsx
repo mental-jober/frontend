@@ -32,6 +32,7 @@ const StyledButton = styled.button<customProps>`
     css`
       padding: 30px; // $normal일 때의 padding
       background: ${(props) => props.theme.blue[3]};
+      color: #fff;
     `}
 
   ${(props) =>
