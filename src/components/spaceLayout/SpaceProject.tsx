@@ -2,6 +2,19 @@ import styled from "styled-components";
 import Plates from "./Plates";
 import Block from "./Block";
 import IntroProject from "./IntroProject";
+import DraggableBlocks from "./DraggableBlocks";
+
+export interface BlockData {
+  id: string;
+  name: string;
+}
+
+// 임시 데이터
+const initialBlocks: BlockData[] = [
+  { id: "task-1", name: "text" },
+  { id: "task-2", name: "page" },
+  { id: "task-3", name: "temp" },
+];
 
 // page로 이동 예정
 export default function SpaceProject() {
@@ -9,11 +22,7 @@ export default function SpaceProject() {
     <Container>
       <IntroProject />
       <Plates />
-      <Block name="text" />
-      <Block name="page" />
-      <Block name="line" />
-      <Block name="link" />
-      <Block name="temp" />
+      <DraggableBlocks blockData={initialBlocks} />
     </Container>
   );
 }
