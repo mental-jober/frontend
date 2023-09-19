@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useRef, MouseEvent } from "react";
 import { PiX } from "react-icons/pi";
 
@@ -51,7 +52,7 @@ const PreviewLayoutModal = ({
                 </p>
               </div>
               <div className="flex items-center justify-center">
-                <img src={imageSrc} alt="예시 이미지" />
+                <Image src={imageSrc} alt="예시 이미지" width={128} height={126}/>
               </div>
             </div>
             <div className="flexable w-full px-5 mb-[34px]">
