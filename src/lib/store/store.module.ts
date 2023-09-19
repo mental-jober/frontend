@@ -1,36 +1,24 @@
+// toastStore.js
 import { create } from "zustand";
 
-interface useStoreProps {
-  blocks: (string | { title: string; text: string })[];
-  currentText: string;
-  titleText: string;
-  currentIndex: number | null;
-  profileImage?: string;
-  addBlock: (title: string, text: string) => void;
-  updateBlock: (index: number, title: string, text: string) => void;
-  setTitleText: (text: string) => void;
-  setCurrentText: (text: string) => void;
-  setCurrentIndex: (index: number | null) => void;
-  setProfileImage: (image: string) => void;
+interface useToastStoreProps {
+  message: null | string;
+  showToast: (msg: string) => void;
+  hideToast: () => void;
 }
 
-const useStore = create<useStoreProps>((set) => ({
-  blocks: [],
-  currentText: "",
-  currentIndex: null,
-  titleText: "",
-  addBlock: (title, text) =>
-    set((state) => ({ blocks: [...state.blocks, { title, text }] })),
-  updateBlock: (index, title, text) =>
-    set((state) => {
-      const updatedBlocks = [...state.blocks];
-      updatedBlocks[index] = { title, text };
-      return { blocks: updatedBlocks };
-    }),
-  setCurrentText: (text) => set({ currentText: text }),
-  setTitleText: (text) => set({ titleText: text }),
-  setCurrentIndex: (index) => set({ currentIndex: index }),
-  setProfileImage: (image) => set({ profileImage: image }),
+interface froalaEditorStoreProps {
+  text: string;
+  setText: (value: string) => void;
+}
+
+export const useToastStore = create<useToastStoreProps>((set) => ({
+  message: null,
+  showToast: (msg) => set({ message: msg }),
+  hideToast: () => set({ message: null }),
 }));
 
-export default useStore;
+export const froalaEditorStore = create<froalaEditorStoreProps>((set) => ({
+  text: "",
+  setText: (value) => set({ text: value }),
+}));
