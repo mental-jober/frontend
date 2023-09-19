@@ -2,11 +2,11 @@
 
 import "@/styles/globals.css";
 import { ReactNode } from "react";
-import RootStyleRegistry from "@/lib/RootStyleRegistry";
 import { ThemeProvider } from "styled-components";
 import { theme } from "@/styles/theme";
 import ReactQueryProviders from "@/queries/queryProvider";
 import GlobalStyle from "@/styles/GlobalStyle";
+import StyledComponentsRegistry from "@/lib/styled-components";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <body className="max-w-[430px] w-full m-auto border border-solid p-5 box-border">
           <GlobalStyle />
           <ReactQueryProviders>
-            <RootStyleRegistry>{children}</RootStyleRegistry>
+            <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
           </ReactQueryProviders>
         </body>
       </ThemeProvider>
