@@ -2,11 +2,12 @@
 
 import "@/styles/globals.css";
 import { ReactNode } from "react";
-import RootStyleRegistry from "@/lib/RootStyleRegistry";
-import { ThemeProvider } from "styled-components";
+
+import { ThemeProvider, styled } from "styled-components";
 import { theme } from "@/styles/theme";
 import ReactQueryProviders from "@/queries/queryProvider";
 import GlobalStyle from "@/styles/GlobalStyle";
+import StyledComponentsRegistry from "@/lib/registry";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -15,10 +16,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <body>
           <GlobalStyle />
           <ReactQueryProviders>
-            <RootStyleRegistry>{children}</RootStyleRegistry>
+            <StyledComponentsRegistry>
+              <HeaderMargin />
+              {children}
+            </StyledComponentsRegistry>
           </ReactQueryProviders>
         </body>
       </ThemeProvider>
     </html>
   );
 }
+
+const HeaderMargin = styled.div`
+  margin-top: 58px;
+`;

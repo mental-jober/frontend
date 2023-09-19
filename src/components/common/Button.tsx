@@ -22,6 +22,7 @@ const StyledButton = styled.button<{ $normal?: boolean; $modalbtn?: boolean }>`
     props.$normal &&
     css`
       background: ${(props) => props.theme.blue[3]};
+      color: #fff;
     `}
   ${(props) =>
     props.$modalbtn &&

@@ -9,7 +9,6 @@ const Home = () => {
   return (
     <MainBlock>
       <Header />
-      <HeaderMargin />
       <IntroProfile />
       <IntroProjectText />
     </MainBlock>
@@ -18,10 +17,6 @@ const Home = () => {
 
 const MainBlock = styled.div`
   height: 100vh;
-`;
-
-const HeaderMargin = styled.div`
-  margin-top: 58px;
 `;
 
 export default Home;
