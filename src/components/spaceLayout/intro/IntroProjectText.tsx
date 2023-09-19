@@ -52,34 +52,23 @@ export default function IntroProjectText() {
 
 const TextAreaBlock = styled.div`
   width: 100%;
-  max-width: 430px;
   height: 30px;
   display: flex;
-  justify-content: center;
+  max-width: 430px;
   align-items: center;
+  justify-content: center;
 `;
 
 const TextAreaContent = styled.div`
   width: 320px;
   padding: 0 10px;
-  background-color: yellow;
   border-left: 2px solid #575e67;
 `;
 
 const Text = styled.span`
-  color: #aebdcf;
-  font-size: 22px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  letter-spacing: -0.44px;
+  ${({ theme }) => `${theme.text.title2.bold} ${theme.textColor.gray[400]}`}
 `;
 
 const TextInput = styled.input`
-  color: #aebdcf;
-  font-size: 22px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  letter-spacing: -0.44px;
+  ${({ theme }) => `${theme.text.title2.bold} ${theme.textColor.gray[400]}`}
 `;

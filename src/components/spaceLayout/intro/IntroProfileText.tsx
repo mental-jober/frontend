@@ -20,21 +20,10 @@ const TextAreaBox = styled.div`
 `;
 
 const Title = styled.span`
-  font-size: 22px;
-  font-weight: 700;
-  color: #1a1a1a;
-  text-align: center;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: -0.44px;
+  ${({ theme }) => `${theme.text.title2.bold} ${theme.textColor.gray[950]}`}
 `;
 
 const Text = styled.span`
-  font-size: 14px;
-  font-weight: 500;
-  color: #747e8a;
   text-align: center;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: -0.28px;
+  ${({ theme }) => `${theme.text.text2.medium} ${theme.textColor.gray[700]}`}
 `;

@@ -401,6 +401,20 @@
     line-height: normal;
     letter-spacing: -0.28px;
   }
+
+  .profile-edit {
+    font-family: var(--font-family-pretendard);
+    font-size: 18px;
+    font-style: normal;
+    line-height: 150%;
+    letter-spacing: -0.342px;
+  }
+
+  .flexable {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 /* froala editor 툴바 스타일 */
@@ -409,8 +423,17 @@
   margin: 0 !important;
 }
 
+.fr-toolbar .fr-float-left > button {
+  width: 32px;
+  height: 32px;
+}
+
 .fr-toolbar .fr-float-right {
   margin: 0 !important;
+}
+
+.fr-box.fr-basic .fr-element.fr-view {
+  font-size: 14px;
 }
 
 .fr-wrapper::-webkit-scrollbar {
@@ -421,10 +444,6 @@
 
 textarea {
   resize: none;
-}
-
-textarea::placeholder {
-  text-align: center;
 }
 
 button {
