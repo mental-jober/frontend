@@ -1,5 +1,10 @@
 import { useState } from "react";
 
+export interface ModalProps {
+  isOpen: boolean;
+  onCloseModal: () => void;
+}
+
 function useModal() {
   const [isOpen, setIsOpen] = useState(false);
 
