@@ -41,7 +41,6 @@ export default function DraggableBlocks({ blockData }: DraggableBlocksProps) {
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
-                    className="task"
                   >
                     <Block name={task.name} />
                   </div>
