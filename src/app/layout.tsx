@@ -6,7 +6,7 @@ import { ThemeProvider, styled } from "styled-components";
 import { theme } from "@/styles/theme";
 import ReactQueryProviders from "@/queries/queryProvider";
 import GlobalStyle from "@/styles/GlobalStyle";
-import StyledComponentsRegistry from "@/lib/styled-components";
+import StyledComponentsRegistry from "@/lib/registry";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
