@@ -1,6 +1,5 @@
 "use client";
 
-<<<<<<< HEAD
 import ToastUi from "@/components/toast/ToastUi";
 import { useToastStore } from "@/lib/store/store.module";
 
@@ -14,21 +13,6 @@ const Home = () => {
       </div>
       <ToastUi />
     </>
-=======
-import Header from "@/components/common/Header";
-import IntroProfile from "@/components/spaceLayout/IntroProfile";
-import IntroProjectText from "@/components/spaceLayout/intro/IntroProjectText";
-import { styled } from "styled-components";
-
-const Home = () => {
-  return (
-    <MainBlock>
-      <Header />
-      <HeaderMargin />
-      <IntroProfile />
-      <IntroProjectText />
-    </MainBlock>
->>>>>>> 19431c3235c71f85934090b2e1986966c93fc63f
   );
 };
 
