@@ -2,11 +2,10 @@ import React from "react";
 import {
   AlertCommonModal,
   ButtonContainer,
-  LeftButton,
-  RightButton,
 } from "@/components/modal/CommonModal";
 import TitleHeader from "./AlertTitleHeader";
 import { ModalProps } from "../../../hooks/UseModalHook";
+import Button from "../common/Button";
 
 export const DeletePermissonModal = ({ isOpen, onCloseModal }: ModalProps) => {
   return (
@@ -16,8 +15,8 @@ export const DeletePermissonModal = ({ isOpen, onCloseModal }: ModalProps) => {
         text="이 계정에 대한 권한을 삭제하시겠습니까?"
       />
       <ButtonContainer>
-        <LeftButton name="취소" onClick={onCloseModal} />
-        <RightButton name="삭제하기" onClick={() => {}} />
+        <Button $leftbtn="true">취소</Button>
+        <Button $rightbtn="true">삭제하기</Button>
       </ButtonContainer>
     </AlertCommonModal>
   );

@@ -6,6 +6,7 @@ import Button from "@/components/common/Button";
 import Image from "next/image";
 
 import { ChangeEvent, useRef, useState } from "react";
+import Header from "@/components/common/Header";
 
 const ProfileEditPage = () => {
   const [profileImage, setProfileImage] = useState("");
@@ -21,19 +22,21 @@ const ProfileEditPage = () => {
     const file = event.target.files && event.target.files[0];
     if (file) {
       const reader = new FileReader();
-
       reader.onload = (e) => {
         const base64Data = e.target?.result as string;
         setProfileImage(base64Data);
       };
-
       reader.readAsDataURL(file);
+
+      const formData = new FormData();
+      formData.append("profileImage", file);
     }
   };
 
   return (
     <>
       <div>
+        <Header />
         <div className="mt-[82px]">
           <p className="profile-edit font-bold">프로필 편집</p>
         </div>

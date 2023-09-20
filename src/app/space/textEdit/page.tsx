@@ -13,11 +13,9 @@ const TextEditPage = () => {
 
   useEffect(() => {
     const saveInterval = setInterval(() => {
-      // 여기서 실제 저장 로직을 구현할 수 있습니다.
       showToast("자동 저장 중...");
-    }, 10000); // 10초마다
+    }, 2000);
 
-    // 컴포넌트가 언마운트 될 때 타이머를 제거합니다.
     return () => clearInterval(saveInterval);
   }, [showToast]);
 
