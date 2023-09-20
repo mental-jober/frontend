@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode, useRef } from "react";
+import styled from "styled-components";
 
 interface CommonModalProps {
   isOpen: boolean;
@@ -22,67 +23,60 @@ export const AlertCommonModal = ({
   };
 
   return (
-    <div className="flexable mx-auto">
-      <div
-        ref={modalRef}
-        onClick={modalClose}
-        className="fixed inset-0 flexable z-50 bg-black bg-opacity-50"
-      >
-        <div className="bg-white rounded-[20px] w-[320px] py-6 px-[33px] flexable flex-col gap-[18px] shadow[0_0_18px_0__rgba(191,192,196,0.18)]">
-          <div className="flex flex-col gap-[18px]">{children}</div>
-        </div>
-      </div>
-    </div>
+    <ModalContainer>
+      <ModalOverlay ref={modalRef} onClick={modalClose}>
+        <ModalBox>
+          <ModalContents>{children}</ModalContents>
+        </ModalBox>
+      </ModalOverlay>
+    </ModalContainer>
   );
 };
 
-export const Button = ({ onClick }: { onClick?: () => void }) => {
-  return (
-    <button
-      onClick={onClick}
-      className="subhead2-semibold flex w-[280px] py-[15px] justify-center items-center rounded-[10px] bg-[#2593FC] border-0 text-white shadow-[0px_0px_18px_0px_rgba(83,120,230,0.18)]"
-    ></button>
-  );
-};
+const ModalContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+`;
 
-export const LeftButton = ({
-  name,
-  onClick,
-}: {
-  name: string;
-  onClick?: () => void;
-}) => {
-  return (
-    <button
-      onClick={onClick}
-      className="subhead2-semibold flex h-10 py-[10px] items-center px-6 gap-2 rounded-[10px] bg-[#E9F4FF] text-[#2593FC]"
-    >
-      {name}
-    </button>
-  );
-};
+const ModalOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.5);
+`;
 
-export const RightButton = ({
-  name,
-  onClick,
-}: {
-  name: string;
-  onClick?: () => void;
-}) => {
-  return (
-    <button
-      onClick={onClick}
-      className="subhead2-semibold flex h-10 py-[10px] px-6 items-center gap-2 rounded-[10px] bg-[#2593FC] text-white shadow[0_0_18px_0__rgba(83,120,230,0.18)]"
-    >
-      {name}
-    </button>
-  );
-};
+const ModalBox = styled.div`
+  background: #fff;
+  border-radius: 20px;
+  width: 320px;
+  padding: 24px 33px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: 0 0 18px 0 rgba (191, 192, 196, 0.18);
+`;
+
+const ModalContents = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+`;
 
 export const ButtonContainer = ({ children }: { children: ReactNode }) => {
-  return (
-    <div className="w-[264px] flex justify-center items-center gap-3">
-      {children}
-    </div>
-  );
+  return <BtnContainer>{children}</BtnContainer>;
 };
+
+const BtnContainer = styled.div`
+  width: 264px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+`;

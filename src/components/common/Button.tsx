@@ -8,6 +8,9 @@ interface customProps {
   $normal?: boolean;
   $save?: boolean;
   $modalbtn?: boolean;
+  $confirm?: boolean;
+  $leftbtn?: boolean;
+  $rightbtn?: boolean;
 }
 
 const Button = ({ ...props }: ButtonProps) => {
@@ -53,6 +56,72 @@ const StyledButton = styled.button<customProps>`
       font-style: normal;
       font-weight: 700;
       line-height: normal;
+      background: ${(props) => props.theme.blue[3]};
+    `}
+
+    ${(props) =>
+    props.$confirm &&
+    css`
+      display: flex;
+      width: 100%;
+      height: 47px;
+      padding: 15px 0px;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+      align-self: stretch;
+      border-radius: 10px;
+      background: ${(props) => props.theme.blue[3]};
+      box-shadow: 0px 0px 18px 0px rgba(83, 120, 230, 0.18);
+      color: #fff;
+      text-align: center;
+      font-family: Pretendard;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      letter-spacing: -0.28px;
+    `}
+    
+    ${(props) =>
+    props.$leftbtn &&
+    css`
+      display: flex;
+      width: 143px;
+      height: 45px;
+      padding: 8px 4px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      color: ${(props) => props.theme.blue[3]};
+      text-align: center;
+      font-family: Pretendard;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 140%;
+      letter-spacing: -0.112px;
+      background: ${(props) => props.theme.blue[0]};
+    `}
+
+    ${(props) =>
+    props.$rightbtn &&
+    css`
+      display: flex;
+      width: 143px;
+      height: 45px;
+      padding: 8px 4px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      color: #fff;
+      text-align: center;
+      font-family: Pretendard;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 140%;
+      letter-spacing: -0.112px;
       background: ${(props) => props.theme.blue[3]};
     `}
     

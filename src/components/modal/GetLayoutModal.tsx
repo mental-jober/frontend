@@ -2,11 +2,10 @@ import React from "react";
 import {
   AlertCommonModal,
   ButtonContainer,
-  LeftButton,
-  RightButton,
 } from "@/components/modal/CommonModal";
 import TitleHeader from "./AlertTitleHeader";
 import { ModalProps } from "../../../hooks/UseModalHook";
+import Button from "../common/Button";
 
 const GetLayoutModal = ({ isOpen, onCloseModal }: ModalProps) => {
   return (
@@ -17,8 +16,8 @@ const GetLayoutModal = ({ isOpen, onCloseModal }: ModalProps) => {
           text="입력된 내용을 삭제하고 선택한 레이아웃을 적용 하시겠습니까?"
         />
         <ButtonContainer>
-          <LeftButton name="취소" onClick={onCloseModal} />
-          <RightButton name="적용하기" onClick={() => {}} />
+          <Button $leftbtn="true">취소</Button>
+          <Button $rightbtn="true">적용하기</Button>
         </ButtonContainer>
       </AlertCommonModal>
     </>

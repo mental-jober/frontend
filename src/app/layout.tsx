@@ -12,7 +12,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko" suppressHydrationWarning>
       <ThemeProvider theme={theme}>
-        <body className="max-w-[430px] w-full m-auto border border-solid p-5 box-border">
+        <body className="max-w-[430px] w-full m-auto border border-solid px-5 pb-5 box-border">
           <GlobalStyle />
           <ReactQueryProviders>
             <HeaderMargin />
