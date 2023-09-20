@@ -1,8 +1,10 @@
 import { styled } from "styled-components";
 import { GrFormPrevious } from "react-icons/gr";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
+  const router = useRouter();
   const [scroll, setScroll] = useState(false);
   const onScroll = () => {
     if (window.scrollY > 0) {
@@ -21,7 +23,7 @@ const Header = () => {
   return (
     <HeaderBlock className={scroll ? "scrolled" : ""}>
       <HeaderContent>
-        <GrFormPrevious />
+        <GrFormPrevious onClick={() => router.back()} />
       </HeaderContent>
     </HeaderBlock>
   );
