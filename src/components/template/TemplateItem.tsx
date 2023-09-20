@@ -1,12 +1,13 @@
 import { styled } from "styled-components";
 import Button from "../common/Button";
 import { PiHeart, PiHeartFill } from "react-icons/pi";
+import { MdOutlineSearch } from "react-icons/md";
 import { useState } from "react";
 
 const TemplateItem = () => {
   const [toggle, setToggle] = useState(false);
   const onClick = () => {
-    setToggle(!toggle);
+    setToggle((toggle) => !toggle);
   };
   return (
     <TemplateItemBlock>
@@ -24,9 +25,12 @@ const TemplateItem = () => {
       </ContentWrapper>
       <ButtonWrapper>
         <HeartButton onClick={onClick}>
-          {toggle ? <HeartFill /> : <PiHeart />}
+          {toggle ? <HeartFill /> : <Heart />}
         </HeartButton>
-        <Button $normal>미리보기</Button>
+        <Button $templatebtn>
+          <MdOutlineSearch />
+          미리보기
+        </Button>
       </ButtonWrapper>
     </TemplateItemBlock>
   );
@@ -85,8 +89,36 @@ const HeartButton = styled.div`
   cursor: pointer;
 `;
 
+const Heart = styled(PiHeart)`
+  color: #707070;
+  animation: inactiveHeart 0.3s normal;
+  @keyframes inactiveHeart {
+    0% {
+      transform: none;
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: none;
+    }
+  }
+`;
+
 const HeartFill = styled(PiHeartFill)`
   color: red;
+  animation: activeHeart 0.3s normal;
+  @keyframes activeHeart {
+    0% {
+      transform: none;
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: none;
+    }
+  }
 `;
 
 export default TemplateItem;
