@@ -11,6 +11,7 @@ interface customProps {
   $confirm?: boolean;
   $leftbtn?: boolean;
   $rightbtn?: boolean;
+  $templatebtn?: boolean;
 }
 
 const Button = ({ ...props }: ButtonProps) => {
@@ -24,9 +25,6 @@ const StyledButton = styled.button<customProps>`
   font-weight: 600;
   border: none;
   outline: none;
-  &:hover {
-    background: ${({ theme }) => theme.color.gray[1]};
-  }
   /* props 이름 앞에 $ 명시해야 경고가 뜨지 않습니다! */
   /* $: 임의의 props를 DOM까지 전달하게 만들어줍니다.*/
   /* 실 사용은 app/page.tsx를 참고해주세요! */
@@ -59,7 +57,7 @@ const StyledButton = styled.button<customProps>`
       background: ${(props) => props.theme.blue[3]};
     `}
 
-    ${(props) =>
+  ${(props) =>
     props.$confirm &&
     css`
       display: flex;
@@ -83,7 +81,7 @@ const StyledButton = styled.button<customProps>`
       letter-spacing: -0.28px;
     `}
 
-    ${(props) =>
+  ${(props) =>
     props.$leftbtn &&
     css`
       display: flex;
@@ -104,7 +102,7 @@ const StyledButton = styled.button<customProps>`
       background: ${(props) => props.theme.blue[0]};
     `}
 
-    ${(props) =>
+  ${(props) =>
     props.$rightbtn &&
     css`
       display: flex;
@@ -130,6 +128,20 @@ const StyledButton = styled.button<customProps>`
     css`
       background: ${({ theme }) => theme.button.bgColor};
       color: #fff;
+    `}
+
+  ${(props) =>
+    props.$templatebtn &&
+    css`
+      background: ${({ theme }) => theme.color.blue[3]};
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      svg {
+        font-size: 18px;
+      }
     `}
 `;
 
