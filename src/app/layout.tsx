@@ -10,9 +10,9 @@ import StyledComponentsRegistry from "@/lib/registry";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="ko" suppressHydrationWarning>
+    <html lang="ko">
       <ThemeProvider theme={theme}>
-        <body className="max-w-[430px] w-full m-auto border border-solid px-5 pb-5 box-border">
+        <body>
           <GlobalStyle />
           <ReactQueryProviders>
             <HeaderMargin />
