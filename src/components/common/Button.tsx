@@ -19,13 +19,13 @@ const Button = ({ ...props }: ButtonProps) => {
 
 const StyledButton = styled.button<customProps>`
   padding: 10px 20px;
-  background: ${({ theme }) => theme.gray[0]};
+  background: ${({ theme }) => theme.color.gray[0]};
   border-radius: 4px;
   font-weight: 600;
   border: none;
   outline: none;
   &:hover {
-    background: ${({ theme }) => theme.gray[1]};
+    background: ${({ theme }) => theme.color.gray[1]};
   }
   /* props 이름 앞에 $ 명시해야 경고가 뜨지 않습니다! */
   /* $: 임의의 props를 DOM까지 전달하게 만들어줍니다.*/
@@ -34,7 +34,7 @@ const StyledButton = styled.button<customProps>`
     props.$normal &&
     css`
       padding: 30px; // $normal일 때의 padding
-      background: ${(props) => props.theme.blue[3]};
+      background: ${(props) => props.theme.color.blue[3]};
       color: #fff;
     `}
 
@@ -82,7 +82,7 @@ const StyledButton = styled.button<customProps>`
       line-height: normal;
       letter-spacing: -0.28px;
     `}
-    
+
     ${(props) =>
     props.$leftbtn &&
     css`
@@ -124,7 +124,7 @@ const StyledButton = styled.button<customProps>`
       letter-spacing: -0.112px;
       background: ${(props) => props.theme.blue[3]};
     `}
-    
+
   ${(props) =>
     props.$modalbtn &&
     css`

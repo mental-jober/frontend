@@ -66,8 +66,8 @@ const HashTag = styled.div`
   span {
     font-size: 12px;
     border-radius: 6px;
-    background: ${({ theme }) => theme.gray[2]};
-    color: ${({ theme }) => theme.blue[3]};
+    background: ${({ theme }) => theme.color.gray[2]};
+    color: ${({ theme }) => theme.color.blue[3]};
     padding: 4px;
   }
 `;
