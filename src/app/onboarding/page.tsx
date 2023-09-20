@@ -1,9 +1,10 @@
-const onboarding = () => {
+import PageLayout from '@/components/pageLayout/pageLayout';
+
+const Onboarding = () => {
+ 
   return (
-    <div>
-      온보딩
-    </div>
-  );
+    <PageLayout TYPE={"공유 스페이스"} />
+  )
 };
 
-export default onboarding;
+export default Onboarding;

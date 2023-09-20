@@ -45,22 +45,22 @@ const StyledDragDots = styled(PiDotsSixVertical)`
   width: 18px;
   height: 18px;
   margin-right: 10px;
-  color: #b5b5b5;
+  ${({ theme }) => `${theme.textColor.gray[800]}`}
 `;
 
 const ContentArea = styled.div`
-  display: flex;
   flex-grow: 1;
+  display: flex;
 `;
 
 const StyledArrow = styled(PiCaretRight)`
   height: 18px;
   height: 18px;
-  color: #b5b5b5;
+  ${({ theme }) => `${theme.textColor.gray[800]}`}
 `;
 
 const Line = styled.div`
-  width: 210px;
   height: 4px;
+  width: 210px;
   background: #d9d9d9;
 `;
