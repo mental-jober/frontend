@@ -6,14 +6,22 @@ interface TemplateListProps {
 }
 
 const TemplateList = ({ children }: TemplateListProps) => {
-  return <TemplateListBlock>{children}</TemplateListBlock>;
+  return (
+    <TemplateListBlock>
+      <TemplateListContent>{children}</TemplateListContent>
+    </TemplateListBlock>
+  );
 };
 
-const TemplateListBlock = styled.ul`
-  background: coral;
+const TemplateListBlock = styled.div`
   width: 100%;
   min-width: 360px;
   max-width: 430px;
+  padding: 40px 20px;
+`;
+
+const TemplateListContent = styled.ul`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
