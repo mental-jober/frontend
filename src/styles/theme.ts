@@ -20,7 +20,7 @@ export const theme: DefaultTheme = {
       "#ecf1f7",
       "#c1d2e6",
       "#aebdcf",
-      "#9aa8b8",
+      "#9aa8b8", // 500
       "#919ead",
       "#747e8a",
       "#575e67",
