@@ -11,6 +11,7 @@ interface customProps {
   $confirm?: boolean;
   $leftbtn?: boolean;
   $rightbtn?: boolean;
+  $templatebtn?: boolean;
 }
 
 const Button = ({ ...props }: ButtonProps) => {
@@ -19,14 +20,11 @@ const Button = ({ ...props }: ButtonProps) => {
 
 const StyledButton = styled.button<customProps>`
   padding: 10px 20px;
-  background: ${({ theme }) => theme.gray[0]};
+  background: ${({ theme }) => theme.color.gray[0]};
   border-radius: 4px;
   font-weight: 600;
   border: none;
   outline: none;
-  &:hover {
-    background: ${({ theme }) => theme.gray[1]};
-  }
   /* props 이름 앞에 $ 명시해야 경고가 뜨지 않습니다! */
   /* $: 임의의 props를 DOM까지 전달하게 만들어줍니다.*/
   /* 실 사용은 app/page.tsx를 참고해주세요! */
@@ -34,7 +32,7 @@ const StyledButton = styled.button<customProps>`
     props.$normal &&
     css`
       padding: 30px; // $normal일 때의 padding
-      background: ${(props) => props.theme.blue[3]};
+      background: ${(props) => props.theme.color.blue[3]};
       color: #fff;
     `}
 
@@ -59,7 +57,7 @@ const StyledButton = styled.button<customProps>`
       background: ${(props) => props.theme.blue[3]};
     `}
 
-    ${(props) =>
+  ${(props) =>
     props.$confirm &&
     css`
       display: flex;
@@ -82,8 +80,8 @@ const StyledButton = styled.button<customProps>`
       line-height: normal;
       letter-spacing: -0.28px;
     `}
-    
-    ${(props) =>
+
+  ${(props) =>
     props.$leftbtn &&
     css`
       display: flex;
@@ -104,7 +102,7 @@ const StyledButton = styled.button<customProps>`
       background: ${(props) => props.theme.blue[0]};
     `}
 
-    ${(props) =>
+  ${(props) =>
     props.$rightbtn &&
     css`
       display: flex;
@@ -124,12 +122,26 @@ const StyledButton = styled.button<customProps>`
       letter-spacing: -0.112px;
       background: ${(props) => props.theme.blue[3]};
     `}
-    
+
   ${(props) =>
     props.$modalbtn &&
     css`
       background: ${({ theme }) => theme.button.bgColor};
       color: #fff;
+    `}
+
+  ${(props) =>
+    props.$templatebtn &&
+    css`
+      background: ${({ theme }) => theme.color.blue[3]};
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      svg {
+        font-size: 18px;
+      }
     `}
 `;
 
