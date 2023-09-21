@@ -58,16 +58,18 @@ const Categories = ({ category, onSelect }: CategoriesProps) => {
 
 const CategoriesBlock = styled.div`
   width: 100%;
+  height: 37px;
   min-width: 360px;
   max-width: 430px;
   display: flex;
+  justify-content: center;
   gap: 20px;
-  position: relative;
-  left: 40px;
   margin-bottom: 10px;
 `;
 
 const Category = styled.div<{ $active?: boolean }>`
+  height: inherit;
+  line-height: 40px;
   cursor: pointer;
   font-weight: 500;
   font-size: 18px;

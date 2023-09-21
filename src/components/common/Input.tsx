@@ -15,12 +15,12 @@ const StyledInput = styled.input`
   font-size: 14px;
   border: none;
   outline: none;
-  background: ${({ theme }) => theme.gray[2]};
+  background: ${({ theme }) => theme.color.gray[2]};
   &::placeholder {
-    color: ${({ theme }) => theme.gray[4]};
+    color: ${({ theme }) => theme.color.gray[4]};
   }
   &:focus {
-    color: ${({ theme }) => theme.gray[4]};
+    color: ${({ theme }) => theme.color.gray[4]};
   }
 `;
 

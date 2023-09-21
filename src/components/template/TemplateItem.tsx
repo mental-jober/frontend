@@ -38,7 +38,6 @@ const TemplateItem = () => {
 
 const TemplateItemBlock = styled.li`
   width: 100%;
-  max-width: 360px;
   height: 160px;
   padding: 20px;
   display: flex;
