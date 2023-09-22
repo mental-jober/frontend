@@ -429,6 +429,13 @@
   height: 32px;
 }
 
+@media (min-width: 410px) {
+  .fr-toolbar .fr-float-left > button {
+    width: 40px;
+    height: 40px;
+  }
+}
+
 .fr-toolbar .fr-float-right {
   margin: 0 !important;
 }

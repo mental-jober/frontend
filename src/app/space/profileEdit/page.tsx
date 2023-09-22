@@ -42,11 +42,11 @@ const ProfileEditPage = () => {
         </div>
         <div className="flex items-center flex-col mt-6">
           <Image
-            src={profileImage || "/Default_pfp.png"}
+            src={profileImage || "/default_profile.png"}
             width={134}
             height={134}
             alt="프로필 이미지"
-            className="rounded-full"
+            className="rounded-full border border-solid"
           />
 
           <input

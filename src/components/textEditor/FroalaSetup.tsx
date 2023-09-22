@@ -74,7 +74,6 @@ const FroalaSetup = () => {
           "html",
           "help",
         ],
-        align: "right",
       },
     },
     imageAllowedTypes: ["jpeg", "jpg", "png"],
@@ -83,6 +82,11 @@ const FroalaSetup = () => {
     width: "100%",
     quickInsertEnabled: false,
     videoInsertButtons: ["videoBack", "|", "videoByURL", "videoUpload"],
+    paragraphFormat: {
+      N: "Normal",
+      heading1: "Heading 1",
+      H2: "Heading 2",
+    },
   };
 
   return (

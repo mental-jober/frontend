@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Plates from "./Plates";
-import Block from "./Block";
+// import Block from "./Block"; // 중간 배포 도중에 사용되지않아서 eslint오류
 import IntroProject from "./IntroProject";
 import DraggableBlocks from "./DraggableBlocks";
 
