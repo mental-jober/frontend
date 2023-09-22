@@ -9,11 +9,6 @@ export default function SpaceProfile() {
     <Container>
       <IntroProfile />
       <Plates />
-      <Block name="text" />
-      <Block name="page" />
-      <Block name="line" />
-      <Block name="link" />
-      <Block name="temp" />
     </Container>
   );
 }

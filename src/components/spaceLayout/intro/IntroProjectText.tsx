@@ -61,14 +61,24 @@ const TextAreaBlock = styled.div`
 
 const TextAreaContent = styled.div`
   width: 320px;
+  height: 100%;
+  display: flex;
   padding: 0 10px;
+  align-items: center;
+  word-spacing: -1.6px;
   border-left: 2px solid #575e67;
 `;
 
 const Text = styled.span`
+  width: 100%;
   ${({ theme }) => `${theme.text.title2.bold} ${theme.textColor.gray[400]}`}
 `;
 
 const TextInput = styled.input`
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  background-color: transparent;
   ${({ theme }) => `${theme.text.title2.bold} ${theme.textColor.gray[400]}`}
 `;
