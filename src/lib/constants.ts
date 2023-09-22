@@ -7,9 +7,9 @@ import {
   PiPaperclipHorizontal,
 } from "react-icons/pi";
 
-export type PlateTitle = "텍스트" | "구분선" | "템플릿" | "페이지" | "링크";
+export type PlateTitle = "컨텐츠" | "구분선" | "템플릿" | "페이지" | "링크";
 
-export type PlateName = "text" | "line" | "temp" | "page" | "link";
+export type PlateName = "cont" | "line" | "temp" | "page" | "link";
 
 export interface PlateConfigProp {
   name: PlateName;
@@ -25,9 +25,9 @@ export type PlateConfig = {
 
 // 추후 컬러는 정리 되면 해당 변수로 변경!!!!!!!
 export const PLATE_CONFIG: PlateConfig = {
-  text: {
-    name: "text",
-    title: "텍스트",
+  cont: {
+    name: "cont",
+    title: "컨텐츠",
     icon: PiTextT,
     bdColor: "#53c31b",
     bgColor: "#f5ffeb",
