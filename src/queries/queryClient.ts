@@ -1,4 +1,4 @@
-import { QueryCache, QueryClient } from "react-query";
+import {  QueryClient } from "react-query";
 
 // queryClient 기본값 셋팅
 export const queryClient = new QueryClient({
