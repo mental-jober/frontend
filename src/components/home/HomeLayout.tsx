@@ -13,12 +13,12 @@ const HomeLayout = () => {
   };
 
   return (
-    <div className="h-screen flex -mt-[58px] -mx-5">
+    <div className="h-screen flex -mt-[58px]">
       {/* 좌측 사이드바 */}
       <div className="w-[74px] bg-foundation-grey-200 flex flex-col justify-between py-[14px]">
         <div className="flex flex-col gap-2 items-center">
           <Image
-            src="/home/home_1.png"
+            src="/home/home_1.svg"
             alt="홈"
             className=""
             width={47}
@@ -26,7 +26,7 @@ const HomeLayout = () => {
           />
           <hr className="w-[39px] border-t border-foundation-blue-200" />
           <Image
-            src="/home/home_2.png"
+            src="/home/home_2.svg"
             alt="문서스페이스"
             className="cursor-pointer"
             width={47}
@@ -34,7 +34,7 @@ const HomeLayout = () => {
           />
           <hr className="w-[39px] border-t border-foundation-blue-200" />
           <Image
-            src="/home/home_3.png"
+            src="/home/home_3.svg"
             alt="공유스페이스"
             className="cursor-pointer"
             width={47}
@@ -43,7 +43,7 @@ const HomeLayout = () => {
           />
           <hr className="w-[39px] border-t border-foundation-blue-200" />
           <Image
-            src="/home/home_4.png"
+            src="/home/home_4.svg"
             alt="템플릿모음"
             className=""
             width={47}
@@ -51,7 +51,7 @@ const HomeLayout = () => {
           />
           <hr className="w-[39px] border-t border-foundation-blue-200" />
           <Image
-            src="/home/home_5.png"
+            src="/home/home_5.svg"
             alt="계정"
             className=""
             width={47}
