@@ -1,6 +1,7 @@
 "use client";
 
 import Header from "@/components/common/Header";
+import styled from "styled-components";
 import { CARD_DATA } from "@/lib/constants";
 import Image from "next/image";
 import { useState } from "react";
@@ -10,6 +11,7 @@ type TabType = "프로필형" | "프로젝트형";
 type CardProps = {
   title: string;
   description: string;
+  fileName: string;
   onPreview: (title: string, description: string) => void;
 };
 type PageLayoutProps = {
@@ -29,14 +31,20 @@ const PageLayout: React.FC<PageLayoutProps> = ({ TYPE }) => {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [previewData, setPreviewData] = useState<CardProps | null>(null);
 
-  const handlePreview = (title: string, description: string) => {
-    setPreviewData({ title, description, onPreview: () => {} });
+  const handlePreview = (
+    title: string,
+    description: string,
+    fileName: string,
+  ) => {
+    setPreviewData({ title, description, onPreview: () => {}, fileName });
     setIsPreviewOpen(true);
   };
 
   return (
     <div className="min-w-[360px] max-w-[430px] mx-auto flex flex-col w-full h-auto">
-      <Header />
+      <HeaderWrapper>
+        <Header />
+      </HeaderWrapper>
       <b className="mb-[10px] title2-bold">
         <p>{TYPE}의</p>
         <p>레이아웃을 선택해주세요</p>
@@ -87,8 +95,11 @@ const PageLayout: React.FC<PageLayoutProps> = ({ TYPE }) => {
           <Card
             title={card.title}
             description={card.description}
-            onPreview={handlePreview}
+            onPreview={() =>
+              handlePreview(card.title, card.description, card.fileName)
+            }
             key={card.title}
+            fileName={card.fileName}
           />
         ))}
       </div>
@@ -99,14 +110,14 @@ const PageLayout: React.FC<PageLayoutProps> = ({ TYPE }) => {
           onCloseModal={() => setIsPreviewOpen(false)}
           title={previewData.title}
           description={previewData.description}
-          imageSrc="/mini_project.svg" // 이미지 경로는 적절한 값으로 수정해주세요.
+          imageSrc={`/${previewData.fileName}`}
         />
       )}
     </div>
   );
 };
 
-const Card: React.FC<CardProps> = ({ title, description, onPreview  }) => {
+const Card: React.FC<CardProps> = ({ title, description, onPreview }) => {
   return (
     <div className="rounded-2xl bg-white shadow w-full h-[110px] p-5 flex justify-between items-start">
       <div className="flex flex-col w-3/5 gap-1">
@@ -126,3 +137,10 @@ const Card: React.FC<CardProps> = ({ title, description, onPreview  }) => {
 };
 
 export default PageLayout;
+
+const HeaderWrapper = styled.div`
+  & > div {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+`;

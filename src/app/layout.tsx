@@ -7,15 +7,17 @@ import { theme } from "@/styles/theme";
 import ReactQueryProviders from "@/queries/queryProvider";
 import GlobalStyle from "@/styles/GlobalStyle";
 import StyledComponentsRegistry from "@/lib/registry";
+import Margin from "@/components/common/Margin";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="ko" suppressHydrationWarning>
+    <html lang="ko">
       <ThemeProvider theme={theme}>
-        <body className="max-w-[430px] w-full m-auto border border-solid px-5 pb-5 box-border">
+        <body>
           <GlobalStyle />
           <ReactQueryProviders>
-            <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+            <Margin />
+       <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
           </ReactQueryProviders>
         </body>
       </ThemeProvider>

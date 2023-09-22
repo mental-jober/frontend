@@ -51,8 +51,8 @@ const PreviewLayoutModal = ({
                   {description}
                 </p>
               </div>
-              <div className="flex items-center justify-center">
-                <Image src={imageSrc} alt="예시 이미지" width={128} height={126}/>
+              <div className="relative w-full h-[400px] rounded-2xl border-2 border-solid border-foundation-grey-100 overflow-y-auto thin-scrollbar">
+                <Image src={imageSrc} alt="예시 이미지"  className="absolute top-[0px] left-[0px] w-full h-auto" width={0} height={0} sizes="100vw"/>
               </div>
             </div>
             <div className="flexable w-full px-5 mb-[34px]">

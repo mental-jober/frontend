@@ -12,6 +12,7 @@ interface CustomProps {
   $leftbtn?: boolean;
   $rightbtn?: boolean;
   $disabled?: boolean;
+  $templatebtn?: boolean;
 }
 
 const Button = ({ ...props }: ButtonProps) => {
@@ -24,12 +25,13 @@ const StyledButton = styled.button<CustomProps>`
   border-radius: 4px;
   font-weight: 600;
   border: none;
-  outline: none;
+
   box-shadow: 0px 0px 18px 0px rgba(83, 120, 230, 0.18);
 
   &:hover {
     background: ${({ theme }) => theme.color.gray[1]};
   }
+
   /* props 이름 앞에 $ 명시해야 경고가 뜨지 않습니다! */
   /* $: 임의의 props를 DOM까지 전달하게 만들어줍니다.*/
   /* 실 사용은 app/page.tsx를 참고해주세요! */
@@ -88,7 +90,7 @@ const StyledButton = styled.button<CustomProps>`
 
 
     // 모달 버튼 한개
-    ${(props) =>
+  ${(props) =>
     props.$confirm &&
     css`
       display: flex;
@@ -106,9 +108,10 @@ const StyledButton = styled.button<CustomProps>`
       font-family: Pretendard;
       ${({ theme }) => theme.text.subHead2.semibold}
     `}
+
     
     // 모달 버튼 두 개 중 왼쪽
-    ${(props) =>
+  ${(props) =>
     props.$leftbtn &&
     css`
       display: flex;
@@ -130,7 +133,7 @@ const StyledButton = styled.button<CustomProps>`
     `}
 
     // 모달 버튼 두 개 중 오른쪽
-    ${(props) =>
+  ${(props) =>
     props.$rightbtn &&
     css`
       display: flex;
@@ -151,13 +154,25 @@ const StyledButton = styled.button<CustomProps>`
       background: ${(props) => props.theme.color.blue[3]};
     `}
 
-
-    
   ${(props) =>
     props.$modalbtn &&
     css`
       background: ${({ theme }) => theme.button.bgColor};
       color: #fff;
+    `}
+
+  ${(props) =>
+    props.$templatebtn &&
+    css`
+      background: ${({ theme }) => theme.color.blue[3]};
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      svg {
+        font-size: 18px;
+      }
     `}
 `;
 

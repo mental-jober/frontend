@@ -242,6 +242,7 @@
     font-weight: 700;
     line-height: normal;
     letter-spacing: -0.44px;
+    
   }
 
   .title2-medium {
@@ -456,4 +457,31 @@ textarea {
 button {
   border: none;
   cursor: pointer;
+}
+
+
+/* 브라우저별 커스텀 스크롤바 스타일  */
+@layer components {
+  /* Chrome, Safari 및 Opera용 */
+  .thin-scrollbar::-webkit-scrollbar {
+      width: 2px; /* 스크롤바의 너비 */
+  }
+
+  .thin-scrollbar::-webkit-scrollbar-track {
+      background: #f1f1f1;
+  }
+
+  .thin-scrollbar::-webkit-scrollbar-thumb {
+      background: #888;
+  }
+
+  .thin-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #555;
+  }
+
+  /* Firefox용 */
+  .thin-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+  }
 }
