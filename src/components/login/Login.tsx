@@ -11,7 +11,7 @@ const Login: React.FC = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    router.push("/home");
+    router.push("/");
     // 여기에 백엔드 로그인 API 호출 로직을 추가
     // 예: const response = await loginApi(email, password);
     // if (response.success) router.push('/dashboard');
