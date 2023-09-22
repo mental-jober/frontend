@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-interface BlockTextProps {
-  //일단 데이터 전달 방식이 정해지지 않았으므로 옵셔널
-  text?: string;
-}
+// interface BlockTextProps {
+//   //일단 데이터 전달 방식이 정해지지 않았으므로 옵셔널
+//   text?: string;
+// }
 
-export default function BlockText({ text }: BlockTextProps) {
+export default function BlockText() {
   return <TextBox>이름을 입력해주세요.</TextBox>;
 }
 
