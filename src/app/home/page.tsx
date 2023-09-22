@@ -3,7 +3,7 @@ import HomeLayout from '@/components/home/HomeLayout'
 
 const Homepage = () => {
   return (
-    <div className="">
+    <div className='px-5'>
       <HomeLayout />
     </div>
   )
