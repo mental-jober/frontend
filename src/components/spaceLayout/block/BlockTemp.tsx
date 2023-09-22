@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-interface BlockTempProps {}
+/* interface BlockTempProps {} */
 
 export default function BlockTemp() {
   return <TempBox>자버의 사용성 설문조사</TempBox>;

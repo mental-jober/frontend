@@ -7,12 +7,12 @@ import TitleHeader from "./AlertTitleHeader";
 import { ModalProps } from "../../../hooks/UseModalHook";
 import Button from "../common/Button";
 
-export const DeletePermissonModal = ({ isOpen, onCloseModal }: ModalProps) => {
+export const DeletePageModal = ({ isOpen, onCloseModal }: ModalProps) => {
   return (
     <AlertCommonModal isOpen={isOpen} onCloseModal={onCloseModal}>
       <TitleHeader
-        title="권한 삭제"
-        text="이 계정에 대한 권한을 삭제하시겠습니까?"
+        title="페이지를 삭제하시겠습니까?"
+        text={`해당 페이지를 정말로 삭제하시겠습니까?\n페이지 복구는 불가합니다.`}
       />
       <ButtonContainer>
         <Button $leftbtn="true" onClick={() => {}}>
@@ -26,4 +26,4 @@ export const DeletePermissonModal = ({ isOpen, onCloseModal }: ModalProps) => {
   );
 };
 
-export default DeletePermissonModal;
+export default DeletePageModal;

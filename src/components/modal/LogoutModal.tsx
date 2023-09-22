@@ -7,20 +7,17 @@ import TitleHeader from "./AlertTitleHeader";
 import { ModalProps } from "../../../hooks/UseModalHook";
 import Button from "../common/Button";
 
-const GetLayoutModal = ({ isOpen, onCloseModal }: ModalProps) => {
+const LogoutModal = ({ isOpen, onCloseModal }: ModalProps) => {
   return (
     <>
       <AlertCommonModal isOpen={isOpen} onCloseModal={onCloseModal}>
-        <TitleHeader
-          title="레이아웃 가져오기"
-          text={`레이아웃을 적용하면 입력된 내용이 삭제됩니다.\n이 레이아웃을 적용하시겠습니까?`}
-        />
+        <TitleHeader title="정말 로그아웃 하시겠습니까?" />
         <ButtonContainer>
           <Button $leftbtn="true" onClick={() => {}}>
             취소
           </Button>
           <Button $rightbtn="true" onClick={() => {}}>
-            적용하기
+            확인
           </Button>
         </ButtonContainer>
       </AlertCommonModal>
@@ -28,4 +25,4 @@ const GetLayoutModal = ({ isOpen, onCloseModal }: ModalProps) => {
   );
 };
 
-export default GetLayoutModal;
+export default LogoutModal;

@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <GlobalStyle />
           <ReactQueryProviders>
             <Margin />
-            <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+       <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
           </ReactQueryProviders>
         </body>
       </ThemeProvider>

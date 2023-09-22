@@ -9,7 +9,7 @@ const ToastUi = () => {
 
   useEffect(() => {
     if (message) {
-      const timer = setTimeout(hideToast, 30000);
+      const timer = setTimeout(hideToast, 2000);
       return () => clearTimeout(timer);
     }
   }, [message, hideToast]);

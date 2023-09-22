@@ -5,7 +5,7 @@ interface BlockTextProps {
   text?: string;
 }
 
-export default function BlockText({ text }: BlockTextProps) {
+export default function BlockText({ /* text */ }: BlockTextProps) {
   return <TextBox>이름을 입력해주세요.</TextBox>;
 }
 

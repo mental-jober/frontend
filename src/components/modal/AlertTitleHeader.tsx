@@ -1,30 +1,23 @@
-import styled from "styled-components";
+import { styled, css } from "styled-components";
 
 interface AlertTitleHeaderProps {
   title: string;
-  text: string;
+  text?: string;
+  $link?: boolean;
 }
 
-const AlertTitleHeader = ({ title, text }: AlertTitleHeaderProps) => {
+interface TitleProps {
+  $link?: boolean;
+}
+
+const AlertTitleHeader = ({ title, text, $link }: AlertTitleHeaderProps) => {
   return (
     <TitleHeaderContainer>
-      <Title className="title4-bold">{title}</Title>
-      <Contents className="text1-medium">{text}</Contents>
+      <Title $link={$link}>{title}</Title>
+      <Contents>{text}</Contents>
     </TitleHeaderContainer>
   );
 };
-
-const Title = styled.p`
-  width: 100%;
-  text-align: center;
-  color: #1a1a1a;
-`;
-
-const Contents = styled.p`
-  width: 100%;
-  text-align: center;
-  color: #747e8a;
-`;
 
 const TitleHeaderContainer = styled.div`
   display: flex;
@@ -33,4 +26,29 @@ const TitleHeaderContainer = styled.div`
   align-items: center;
   gap: 6px;
 `;
+
+const Title = styled.p<TitleProps>`
+  width: 100%;
+  ${({ theme }) => theme.text.title4.bold};
+  text-align: center;
+  color: ${({ theme }) => theme.textColor.gray[950]};
+  font-size: 16px;
+
+  ${(props) =>
+    props.$link &&
+    css`
+      ${({ theme }) => theme.text.title4.bold};
+      color: ${({ theme }) => theme.textColor.gray[950]};
+    `}
+`;
+
+const Contents = styled.p`
+  width: 296px;
+  ${({ theme }) => theme.text.text1.medium}
+  text-align: center;
+  color: #747e8a;
+  font-size: 14px;
+  white-space: pre-line;
+`;
+
 export default AlertTitleHeader;
