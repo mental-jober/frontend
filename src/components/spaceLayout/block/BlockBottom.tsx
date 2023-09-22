@@ -1,18 +1,29 @@
 import styled from "styled-components";
 import { PiTrash } from "react-icons/pi";
 import Chip from "../Chip";
+import ToggleSwitch from "@/components/common/ToggleSwitch";
+import { useState } from "react";
+import { BlockData } from "../SpaceProject";
 
 interface BlockBottomProps {
-  name: string;
+  data: BlockData;
 }
 
-export default function BlockBottom({ name }: BlockBottomProps) {
+export default function BlockBottom({ data }: BlockBottomProps) {
+  const [isHidden, setIsHidden] = useState<boolean>(data.hidden);
+
   return (
     <Bottom>
-      <Chip name={name} />
+      <Chip name={data.name} />
       <BotRight>
         <StyledTrashIcon />
-        <div>토글</div>
+        <ToggleSwitch
+          checked={!isHidden}
+          onChange={() => {
+            console.log(data.id, isHidden);
+            setIsHidden((prev) => !prev);
+          }}
+        />
       </BotRight>
     </Bottom>
   );
@@ -26,6 +37,7 @@ const Bottom = styled.div`
 const BotRight = styled.div`
   gap: 10px;
   display: flex;
+  align-items: center;
 `;
 
 const StyledTrashIcon = styled(PiTrash)`

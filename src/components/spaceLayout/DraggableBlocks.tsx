@@ -15,39 +15,38 @@ interface DraggableBlocksProps {
 }
 
 export default function DraggableBlocks({ blockData }: DraggableBlocksProps) {
-  const [tasks, setTasks] = useState<BlockData[]>(blockData);
+  const [datas, setDatas] = useState<BlockData[]>(blockData);
 
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
 
-    const updatedTasks = [...tasks];
-    const [reorderedTask] = updatedTasks.splice(result.source.index, 1);
-    updatedTasks.splice(result.destination.index, 0, reorderedTask);
+    const { source, destination } = result;
+    const updatedDatas = [...datas];
+    const [reorderedDatas] = updatedDatas.splice(source.index, 1);
+    updatedDatas.splice(destination.index, 0, reorderedDatas);
 
-    setTasks(updatedTasks);
+    setDatas(updatedDatas);
   };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Droppable droppableId="board">
-        {(provided, snapshot) => (
-          <div
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            style={{ background: snapshot.isDraggingOver ? "aliceblue" : "" }}
-          >
-            {tasks.map((task, index) => (
-              <Draggable key={task.id} draggableId={task.id} index={index}>
-                {(provided) => (
-                  <div
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    ref={provided.innerRef}
-                  >
-                    <Block name={task.name} />
-                  </div>
-                )}
-              </Draggable>
+      <Droppable droppableId="droppable">
+        {(provided) => (
+          <div {...provided.droppableProps} ref={provided.innerRef}>
+            {datas.map((data, idx) => (
+              <>
+                <Draggable key={data.id} draggableId={data.id} index={idx}>
+                  {(provided) => (
+                    <div
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      ref={provided.innerRef}
+                    >
+                      <Block data={data} />
+                    </div>
+                  )}
+                </Draggable>
+              </>
             ))}
             {provided.placeholder}
           </div>

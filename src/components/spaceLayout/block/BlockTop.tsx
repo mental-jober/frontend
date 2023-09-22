@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { PiDotsSixVertical, PiCaretRight } from "react-icons/pi";
-import BlockText from "./BlockText";
+import BlockCont from "./BlockCont";
 import BlockTemp from "./BlockTemp";
 import BlockPage from "./BlockPage";
 import BlockLink from "./BlockLink";
@@ -21,8 +21,8 @@ export default function BlockTop({ name }: BlockTopProps) {
 
 const renderBlockContent = ({ name }: BlockTopProps) => {
   switch (name) {
-    case "text":
-      return <BlockText />;
+    case "cont":
+      return <BlockCont />;
     case "temp":
       return <BlockTemp />;
     case "line":
