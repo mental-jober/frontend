@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from 'react';
-import LogoutConfirmModal from '../modal/LogoutConfirmModal';
+import LogoutModal from "../modal/LogoutModal";
 
 const HomeLayout = () => {
   const router = useRouter();
@@ -181,7 +181,7 @@ const HomeLayout = () => {
 
       {/* 우측 배경색 부분 */}
       <div className="flex-1 bg-zinc-500"></div>
-      <LogoutConfirmModal isOpen={isLogoutModalOpen} onCloseModal={toggleLogoutModal} />
+      <LogoutModal isOpen={isLogoutModalOpen} onCloseModal={toggleLogoutModal} />
     </div>
   );
 };
