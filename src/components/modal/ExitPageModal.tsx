@@ -15,11 +15,15 @@ export const ExitPageModal = ({ isOpen, onCloseModal }: ModalProps) => {
           title="페이지를 나가시겠습니까?"
           text="저장하지 않으면 변경된 내용이 초기화됩니다."
         />
+        <ButtonContainer>
+          <Button $leftbtn="true" onClick={() => {}}>
+            머무르기
+          </Button>
+          <Button $rightbtn="true" onClick={() => {}}>
+            나가기
+          </Button>
+        </ButtonContainer>
       </AlertCommonModal>
-      <ButtonContainer>
-        <Button $leftbtn="true">머무르기</Button>
-        <Button $rightbtn="true">나가기</Button>
-      </ButtonContainer>
     </>
   );
 };

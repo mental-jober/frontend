@@ -11,10 +11,15 @@ const Toast = ({ message }: ToastProps) => {
 };
 
 const StyledToast = styled.div`
+  position: absolute;
+  margin: 0 auto;
+  top: 60px;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 60px;
+  text-align: center;
   width: 320px;
   height: 43px;
   flex-shrink: 0;
