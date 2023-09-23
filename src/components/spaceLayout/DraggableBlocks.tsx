@@ -41,6 +41,10 @@ export default function DraggableBlocks({ blockData }: DraggableBlocksProps) {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       ref={provided.innerRef}
+                      style={{
+                        marginBottom: "10px",
+                        ...provided.draggableProps.style,
+                      }}
                     >
                       <Block data={data} />
                     </div>
