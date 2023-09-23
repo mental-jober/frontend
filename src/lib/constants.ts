@@ -88,30 +88,30 @@ export const CARD_DATA: CardData = {
       fileName: "profile_example_company.png",
     },
     {
-      title: "프로젝트 소개",
+      title: "제품 소개",
       description:
-        "프로젝트 설명, 참여 신청서가 포함되어 있는 사이드 프로젝트 및 개인 프로젝트 레이아웃",
-      fileName: "profile_example_company.png",
+        "제품 설명, 구매 신청서가 포함되어 있는 공동구매 신청 페이지 레이아웃 입니다.",
+      fileName: "profile_example_product.png",
     },
   ],
   프로젝트형: [
     {
       title: "사이드 프로젝트",
       description:
-        "자버의 레이아웃을 활용해서 나만의 사이드 프로젝트 페이지를 만들어보세요!",
-      fileName: "profile_example_company.png",
+        "프로젝트 설명, 참여 신청서가 포함되어 있는 사이드 프로젝트 페이지를 만들어보세요!",
+      fileName: "project_example_sideproject.png",
     },
     {
       title: "이벤트 소개",
       description:
         "자버의 레이아웃을 활용해서 나만의 이벤트 페이지를 만들어보세요!",
-      fileName: "profile_example_company.png",
+      fileName: "project_example_event.png",
     },
     {
       title: "세미나 주최",
       description:
         "자버의 레이아웃을 활용해서 나만의 세미나 신청 페이지를 만들어보세요!",
-      fileName: "profile_example_company.png",
+      fileName: "project_example_seminar.png",
     },
   ],
 };

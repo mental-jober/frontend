@@ -41,7 +41,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({ TYPE }) => {
   };
 
   return (
-    <div className="min-w-[360px] max-w-[430px] mx-auto flex flex-col w-full h-auto">
+    <div className="min-w-[360px] max-w-[430px] px-5 mx-auto flex flex-col w-full h-auto">
       <HeaderWrapper>
         <Header />
       </HeaderWrapper>
@@ -140,7 +140,9 @@ export default PageLayout;
 
 const HeaderWrapper = styled.div`
   & > div {
-    left: 50%;
-    transform: translateX(-50%);
+    margin-top : -58px;
+    margin-left : -20px;
+    /* left: 50%;
+    transform: translateX(-50%); */
   }
 `;
