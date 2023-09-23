@@ -1,22 +1,30 @@
+import { forwardRef } from "react";
 import { PiCaretDownFill, PiCaretUpFill } from "react-icons/pi";
 import styled from "styled-components";
+import HistoryEditNow from "./HistoryEditNow";
+import { useSelectedHistory } from "@/lib/store/useSelectedHistory";
 
 interface HistoryHeaderProps {
-  isOpen: boolean;
+  $isOpen: boolean;
   onClick: () => void;
 }
 
-const HistoryHeader = ({ isOpen, ...rest }: HistoryHeaderProps) => {
-  return (
-    <Wrapper {...rest}>
-      {isOpen ? <StyledUpArrow /> : <StyledDownArrow />}
-      <Contents>
-        <Time>7월 25일 오전 12:53</Time>
-        <Status>현재 작업중</Status>
-      </Contents>
-    </Wrapper>
-  );
-};
+const HistoryHeader = forwardRef<HTMLDivElement | null, HistoryHeaderProps>(
+  function Header(props, ref) {
+    const { historyData } = useSelectedHistory();
+
+    return (
+      <Wrapper ref={ref} {...props}>
+        {props.$isOpen ? <StyledUpArrow /> : <StyledDownArrow />}
+        <Contents>
+          <Time>{historyData.date}</Time>
+          {/* 추후 받아온 데이터의 인덱스가 0인경우와 아닌경우의 로직 추가 */}
+          <HistoryEditNow />
+        </Contents>
+      </Wrapper>
+    );
+  },
+);
 
 const Wrapper = styled.div`
   gap: 10px;
@@ -49,19 +57,7 @@ const Contents = styled.div`
 `;
 
 const Time = styled.span`
-  color: #000;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: normal;
-  letter-spacing: -0.36px;
-`;
-const Status = styled.span`
-  color: #000;
-  font-size: 12px;
-  font-weight: 600;
-  text-align: center;
-  line-height: normal;
-  letter-spacing: -0.24px;
+  ${({ theme }) => theme.text.title4.bold};
 `;
 
 export default HistoryHeader;
