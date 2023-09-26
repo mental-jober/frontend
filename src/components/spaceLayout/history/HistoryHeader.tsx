@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import { PiCaretDownFill, PiCaretUpFill } from "react-icons/pi";
 import styled from "styled-components";
 import HistoryEditNow from "./HistoryEditNow";
-import { useSelectedHistory } from "@/lib/store/useSelectedHistory";
+import useSelectedHistoryStore from "@/lib/store/useSelectedHistoryStore";
 
 interface HistoryHeaderProps {
   $isOpen: boolean;
@@ -11,7 +11,7 @@ interface HistoryHeaderProps {
 
 const HistoryHeader = forwardRef<HTMLDivElement | null, HistoryHeaderProps>(
   function Header(props, ref) {
-    const { historyData } = useSelectedHistory();
+    const { historyData } = useSelectedHistoryStore();
 
     return (
       <Wrapper ref={ref} {...props}>

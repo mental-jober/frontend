@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, forwardRef } from "react";
 import styled from "styled-components";
 import HistoryEditNow from "./HistoryEditNow";
 import HistorySaved from "./HistorySaved";
-import { useSelectedHistory } from "@/lib/store/useSelectedHistory";
+import useSelectedHistoryStore from "@/lib/store/useSelectedHistoryStore";
 
 type HistoryProps = {
   date: string;
@@ -26,7 +26,7 @@ const historys: HistoryProps[] = [
 
 const HistoryLists = forwardRef<HTMLUListElement | null, HistoryListsProps>(
   function Lists(props, ref) {
-    const { setHistoryData } = useSelectedHistory();
+    const { setHistoryData } = useSelectedHistoryStore();
     return (
       <Wrapper ref={ref}>
         {historys.map((history, idx) => (
