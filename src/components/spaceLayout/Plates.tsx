@@ -4,10 +4,10 @@ import PlateLayout from "./Plate/PlateLayout";
 import PlateTitle from "./Plate/PlateTitle";
 import { PLATE_CONFIG } from "@/lib/constants";
 
-export default function Plates() {
+const Plates = () => {
   const names: string[] = Object.keys(PLATE_CONFIG);
   return <PlatesBox>{renderPlate(names)}</PlatesBox>;
-}
+};
 
 const renderPlate = (names: string[]) => {
   return names.map((name) => (
@@ -29,3 +29,5 @@ const PlatesBox = styled.div`
   justify-content: center;
   background-color: #ecf1f7;
 `;
+
+export default Plates;

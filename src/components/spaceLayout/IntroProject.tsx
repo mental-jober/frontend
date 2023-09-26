@@ -1,11 +1,19 @@
+import styled from "styled-components";
 import IntroBackGround from "./intro/IntroBackGround";
 import IntroProjectText from "./intro/IntroProjectText";
 
-export default function IntroProject() {
+const IntroProject = () => {
   return (
-    <div>
+    <Wrapper>
       <IntroBackGround />
       <IntroProjectText />
-    </div>
+    </Wrapper>
   );
-}
+};
+const Wrapper = styled.div`
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+`;
+
+export default IntroProject;

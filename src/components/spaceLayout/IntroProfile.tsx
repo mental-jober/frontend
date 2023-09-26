@@ -3,7 +3,7 @@ import IntroBackGround from "./intro/IntroBackGround";
 import IntroProfileImg from "./intro/IntroProfileImg";
 import IntroProfileText from "./intro/IntroProfileText";
 
-export default function IntroProfile() {
+const IntroProfile = () => {
   return (
     <Wrapper>
       <IntroBackGround />
@@ -11,7 +11,7 @@ export default function IntroProfile() {
       <IntroProfileText />
     </Wrapper>
   );
-}
+};
 
 const Wrapper = styled.div`
   gap: 70px;
@@ -22,3 +22,5 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
 `;
+
+export default IntroProfile;

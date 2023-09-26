@@ -4,9 +4,9 @@ interface BlockLinkProps {
   link?: string;
 }
 
-export default function BlockLink({ /* link */ }: BlockLinkProps) {
+const BlockLink = ({} /* link */ : BlockLinkProps) => {
   return <LinkBox disabled placeholder="URL을 입력해주세요"></LinkBox>;
-}
+};
 const LinkBox = styled.input`
   width: 218px;
   height: 22px;
@@ -16,3 +16,5 @@ const LinkBox = styled.input`
   background: #ededed;
   ${({ theme }) => `${theme.text.text1.medium}`}
 `;
+
+export default BlockLink;
