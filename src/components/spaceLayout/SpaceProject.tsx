@@ -32,8 +32,9 @@ export default function SpaceProject() {
 }
 
 const Container = styled.div`
-  gap: 10px;
-  width: 360px;
+  gap: 18px;
+  min-width: 360px;
+  max-width: 430px;
   display: flex;
   align-items: center;
   flex-direction: column;

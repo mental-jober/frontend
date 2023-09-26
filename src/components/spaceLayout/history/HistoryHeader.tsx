@@ -28,10 +28,11 @@ const HistoryHeader = forwardRef<HTMLDivElement | null, HistoryHeaderProps>(
 
 const Wrapper = styled.div`
   gap: 10px;
-  width: 360px;
   height: 58px;
   display: flex;
   cursor: pointer;
+  min-width: 360px;
+  max-width: 430px;
   padding: 15px 20px;
   align-items: center;
   justify-content: space-between;

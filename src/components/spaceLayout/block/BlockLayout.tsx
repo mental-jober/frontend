@@ -10,7 +10,8 @@ export default function BlockLayout({ children }: BlockLayoutProps) {
 }
 
 const Wrapper = styled.div`
-  width: 320px;
+  min-width: 320px;
+  max-width: 430px;
   height: 111px;
   padding: 10px;
   display: flex;

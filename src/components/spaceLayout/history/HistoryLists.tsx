@@ -52,10 +52,11 @@ const Wrapper = styled.ul`
 `;
 
 const List = styled.li`
-  width: 360px;
   height: 58px;
   display: flex;
   cursor: pointer;
+  min-width: 360px;
+  max-width: 430px;
   align-items: center;
   padding: 15px 20px 15px 50px;
   justify-content: space-between;
