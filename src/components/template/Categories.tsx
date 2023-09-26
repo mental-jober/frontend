@@ -66,6 +66,9 @@ const CategoriesBlock = styled.div`
   padding: 0 20px;
   height: 40px;
   overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const CategoriesList = styled.ul`
