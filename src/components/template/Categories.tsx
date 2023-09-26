@@ -1,6 +1,7 @@
 import { MouseEvent, useCallback, useRef, useState } from "react";
 import { styled, css } from "styled-components";
 
+// Data(임시)
 const categories = [
   {
     name: "all",
@@ -35,7 +36,7 @@ const categories = [
     text: "기타",
   },
 ];
-
+// Interface & Type
 interface CategoriesProps {
   category: string;
   onSelect: (category: string) => void;
@@ -94,6 +95,7 @@ const Categories = ({ category, onSelect }: CategoriesProps) => {
   );
 };
 
+// Style
 const CategoriesBlock = styled.div`
   height: 40px;
   padding: 0 20px;
