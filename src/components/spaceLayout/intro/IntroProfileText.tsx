@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function IntroProfileText() {
+const IntroProfileText = () => {
   return (
     <TextAreaBox>
       <Title>제목 영역</Title>
@@ -10,7 +10,7 @@ export default function IntroProfileText() {
       </Text>
     </TextAreaBox>
   );
-}
+};
 const TextAreaBox = styled.div`
   gap: 20px;
   width: 320px;
@@ -27,3 +27,5 @@ const Text = styled.span`
   text-align: center;
   ${({ theme }) => `${theme.text.text2.medium} ${theme.textColor.gray[700]}`}
 `;
+
+export default IntroProfileText;

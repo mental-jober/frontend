@@ -5,10 +5,12 @@ import styled from "styled-components";
 //   text?: string;
 // }
 
-export default function BlockText() {
+const BlockText = () => {
   return <TextBox>이름을 입력해주세요.</TextBox>;
-}
+};
 
 const TextBox = styled.span`
   ${({ theme }) => `${theme.text.title4.bold} ${theme.textColor.gray[950]}`}
 `;
+
+export default BlockText;

@@ -21,7 +21,7 @@ const initialBlocks: BlockData[] = [
 ];
 
 // page로 이동 예정
-export default function SpaceProject() {
+const SpaceProject = () => {
   return (
     <Container>
       <IntroProject />
@@ -29,7 +29,7 @@ export default function SpaceProject() {
       <DraggableBlocks blockData={initialBlocks} />
     </Container>
   );
-}
+};
 
 const Container = styled.div`
   gap: 18px;
@@ -40,3 +40,5 @@ const Container = styled.div`
   flex-direction: column;
   background-color: #f6f8fb;
 `;
+
+export default SpaceProject;

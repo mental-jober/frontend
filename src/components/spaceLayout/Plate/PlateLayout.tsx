@@ -11,7 +11,7 @@ const onClickPlate = (plate: string) => {
   if (plate) console.log(`${plate}`);
 };
 
-export default function PlateLayout({ children, name }: PlateLayoutProps) {
+const PlateLayout = ({ children, name }: PlateLayoutProps) => {
   return (
     <Wrapper
       onClick={() => {
@@ -21,7 +21,7 @@ export default function PlateLayout({ children, name }: PlateLayoutProps) {
       {children}
     </Wrapper>
   );
-}
+};
 
 const Wrapper = styled.div`
   width: 52px;
@@ -34,3 +34,4 @@ const Wrapper = styled.div`
   border-radius: 15.659px;
   background-color: #fff;
 `;
+export default PlateLayout;

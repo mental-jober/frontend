@@ -5,9 +5,9 @@ interface BlockLayoutProps {
   children: ReactNode;
 }
 
-export default function BlockLayout({ children }: BlockLayoutProps) {
+const BlockLayout = ({ children }: BlockLayoutProps) => {
   return <Wrapper>{children}</Wrapper>;
-}
+};
 
 const Wrapper = styled.div`
   min-width: 320px;
@@ -21,3 +21,5 @@ const Wrapper = styled.div`
   justify-content: space-between;
   box-shadow: 0px 0px 5.5267px 0px rgba(0, 0, 0, 0.1);
 `;
+
+export default BlockLayout;

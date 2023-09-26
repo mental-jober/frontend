@@ -5,13 +5,13 @@ interface IntroProfileImgProps {
   imgURL?: string;
 }
 
-export default function IntroProfileImg({
+const IntroProfileImg = ({
   imgURL = "/default_profile.png",
-}: IntroProfileImgProps) {
+}: IntroProfileImgProps) => {
   {
     return <PfImg src={imgURL} width={116} height={116} alt="프로필 이미지" />;
   }
-}
+};
 
 const PfImg = styled(Image)`
   left: 0;
@@ -22,3 +22,5 @@ const PfImg = styled(Image)`
   border-radius: 50%;
   border: 2px solid #fff;
 `;
+
+export default IntroProfileImg;

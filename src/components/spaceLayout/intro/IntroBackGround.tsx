@@ -4,11 +4,11 @@ interface IntroBackGroundProps {
   imgURL?: string;
 }
 
-export default function IntroBackGround({
+const IntroBackGround = ({
   imgURL = "/default_background.png",
-}: IntroBackGroundProps) {
+}: IntroBackGroundProps) => {
   return <Img $url={imgURL} />;
-}
+};
 
 const Img = styled.div<{ $url: string }>`
   ${({ $url }) =>
@@ -26,3 +26,5 @@ const Img = styled.div<{ $url: string }>`
     height: auto;
   }
 `;
+
+export default IntroBackGround;
