@@ -16,7 +16,7 @@ export default function BlockBottom({ data }: BlockBottomProps) {
     <Bottom>
       <Chip name={data.name} />
       <BotRight>
-        <StyledTrashIcon />
+        <StyledTrashIcon onClick={() => {}} />
         <ToggleSwitch
           checked={!isHidden}
           onChange={() => {
