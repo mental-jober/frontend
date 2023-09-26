@@ -32,7 +32,7 @@ interface useSpaceStore {
   getComponent: (dataId: number, componentId: number) => ComponentData | null;
 }
 
-const useSpace = create<useSpaceStore>((set, get) => ({
+const useSpaceStore = create<useSpaceStore>((set, get) => ({
   datas: {},
 
   addData: (id, newData) => {
@@ -99,4 +99,4 @@ const useSpace = create<useSpaceStore>((set, get) => ({
   },
 }));
 
-export default useSpace;
+export default useSpaceStore;
