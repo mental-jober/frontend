@@ -12,7 +12,9 @@ type HistoryProps = {
 // 초기 데이터는 추후 API로 불러오기
 const initialData: HistoryProps = { date: "7월 25일 오전 12:53", id: 0 };
 
-export const useSelectedHistory = create<useSelectedHistoryProps>((set) => ({
+const useSelectedHistoryStore = create<useSelectedHistoryProps>((set) => ({
   historyData: initialData,
   setHistoryData: (newData) => set({ historyData: newData }),
 }));
+
+export default useSelectedHistoryStore;
