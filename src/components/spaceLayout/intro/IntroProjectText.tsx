@@ -1,7 +1,7 @@
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-export default function IntroProjectText() {
+const IntroProjectText = () => {
   const [text, setText] = useState<string>("제목을 입력해주세요");
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -48,7 +48,7 @@ export default function IntroProjectText() {
       </TextAreaContent>
     </TextAreaBlock>
   );
-}
+};
 
 const TextAreaBlock = styled.div`
   width: 100%;
@@ -82,3 +82,5 @@ const TextInput = styled.input`
   background-color: transparent;
   ${({ theme }) => `${theme.text.title2.bold} ${theme.textColor.gray[400]}`}
 `;
+
+export default IntroProjectText;

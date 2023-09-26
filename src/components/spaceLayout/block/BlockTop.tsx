@@ -9,7 +9,7 @@ interface BlockTopProps {
   name: string;
 }
 
-export default function BlockTop({ name }: BlockTopProps) {
+const BlockTop = ({ name }: BlockTopProps) => {
   return (
     <Top>
       <StyledDragDots />
@@ -17,7 +17,7 @@ export default function BlockTop({ name }: BlockTopProps) {
       <StyledArrow />
     </Top>
   );
-}
+};
 
 const renderBlockContent = ({ name }: BlockTopProps) => {
   switch (name) {
@@ -64,3 +64,5 @@ const Line = styled.div`
   width: 210px;
   background: #d9d9d9;
 `;
+
+export default BlockTop;

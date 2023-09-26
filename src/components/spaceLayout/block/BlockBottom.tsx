@@ -9,14 +9,14 @@ interface BlockBottomProps {
   data: BlockData;
 }
 
-export default function BlockBottom({ data }: BlockBottomProps) {
+const BlockBottom = ({ data }: BlockBottomProps) => {
   const [isHidden, setIsHidden] = useState<boolean>(data.hidden);
 
   return (
     <Bottom>
       <Chip name={data.name} />
       <BotRight>
-        <StyledTrashIcon />
+        <StyledTrashIcon onClick={() => {}} />
         <ToggleSwitch
           checked={!isHidden}
           onChange={() => {
@@ -27,7 +27,7 @@ export default function BlockBottom({ data }: BlockBottomProps) {
       </BotRight>
     </Bottom>
   );
-}
+};
 const Bottom = styled.div`
   display: flex;
   align-items: center;
@@ -43,3 +43,5 @@ const BotRight = styled.div`
 const StyledTrashIcon = styled(PiTrash)`
   color: #b5b5b5;
 `;
+
+export default BlockBottom;

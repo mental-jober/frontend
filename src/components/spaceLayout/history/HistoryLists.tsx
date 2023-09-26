@@ -1,12 +1,20 @@
-import { forwardRef } from "react";
+import { Dispatch, SetStateAction, forwardRef } from "react";
 import styled from "styled-components";
+import HistoryEditNow from "./HistoryEditNow";
+import HistorySaved from "./HistorySaved";
+import useSelectedHistoryStore from "@/lib/store/useSelectedHistoryStore";
 
 type HistoryProps = {
   date: string;
   id: number;
 };
 
+interface HistoryListsProps {
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
 // 임시 데이터
+// 현재 작업중인 데이터 정보를 임시저장 api에서 받아오기
 const historys: HistoryProps[] = [
   { date: "7월 25일 오전 12:53", id: 0 },
   { date: "7월 21일 오전 8:01", id: 1 },
@@ -16,14 +24,21 @@ const historys: HistoryProps[] = [
   { date: "7월 02일 오후 11:53", id: 5 },
 ];
 
-const HistoryLists = forwardRef<HTMLUListElement | null>(
-  function HistoryList(props, ref) {
+const HistoryLists = forwardRef<HTMLUListElement | null, HistoryListsProps>(
+  function Lists(props, ref) {
+    const { setHistoryData } = useSelectedHistoryStore();
     return (
-      <Wrapper ref={ref} {...props}>
-        {historys.map((history) => (
-          <List key={history.id}>
+      <Wrapper ref={ref}>
+        {historys.map((history, idx) => (
+          <List
+            key={history.id}
+            onClick={() => {
+              setHistoryData(history);
+              props.setIsOpen(false);
+            }}
+          >
             <Time>{history.date}</Time>
-            <Status>저장됨</Status>
+            {idx ? <HistorySaved /> : <HistoryEditNow />}
           </List>
         ))}
       </Wrapper>
@@ -37,29 +52,31 @@ const Wrapper = styled.ul`
 `;
 
 const List = styled.li`
-  width: 360px;
   height: 58px;
   display: flex;
+  cursor: pointer;
+  min-width: 360px;
+  max-width: 430px;
   align-items: center;
   padding: 15px 20px 15px 50px;
   justify-content: space-between;
+
+  &:hover {
+    background-color: #2593fc;
+
+    span {
+      color: #fff;
+    }
+
+    div > div {
+      background-color: #fff;
+    }
+  }
 `;
 
 const Time = styled.span`
   color: #000;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: -0.36px;
-`;
-
-const Status = styled.span`
-  font-size: 12px;
-  font-weight: 600;
-  color: #9aa8b8;
-  text-align: center;
-  line-height: normal;
-  letter-spacing: -0.24px;
+  ${({ theme }) => theme.text.title4.medium};
 `;
 
 export default HistoryLists;
