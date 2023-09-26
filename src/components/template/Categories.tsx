@@ -1,3 +1,4 @@
+import { useCallback, useRef, useState } from "react";
 import { styled, css } from "styled-components";
 
 const categories = [
@@ -41,38 +42,49 @@ interface CategoriesProps {
 }
 
 const Categories = ({ category, onSelect }: CategoriesProps) => {
+  const [scroll, setScroll] = useState(0);
   return (
     <CategoriesBlock>
-      {categories.map((item) => (
-        <Category
-          key={item.name}
-          $active={category === item.name}
-          onClick={() => onSelect(item.name)}
-        >
-          {item.text}
-        </Category>
-      ))}
+      <CategoriesList>
+        {categories.map((item) => (
+          <CategoryItem
+            key={item.name}
+            $active={category === item.name}
+            onClick={() => onSelect(item.name)}
+          >
+            {item.text}
+          </CategoryItem>
+        ))}
+      </CategoriesList>
     </CategoriesBlock>
   );
 };
 
 const CategoriesBlock = styled.div`
-  width: 100%;
-  height: 37px;
-  min-width: 360px;
-  max-width: 430px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 10px;
+  /* width: 100%; */
+  height: 40px;
+  padding: 0 20px;
+  height: 40px;
+  overflow: scroll;
 `;
 
-const Category = styled.div<{ $active?: boolean }>`
+const CategoriesList = styled.ul`
+  width: 500px;
+  display: flex;
   height: inherit;
-  line-height: 40px;
+  transform: translateX(0);
+`;
+
+const CategoryItem = styled.li<{ $active?: boolean }>`
+  background: coral;
+  height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   font-weight: 500;
   font-size: 18px;
+  margin-right: 30px;
   ${(props) =>
     props.$active &&
     css`
