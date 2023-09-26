@@ -1,4 +1,4 @@
-import Image from "next/image";
+import styled, { css } from "styled-components";
 
 interface IntroBackGroundProps {
   imgURL?: string;
@@ -7,5 +7,22 @@ interface IntroBackGroundProps {
 export default function IntroBackGround({
   imgURL = "/default_background.png",
 }: IntroBackGroundProps) {
-  return <Image src={imgURL} width={360} height={138} alt="배경 이미지" />;
+  return <Img $url={imgURL} />;
 }
+
+const Img = styled.div<{ $url: string }>`
+  ${({ $url }) =>
+    $url &&
+    css`
+      background-image: url(${$url});
+    `}
+  height: 138px;
+  min-width: 100%;
+  max-width: 100%;
+
+  img {
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+`;
