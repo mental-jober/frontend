@@ -5,12 +5,9 @@ const HistorySaved = () => {
 };
 
 const Text = styled.span`
-  font-size: 12px;
-  font-weight: 600;
-  color: #9aa8b8;
   text-align: center;
-  line-height: normal;
-  letter-spacing: -0.24px;
+  ${({ theme }) => `${theme.text.caption1.medium} ${theme.textColor.gray[500]}`}
+  font-weight: 600;
 `;
 
 export default HistorySaved;

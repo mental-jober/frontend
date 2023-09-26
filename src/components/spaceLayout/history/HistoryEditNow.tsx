@@ -23,12 +23,9 @@ const Dot = styled.div`
 `;
 
 const Text = styled.span`
-  color: #9aa8b8;
   text-align: center;
-  font-size: 12px;
+  ${({ theme }) => `${theme.text.caption1.medium} ${theme.textColor.gray[500]}`}
   font-weight: 600;
-  line-height: normal;
-  letter-spacing: -0.24px;
 `;
 
 export default HistoryEditNow;
