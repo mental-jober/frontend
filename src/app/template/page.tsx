@@ -9,12 +9,16 @@ import TemplateItem from "@/components/template/TemplateItem";
 import TemplateList from "@/components/template/TemplateList";
 import { useCallback, useEffect, useState } from "react";
 import { styled } from "styled-components";
+
 const TemplatePage = () => {
+  // State
   const [category, setCategory] = useState("all");
   const [tab, setTab] = useState("collection");
   const onSelect = useCallback((category: string) => setCategory(category), []);
   const onSelectTab = useCallback((tabItem: string) => setTab(tabItem), []);
   const [scroll, setScroll] = useState(false);
+
+  // Function
   const onScroll = () => {
     if (window.scrollY > 0) {
       setScroll(true);
@@ -22,14 +26,17 @@ const TemplatePage = () => {
       setScroll(false);
     }
   };
+
   useEffect(() => {
     window.addEventListener("scroll", onScroll);
     return () => {
       window.removeEventListener("scroll", onScroll);
     };
   }, []);
+
+  // Render
   return (
-    <Test>
+    <>
       <HeaderBlock className={scroll ? "scrolled" : ""}>
         <Header />
         <TabList tab={tab} onSelectTab={onSelectTab} />
@@ -49,13 +56,9 @@ const TemplatePage = () => {
         <TemplateItem />
         <TemplateItem />
       </TemplateList>
-    </Test>
+    </>
   );
 };
-
-const Test = styled.div`
-  height: 100vh;
-`;
 
 const HeaderBlock = styled.div`
   width: 100%;
@@ -66,10 +69,9 @@ const HeaderBlock = styled.div`
   top: 0;
   left: 0;
   z-index: 9999;
-  transition: box-shadow 0.3s ease-in-out;
   padding-bottom: 20px;
   &.scrolled {
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    border-bottom: 2px solid #eee;
   }
 `;
 
