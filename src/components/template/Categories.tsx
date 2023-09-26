@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { MouseEvent, useCallback, useRef, useState } from "react";
 import { styled, css } from "styled-components";
 
 const categories = [
@@ -42,9 +42,43 @@ interface CategoriesProps {
 }
 
 const Categories = ({ category, onSelect }: CategoriesProps) => {
+  // State
+  const [isDrag, setIsDrag] = useState(false);
   const [scroll, setScroll] = useState(0);
+  const [clickPoint, setClickPoint] = useState(0);
+
+  // Referrence
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Function
+  const onMouseDown = useCallback((event: MouseEvent) => {
+    setIsDrag(true);
+    if (scrollRef.current) {
+      setClickPoint(event.pageX);
+      setScroll(scrollRef.current.scrollLeft);
+    }
+  }, []);
+  const onMouseMove = useCallback(
+    (event: MouseEvent) => {
+      if (!isDrag) return;
+      event.preventDefault();
+      if (scrollRef.current) {
+        const move = event.pageX - clickPoint;
+        scrollRef.current.scrollLeft = scroll - move;
+      }
+    },
+    [isDrag, clickPoint, scroll],
+  );
+
+  // Render
   return (
-    <CategoriesBlock>
+    <CategoriesBlock
+      ref={scrollRef}
+      onMouseDown={onMouseDown}
+      onMouseLeave={() => setIsDrag(false)}
+      onMouseUp={() => setIsDrag(false)}
+      onMouseMove={onMouseMove}
+    >
       <CategoriesList>
         {categories.map((item) => (
           <CategoryItem
@@ -61,7 +95,6 @@ const Categories = ({ category, onSelect }: CategoriesProps) => {
 };
 
 const CategoriesBlock = styled.div`
-  /* width: 100%; */
   height: 40px;
   padding: 0 20px;
   height: 40px;
@@ -79,7 +112,6 @@ const CategoriesList = styled.ul`
 `;
 
 const CategoryItem = styled.li<{ $active?: boolean }>`
-  background: coral;
   height: inherit;
   display: flex;
   justify-content: center;
