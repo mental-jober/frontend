@@ -1,5 +1,5 @@
-import { useUserStore } from "../store/useUserStore";
 import { client } from "./client";
+import { getAccessTokenCookie } from "../cookies";
 
 type Method = "get" | "post" | "put" | "delete";
 
@@ -19,9 +19,10 @@ export const fetchData = async (
 
 client.interceptors.request.use(
   function (config) {
-    const accessToken = useUserStore.getState().user.accessToken; // 동적으로 토큰을 가져옵니다.
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+    const accessToken = getAccessTokenCookie();
+
+    if (!accessToken) {
+      return config;
     }
     return config;
   },
@@ -38,10 +39,6 @@ client.interceptors.response.use(
     return config;
   },
   function (error) {
-    if (error.response?.status === 401) {
-      // 예: 401 Unauthorized 경우
-      useUserStore.getState().clearUser(); // 사용자 정보를 초기화
-    }
     return Promise.reject(error);
   },
 );

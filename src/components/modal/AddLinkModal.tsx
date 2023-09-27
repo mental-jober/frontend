@@ -14,7 +14,7 @@ const AddLinkModal = ({ isOpen, onCloseModal }: AddLinkModalProps) => {
 
   if (!isOpen) return null;
 
-  const modalClose = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const modalClose = (e: MouseEvent<HTMLDivElement>) => {
     if (e.target === modalRef.current) onCloseModal();
   };
   return (

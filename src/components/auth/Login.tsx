@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { setAccessTokenToCookie, getAccessTokenCookie } from "@/lib/cookies";
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -22,9 +23,12 @@ const Login: React.FC = () => {
         console.log("[로그인성공] : ", response);
         console.log("response.headers: ", response.headers);
         if (response.headers && response.headers["authorization"]) {
+          console.log(response.headers["authorization"]);
           // 추가: headers 확인
           const token = response.headers["authorization"].split(" ")[1];
           console.log("[로그인token] : ", token);
+
+          setAccessTokenToCookie(token);
 
           setUser({
             id: response.data.data.id,
