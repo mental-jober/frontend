@@ -36,19 +36,21 @@ const categories = [
     text: "기타",
   },
 ];
+
 // Interface & Type
 interface CategoriesProps {
   category: string;
   onSelect: (category: string) => void;
 }
 
+// Component
 const Categories = ({ category, onSelect }: CategoriesProps) => {
   // State
   const [isDrag, setIsDrag] = useState(false);
   const [scroll, setScroll] = useState(0);
   const [clickPoint, setClickPoint] = useState(0);
 
-  // Referrence
+  // Reference
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Function
@@ -59,6 +61,7 @@ const Categories = ({ category, onSelect }: CategoriesProps) => {
       setScroll(scrollRef.current.scrollLeft);
     }
   }, []);
+
   const onMouseMove = useCallback(
     (event: MouseEvent) => {
       if (!isDrag) return;
@@ -107,7 +110,7 @@ const CategoriesBlock = styled.div`
 `;
 
 const CategoriesList = styled.ul`
-  width: 500px;
+  width: 570px;
   display: flex;
   height: inherit;
   transform: translateX(0);
@@ -121,7 +124,7 @@ const CategoryItem = styled.li<{ $active?: boolean }>`
   cursor: pointer;
   font-weight: 500;
   font-size: 18px;
-  margin-right: 30px;
+  margin-right: 40px;
   ${(props) =>
     props.$active &&
     css`
