@@ -13,6 +13,7 @@ interface CommonModalProps {
   isOpen: boolean;
   onCloseModal: () => void;
   children: ReactNode;
+  [props: string]: any;
 }
 
 export const AlertCommonModal = ({

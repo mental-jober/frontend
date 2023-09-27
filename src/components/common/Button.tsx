@@ -13,6 +13,7 @@ interface CustomProps {
   $rightbtn?: boolean;
   $disabled?: boolean;
   $templatebtn?: boolean;
+  $invitebtn?: boolean;
 }
 
 const Button = ({ ...props }: ButtonProps) => {
@@ -153,7 +154,7 @@ const StyledButton = styled.button<CustomProps>`
   ${(props) =>
     props.$modalbtn &&
     css`
-      background: ${({ theme }) => theme.button.bgColor};
+      background: ${({ theme }) => theme.color.button.bgColor};
       color: #fff;
     `}
 
@@ -169,6 +170,27 @@ const StyledButton = styled.button<CustomProps>`
       svg {
         font-size: 18px;
       }
+    `}
+
+    ${(props) =>
+    props.$invitebtn &&
+    css`
+      background: ${({ theme }) => theme.color.button.bgColor};
+      display: inline-flex;
+      height: 40px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      border-radius: 5px;
+      ${({ theme }) => theme.textColor.gray[0]};
+      text-align: center;
+      font-family: Pretendard;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      padding: 0;
+      width: 65px;
     `}
 `;
 
