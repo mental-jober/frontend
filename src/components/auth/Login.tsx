@@ -33,8 +33,7 @@ const Login: React.FC = () => {
           });
           setToken(token);
         }
-
-        router.replace("/onboarding");
+        router.replace("/");
       } else {
         // 로그인 실패
       }
