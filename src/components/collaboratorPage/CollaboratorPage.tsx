@@ -2,13 +2,25 @@ import { styled } from "styled-components";
 import Header from "@/components/common/Header";
 import Button from "@/components/common/Button";
 import CustomDropdown from "./CustomDropdown";
+import DeletePermissonModal from "@/components/modal/DeletePermissonModal";
+import ExitPageModal from "../modal/ExitPageModal";
+import useModal from "../../../hooks/UseModalHook";
+import useCustomBack from "../../../hooks/UseCustomBackHook";
 
 const CollaboratorPage = () => {
+  const DeleteModal = useModal();
+  const ExitModal = useModal();
+
+  useCustomBack(() => {
+    ExitModal.onOpenModal();
+  });
+
   const owner = {
     name: "김땡땡",
     email: "땡땡땡@naver.com",
     value: "소유자",
   };
+
   const invited = [
     {
       name: "남기훈",
@@ -32,6 +44,25 @@ const CollaboratorPage = () => {
     },
   ];
 
+  const settings = [
+    { value: "editor", label: "편집자" },
+    { value: "viewer", label: "뷰어" },
+  ];
+
+  const changes = [
+    { value: "editor", label: "편집자" },
+    { value: "viewer", label: "뷰어" },
+    { value: "delete", label: "삭제" },
+  ];
+
+  const onDelete = (label: string) => {
+    console.log("onDelete 호출됨, value:", label);
+    if (label === "삭제") {
+      console.log("모달 열기 시도");
+      DeleteModal.onOpenModal();
+    }
+  };
+
   return (
     <div className="">
       <Header />
@@ -40,7 +71,7 @@ const CollaboratorPage = () => {
         <InputContainer>
           <MixBox>
             <StyledInput type="text" placeholder="Email(자버계정)" />
-            <CustomDropdown />
+            <CustomDropdown items={settings} type="settings" />
           </MixBox>
           <Button $invitebtn="true">초대</Button>
         </InputContainer>
@@ -54,7 +85,13 @@ const CollaboratorPage = () => {
             <Invitee key={index}>
               <InviteeName>{invite.name}</InviteeName>
               <InviteeEmail>{invite.email}</InviteeEmail>
-              <InviteeValue>{invite.value}</InviteeValue>
+              <InviteeValue>
+                <CustomDropdown
+                  items={changes}
+                  type="changes"
+                  onSelect={onDelete}
+                />
+              </InviteeValue>
             </Invitee>
           ))}
         </Members>
@@ -62,6 +99,18 @@ const CollaboratorPage = () => {
           <Button $save="true">저장</Button>
         </BtnContainer>
       </Container>
+      {DeleteModal.isOpen && (
+        <DeletePermissonModal
+          isOpen={DeleteModal.isOpen}
+          onCloseModal={DeleteModal.onCloseModal}
+        />
+      )}
+      {ExitModal.isOpen && (
+        <ExitPageModal
+          isOpen={ExitModal.isOpen}
+          onCloseModal={ExitModal.onCloseModal}
+        />
+      )}
     </div>
   );
 };

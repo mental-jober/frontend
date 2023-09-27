@@ -6,8 +6,22 @@ import {
 import TitleHeader from "./AlertTitleHeader";
 import { ModalProps } from "../../../hooks/UseModalHook";
 import Button from "@/components/common/Button";
+import { usePathname, useRouter } from "next/navigation";
 
 export const ExitPageModal = ({ isOpen, onCloseModal }: ModalProps) => {
+  const router = useRouter();
+  const pathName = usePathname();
+
+  const onStay = () => {
+    onCloseModal();
+  };
+
+  const onExit = () => {
+    if (pathName === "/test") {
+      onCloseModal();
+      router.push("/");
+    }
+  };
   return (
     <>
       <AlertCommonModal isOpen={isOpen} onCloseModal={onCloseModal}>
@@ -16,10 +30,10 @@ export const ExitPageModal = ({ isOpen, onCloseModal }: ModalProps) => {
           text="저장하지 않으면 변경된 내용이 초기화됩니다."
         />
         <ButtonContainer>
-          <Button $leftbtn="true" onClick={() => {}}>
+          <Button $leftbtn="true" onClick={onStay}>
             머무르기
           </Button>
-          <Button $rightbtn="true" onClick={() => {}}>
+          <Button $rightbtn="true" onClick={onExit}>
             나가기
           </Button>
         </ButtonContainer>

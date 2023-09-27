@@ -1,41 +1,71 @@
-import React, { useState, useRef } from "react";
-import styled from "styled-components";
+import React, { useState, useRef, useEffect, MouseEvent } from "react";
+import styled, { css } from "styled-components";
 
 interface ArrowIconProps {
   isOpen: boolean;
 }
 
-const items = [
-  { id: 1, label: "편집자" },
-  { id: 2, label: "뷰어" },
-];
+interface items {
+  value: string;
+  label: string;
+}
 
-function CustomDropdown() {
+interface CustomDropdownProps {
+  items: items[];
+  type?: "settings" | "changes";
+  onSelect?: (value: string) => void;
+}
+
+interface DropdownContainerProps {
+  type?: "settings" | "changes";
+}
+
+const CustomDropdown = ({ items, type, onSelect }: CustomDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
-  const dropdownRef = useRef(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  const toggleDropdown = () => {
+  const toggleDropdown = (e: MouseEvent) => {
+    e.stopPropagation();
     setIsOpen(!isOpen);
   };
 
-  const handleSelectItem = (label: string | null) => {
+  const onClickOutside = (e: globalThis.MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(e.target as Node)
+    ) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", onClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", onClickOutside);
+    };
+  }, []);
+
+  const onSelectItem = (label: string) => {
+    if (onSelect) {
+      onSelect(label);
+    }
     setSelectedItem(label);
     setIsOpen(false);
   };
-
   return (
-    <DropdownContainer ref={dropdownRef}>
-      <DropdownHeader onClick={toggleDropdown}>
+    <DropdownContainer ref={dropdownRef} type={type}>
+      <DropdownHeader onClick={toggleDropdown} type={type}>
         {selectedItem || "선택"}
         <ArrowIcon isOpen={isOpen}>▼</ArrowIcon>
       </DropdownHeader>
       {isOpen && (
-        <DropdownList>
+        <DropdownList type={type}>
           {items.map((item) => (
             <DropdownItem
-              key={item.id}
-              onClick={() => handleSelectItem(item.label)}
+              key={item.value}
+              onClick={() => onSelectItem(item.label)}
+              type={type}
             >
               {item.label}
             </DropdownItem>
@@ -44,16 +74,16 @@ function CustomDropdown() {
       )}
     </DropdownContainer>
   );
-}
+};
 
-const DropdownContainer = styled.div`
+const DropdownContainer = styled.div<DropdownContainerProps>`
   position: relative;
   height: 18px;
   display: flex;
   justify-content: end;
   align-items: center;
   gap: 4px;
-  width: 50px;
+  width: 100%;
   color: #343940;
   text-align: center;
   font-family: Pretendard;
@@ -63,35 +93,67 @@ const DropdownContainer = styled.div`
   line-height: normal;
   letter-spacing: -0.2px;
   margin-right: 10px;
+
+  ${(props) =>
+    props.type === "changes" &&
+    css`
+      height: 30px;
+      gap: 4px;
+      letter-spacing: -0.282px;
+      margin-right: 5px;
+    `}
 `;
 
-const DropdownHeader = styled.div`
+const DropdownHeader = styled.div<DropdownContainerProps>`
   cursor: pointer;
   background-color: transparent;
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 8px;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.22px;
+
+  ${(props) =>
+    props.type === "changes" &&
+    css`
+      color: #343940;
+      text-align: center;
+      font-family: Pretendard;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: -0.28px;
+    `}
 `;
 
 const ArrowIcon = styled.div<ArrowIconProps>`
   transform: ${(props) => (props.isOpen ? "rotate(180deg)" : "rotate(0deg)")};
 `;
 
-const DropdownList = styled.div`
+const DropdownList = styled.div<DropdownContainerProps>`
   position: absolute;
   top: 100%;
   right: 0;
   background: white;
   border: 1px solid #ccc;
   z-index: 10;
+
+  ${(props) => props.type === "changes" && css``}
 `;
 
-const DropdownItem = styled.div`
+const DropdownItem = styled.div<DropdownContainerProps>`
   padding: 5px;
   cursor: pointer;
   &:hover {
     background: #f7f7f7;
+
+    ${(props) => props.type === "changes" && css``}
   }
 `;
 
