@@ -2,7 +2,6 @@ import { create } from "zustand";
 
 interface ComponentData {
   hidden: boolean;
-  title: string;
   content: string;
 }
 
