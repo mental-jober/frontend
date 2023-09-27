@@ -10,8 +10,8 @@ export const fetchData = async (
   reqData?: unknown,
 ) => {
   try {
-    const response = await client({ url, method, data: reqData });
-    return response;
+    const { data } = await client({ url, method, data: reqData });
+    return data;
   } catch (e) {
     console.error(e);
   }
@@ -24,7 +24,6 @@ client.interceptors.request.use(
     if (!accessToken) {
       return config;
     }
-    config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
   },
   function (error) {
@@ -45,11 +44,20 @@ client.interceptors.response.use(
 );
 
 export const loginApi = async (email: string, password: string) => {
-  const requestBody = {
-    email,
-    password,
-  };
-  return fetchData("login", "post", requestBody);
+  try {
+    const requestBody = {
+      email,
+      password,
+    };
+    const res = await client({
+      url: "login",
+      method: "post",
+      data: requestBody,
+    });
+    return res;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 export const signupApi = async (
@@ -63,4 +71,8 @@ export const signupApi = async (
     username,
   };
   return fetchData("join", "post", requestBody);
+};
+
+export const logoutApi = async () => {
+  return fetchData("logout", "post");
 };

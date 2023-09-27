@@ -1,11 +1,11 @@
 "use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useUserStore } from "@/lib/store/useUserStore";
+import { getAccessTokenCookie } from '@/lib/cookies';
 
 const useAuthCheck = (redirectUrl: string = "/auth/login") => {
   const router = useRouter();
-  const accessToken = useUserStore((state) => state.user.accessToken); // Zustand store에서 accessToken 가져오기
+  const accessToken = getAccessTokenCookie(); // Zustand store에서 accessToken 가져오기
 
   useEffect(() => {
     if (!accessToken) {
