@@ -49,7 +49,7 @@ export const loginApi = async (email: string, password: string) => {
     email,
     password,
   };
-  return fetchData("/login", "post", requestBody);
+  return fetchData("login", "post", requestBody);
 };
 
 export const signupApi = async (email: string, password: string, username: string) => {
@@ -58,5 +58,5 @@ export const signupApi = async (email: string, password: string, username: strin
     password,
     username,
   };
-  return fetchData("https://jober-workspace.azurewebsites.net/join", "post", requestBody);
+  return fetchData("join", "post", requestBody);
 };
