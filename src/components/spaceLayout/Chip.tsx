@@ -4,6 +4,8 @@ interface ChipProps {
   name: string;
 }
 
-export default function Chip({ name }: ChipProps) {
+const Chip = ({ name }: ChipProps) => {
   return <PlateIcon isChip name={name}></PlateIcon>;
-}
+};
+
+export default Chip;

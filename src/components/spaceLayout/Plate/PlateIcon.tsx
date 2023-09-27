@@ -7,7 +7,7 @@ interface PlateIconProps {
   isChip?: boolean;
 }
 
-export default function PlateIcon({ name, isChip }: PlateIconProps) {
+const PlateIcon = ({ name, isChip }: PlateIconProps) => {
   const { icon: Comp, bdColor, bgColor } = PLATE_CONFIG[name];
   return (
     <Circle $bdColor={bdColor} $bgColor={bgColor} $isChip={isChip}>
@@ -17,7 +17,7 @@ export default function PlateIcon({ name, isChip }: PlateIconProps) {
       {isChip ? <PlateTitle name={name} /> : null}
     </Circle>
   );
-}
+};
 
 const Circle = styled.div<{
   $bdColor: string;
@@ -43,3 +43,5 @@ const Icon = styled.div`
   align-items: center;
   transform: scale(0.9);
 `;
+
+export default PlateIcon;

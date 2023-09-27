@@ -6,9 +6,9 @@ interface PlateTitleProps {
   name: string;
 }
 
-export default function PlateTitle({ name }: PlateTitleProps) {
+const PlateTitle = ({ name }: PlateTitleProps) => {
   return <Title>{getKRPlateTitle(name)}</Title>;
-}
+};
 
 const Title = styled.span`
   font-size: 10px;
@@ -16,3 +16,4 @@ const Title = styled.span`
   font-style: normal;
   line-height: normal;
 `;
+export default PlateTitle;

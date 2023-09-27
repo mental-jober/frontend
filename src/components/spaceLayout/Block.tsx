@@ -8,7 +8,7 @@ interface BlockProps {
   data: BlockData;
 }
 
-export default function Block({ data }: BlockProps) {
+const Block = ({ data }: BlockProps) => {
   return (
     <BlockLayout>
       <BlockTop name={data.name} />
@@ -16,4 +16,6 @@ export default function Block({ data }: BlockProps) {
       <BlockBottom data={data} />
     </BlockLayout>
   );
-}
+};
+
+export default Block;

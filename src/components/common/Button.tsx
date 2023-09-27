@@ -13,6 +13,7 @@ interface CustomProps {
   $rightbtn?: boolean;
   $disabled?: boolean;
   $templatebtn?: boolean;
+  $invitebtn?: boolean;
 }
 
 const Button = ({ ...props }: ButtonProps) => {
@@ -27,10 +28,6 @@ const StyledButton = styled.button<CustomProps>`
   border: none;
 
   box-shadow: 0px 0px 18px 0px rgba(83, 120, 230, 0.18);
-
-  &:hover {
-    background: ${({ theme }) => theme.color.gray[1]};
-  }
 
   /* props 이름 앞에 $ 명시해야 경고가 뜨지 않습니다! */
   /* $: 임의의 props를 DOM까지 전달하게 만들어줍니다.*/
@@ -109,7 +106,7 @@ const StyledButton = styled.button<CustomProps>`
       ${({ theme }) => theme.text.subHead2.semibold}
     `}
 
-    
+
     // 모달 버튼 두 개 중 왼쪽
   ${(props) =>
     props.$leftbtn &&
@@ -157,7 +154,7 @@ const StyledButton = styled.button<CustomProps>`
   ${(props) =>
     props.$modalbtn &&
     css`
-      background: ${({ theme }) => theme.button.bgColor};
+      background: ${({ theme }) => theme.color.button.bgColor};
       color: #fff;
     `}
 
@@ -173,6 +170,27 @@ const StyledButton = styled.button<CustomProps>`
       svg {
         font-size: 18px;
       }
+    `}
+
+    ${(props) =>
+    props.$invitebtn &&
+    css`
+      background: ${({ theme }) => theme.color.button.bgColor};
+      display: inline-flex;
+      height: 40px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      border-radius: 5px;
+      ${({ theme }) => theme.textColor.gray[0]};
+      text-align: center;
+      font-family: Pretendard;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      padding: 0;
+      width: 65px;
     `}
 `;
 

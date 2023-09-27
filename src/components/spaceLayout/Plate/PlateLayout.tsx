@@ -11,7 +11,7 @@ const onClickPlate = (plate: string) => {
   if (plate) console.log(`${plate}`);
 };
 
-export default function PlateLayout({ children, name }: PlateLayoutProps) {
+const PlateLayout = ({ children, name }: PlateLayoutProps) => {
   return (
     <Wrapper
       onClick={() => {
@@ -21,7 +21,7 @@ export default function PlateLayout({ children, name }: PlateLayoutProps) {
       {children}
     </Wrapper>
   );
-}
+};
 
 const Wrapper = styled.div`
   width: 52px;
@@ -33,10 +33,5 @@ const Wrapper = styled.div`
   flex-direction: column;
   border-radius: 15.659px;
   background-color: #fff;
-  transition: transform 0.1s ease-in-out;
-
-  &:hover {
-    cursor: pointer;
-    transform: scale(1.06);
-  }
 `;
+export default PlateLayout;

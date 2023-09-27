@@ -14,7 +14,7 @@ interface DraggableBlocksProps {
   blockData: BlockData[];
 }
 
-export default function DraggableBlocks({ blockData }: DraggableBlocksProps) {
+const DraggableBlocks = ({ blockData }: DraggableBlocksProps) => {
   const [datas, setDatas] = useState<BlockData[]>(blockData);
 
   const onDragEnd = (result: DropResult) => {
@@ -41,6 +41,10 @@ export default function DraggableBlocks({ blockData }: DraggableBlocksProps) {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                       ref={provided.innerRef}
+                      style={{
+                        marginBottom: "10px",
+                        ...provided.draggableProps.style,
+                      }}
                     >
                       <Block data={data} />
                     </div>
@@ -54,4 +58,6 @@ export default function DraggableBlocks({ blockData }: DraggableBlocksProps) {
       </Droppable>
     </DragDropContext>
   );
-}
+};
+
+export default DraggableBlocks;
