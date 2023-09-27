@@ -3,9 +3,11 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from 'react';
 import LogoutModal from "../modal/LogoutModal";
+import { useUserStore } from '@/lib/store/useUserStore';
 
 const HomeLayout = () => {
   const router = useRouter();
+  const {user} = useUserStore();
   const [isLogoutModalOpen, setLogoutModalOpen] = useState(false);
 
   const toggleLogoutModal = () => {
@@ -58,7 +60,7 @@ const HomeLayout = () => {
             height={47}
           />
         </div>
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center pb-10">
           <Image
             src="/home/logout.svg"
             alt="로그아웃"
@@ -74,7 +76,7 @@ const HomeLayout = () => {
       <div className="w-[210px] flex flex-col bg-white py-[14px] px-[10px]">
         <div className="flex flex-col gap-1 h-[100px] rounded-xl bg-foundation-grey-200 ">
           <div className="flex justify-between bg-foundation-grey-300 rounded-xl">
-            <p className="text1-bold text-white py-2 px-[14px]">Taelim</p>
+            <p className="text1-bold text-white py-2 px-[14px]">{user.username}</p>
             <div className="flex items-center pr-[10px]">
               <Image
                 src="/home/ChevronDown.svg"
