@@ -4,6 +4,9 @@ const accessToken = "";
 
 client.interceptors.request.use(
   function (config) {
+    if (!accessToken) {
+      return config;
+    }
     config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
   },

@@ -1,9 +1,7 @@
-import { useUserStore } from '../store/useUserStore';
 import { client } from "./client";
+import { getAccessTokenCookie } from "../cookies";
 
 type Method = "get" | "post" | "put" | "delete";
-
-const accessToken = useUserStore.getState().user.accessToken;
 
 // 공용 fetch함수
 export const fetchData = async (
@@ -13,7 +11,7 @@ export const fetchData = async (
 ) => {
   try {
     const response = await client({ url, method, data: reqData });
-    return response
+    return response;
   } catch (e) {
     console.error(e);
   }
@@ -21,6 +19,8 @@ export const fetchData = async (
 
 client.interceptors.request.use(
   function (config) {
+    const accessToken = getAccessTokenCookie();
+
     if (!accessToken) {
       return config;
     }
@@ -40,7 +40,7 @@ client.interceptors.response.use(
     return config;
   },
   function (error) {
-    Promise.reject(error);
+    return Promise.reject(error);
   },
 );
 
@@ -52,7 +52,11 @@ export const loginApi = async (email: string, password: string) => {
   return fetchData("login", "post", requestBody);
 };
 
-export const signupApi = async (email: string, password: string, username: string) => {
+export const signupApi = async (
+  email: string,
+  password: string,
+  username: string,
+) => {
   const requestBody = {
     email,
     password,
