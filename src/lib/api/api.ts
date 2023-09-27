@@ -1,9 +1,7 @@
-import { useUserStore } from '../store/useUserStore';
 import { client } from "./client";
+import { getAccessTokenCookie } from "../cookies";
 
 type Method = "get" | "post" | "put" | "delete";
-
-const accessToken = useUserStore.getState().user.accessToken;
 
 // 공용 fetch함수
 export const fetchData = async (
@@ -12,8 +10,8 @@ export const fetchData = async (
   reqData?: unknown,
 ) => {
   try {
-    const response = await client({ url, method, data: reqData });
-    return response
+    const { data } = await client({ url, method, data: reqData });
+    return data;
   } catch (e) {
     console.error(e);
   }
@@ -21,10 +19,11 @@ export const fetchData = async (
 
 client.interceptors.request.use(
   function (config) {
+    const accessToken = getAccessTokenCookie();
+
     if (!accessToken) {
       return config;
     }
-    config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
   },
   function (error) {
@@ -40,23 +39,40 @@ client.interceptors.response.use(
     return config;
   },
   function (error) {
-    Promise.reject(error);
+    return Promise.reject(error);
   },
 );
 
 export const loginApi = async (email: string, password: string) => {
-  const requestBody = {
-    email,
-    password,
-  };
-  return fetchData("login", "post", requestBody);
+  try {
+    const requestBody = {
+      email,
+      password,
+    };
+    const res = await client({
+      url: "login",
+      method: "post",
+      data: requestBody,
+    });
+    return res;
+  } catch (e) {
+    console.error(e);
+  }
 };
 
-export const signupApi = async (email: string, password: string, username: string) => {
+export const signupApi = async (
+  email: string,
+  password: string,
+  username: string,
+) => {
   const requestBody = {
     email,
     password,
     username,
   };
   return fetchData("join", "post", requestBody);
+};
+
+export const logoutApi = async () => {
+  return fetchData("logout", "post");
 };

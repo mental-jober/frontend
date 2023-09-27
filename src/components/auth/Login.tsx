@@ -1,15 +1,13 @@
 "use client";
 import { loginApi } from "@/lib/api/api";
-import { useUserStore } from "@/lib/store/useUserStore";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { setAccessTokenToCookie } from "@/lib/cookies";
 
 const Login: React.FC = () => {
   const router = useRouter();
-  const setUser = useUserStore((state) => state.setUser); // 변경: Zustand store 사용
-  const setToken = useUserStore((state) => state.setToken); // 변경: Zustand store 사용
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,19 +20,14 @@ const Login: React.FC = () => {
         console.log("[로그인성공] : ", response);
         console.log("response.headers: ", response.headers);
         if (response.headers && response.headers["authorization"]) {
+          console.log(response.headers["authorization"]);
           // 추가: headers 확인
           const token = response.headers["authorization"].split(" ")[1];
           console.log("[로그인token] : ", token);
 
-          setUser({
-            id: response.data.data.id,
-            email: response.data.data.email,
-            username: response.data.data.username,
-          });
-          setToken(token);
+          setAccessTokenToCookie(token);
         }
-
-        router.replace("/onboarding");
+        router.replace("/");
       } else {
         // 로그인 실패
       }

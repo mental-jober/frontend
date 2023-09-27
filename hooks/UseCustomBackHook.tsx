@@ -6,7 +6,7 @@ const useCustomBack = (customBack: () => void) => {
 
   useEffect(() => {
     const handlePopstate = (e: PopStateEvent) => {
-      e.preventDefault(); // 기본 동작 방지
+      e.preventDefault();
 
       if (isOpen) {
         onCloseModal();
