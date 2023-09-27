@@ -1,9 +1,7 @@
-import { useUserStore } from '../store/useUserStore';
+import { useUserStore } from "../store/useUserStore";
 import { client } from "./client";
 
 type Method = "get" | "post" | "put" | "delete";
-
-const accessToken = useUserStore.getState().user.accessToken;
 
 // 공용 fetch함수
 export const fetchData = async (
@@ -12,8 +10,8 @@ export const fetchData = async (
   reqData?: unknown,
 ) => {
   try {
-    const response = await client({ url, method, data: reqData });
-    return response
+    const {data} = await client({ url, method, data: reqData });
+    return data;
   } catch (e) {
     console.error(e);
   }
@@ -21,10 +19,10 @@ export const fetchData = async (
 
 client.interceptors.request.use(
   function (config) {
-    if (!accessToken) {
-      return config;
+    const accessToken = useUserStore.getState().user.accessToken; // 동적으로 토큰을 가져옵니다.
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
-    config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
   },
   function (error) {
@@ -40,7 +38,11 @@ client.interceptors.response.use(
     return config;
   },
   function (error) {
-    Promise.reject(error);
+    if (error.response?.status === 401) {
+      // 예: 401 Unauthorized 경우
+      useUserStore.getState().clearUser(); // 사용자 정보를 초기화
+    }
+    return Promise.reject(error);
   },
 );
 
@@ -52,11 +54,19 @@ export const loginApi = async (email: string, password: string) => {
   return fetchData("login", "post", requestBody);
 };
 
-export const signupApi = async (email: string, password: string, username: string) => {
+export const signupApi = async (
+  email: string,
+  password: string,
+  username: string,
+) => {
   const requestBody = {
     email,
     password,
     username,
   };
   return fetchData("join", "post", requestBody);
+};
+
+export const logoutApi = async () => {
+  return fetchData("logout", "post");
 };
