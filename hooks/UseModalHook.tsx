@@ -13,6 +13,7 @@ function useModal() {
   };
 
   const onCloseModal = () => {
+    console.log("onOpenModal 호출됨");
     setIsOpen(false);
   };
 

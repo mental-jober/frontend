@@ -1,16 +1,17 @@
 "use client";
 
-import GetLayoutModal from "@/components/modal/GetLayoutModal";
+/* import GetLayoutModal from "@/components/modal/GetLayoutModal";
 import useModal from "../../../hooks/UseModalHook";
 import NotFoundMemberModal from "@/components/modal/NotFoundMemberModal";
 import ExitPageModal from "@/components/modal/ExitPageModal";
 import DeletePermissonModal from "@/components/modal/DeletePermissonModal";
 import LogoutModal from "@/components/modal/LogoutModal";
 import DeletePageModal from "@/components/modal/DeletePageModal";
-import AddLinkModal from "@/components/modal/AddLinkModal";
+import AddLinkModal from "@/components/modal/AddLinkModal"; */
+import CollaboratorPage from "@/components/collaboratorPage/CollaboratorPage";
 
 const App = () => {
-  const modalConfig = {
+  /*   const modalConfig = {
     NotFound: useModal(),
     Layout: useModal(),
     Exit: useModal(),
@@ -18,11 +19,11 @@ const App = () => {
     Preview: useModal(),
     Logout: useModal(),
     Link: useModal(),
-  };
+  }; */
 
   return (
     <>
-      <div>
+      {/*       <div>
         <button onClick={modalConfig.NotFound.onOpenModal}>
           회원 없음 모달
         </button>
@@ -75,7 +76,8 @@ const App = () => {
           isOpen={modalConfig.Link.isOpen}
           onCloseModal={modalConfig.Link.onCloseModal}
         />
-      </div>
+      </div> */}
+      <CollaboratorPage />
     </>
   );
 };

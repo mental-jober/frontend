@@ -1,15 +1,36 @@
 import { styled } from "styled-components";
 import { GrFormPrevious } from "react-icons/gr";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { ExitPageModal } from "../modal/ExitPageModal";
+import useModal from "../../../hooks/UseModalHook";
 
 const Header = () => {
   const router = useRouter();
+  const pathname = usePathname();
+  const ExitModal = useModal();
+
+  const handleBack = () => {
+    if (pathname === "/space/textEdit") {
+      ExitModal.onOpenModal();
+    } else {
+      router.back();
+    }
+  };
+
   return (
-    <HeaderBlock>
-      <HeaderContent>
-        <GrFormPrevious onClick={() => router.back()} />
-      </HeaderContent>
-    </HeaderBlock>
+    <>
+      <HeaderBlock>
+        <HeaderContent>
+          <GrFormPrevious onClick={handleBack} />
+        </HeaderContent>
+      </HeaderBlock>
+      {ExitModal.isOpen && (
+        <ExitPageModal
+          isOpen={ExitModal.isOpen}
+          onCloseModal={ExitModal.onCloseModal}
+        />
+      )}
+    </>
   );
 };
 
