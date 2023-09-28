@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useRef } from "react";
+import { ReactNode, useRef, MouseEvent } from "react";
 import {
   BtnContainer,
   ModalBox,
@@ -25,7 +25,7 @@ export const AlertCommonModal = ({
 
   if (!isOpen) return null;
 
-  const modalClose = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const modalClose = (e: MouseEvent) => {
     if (e.target === modalRef.current) onCloseModal();
   };
 
