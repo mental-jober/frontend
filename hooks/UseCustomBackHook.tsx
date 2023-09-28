@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import useModal from "./UseModalHook";
+import { useModal } from "./UseModalHook";
 
 const useCustomBack = (customBack: () => void) => {
   const { isOpen, onCloseModal } = useModal();

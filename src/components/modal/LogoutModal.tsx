@@ -5,14 +5,17 @@ import {
   ButtonContainer,
 } from "@/components/modal/CommonModal";
 import TitleHeader from "./AlertTitleHeader";
-import { ModalProps } from "../../../hooks/UseModalHook";
 import Button from "../common/Button";
 import { useRouter } from "next/navigation";
 import { logoutApi } from "@/lib/api/api";
 import { deleteAccessTokenCookie } from "@/lib/cookies";
+import { useModal } from "../../../hooks/UseModalHook";
 
-const LogoutModal = ({ isOpen, onCloseModal }: ModalProps) => {
+const LogoutModal = () => {
+  const { isOpen, onCloseModal, type } = useModal();
   const router = useRouter();
+
+  const isModalOpen = isOpen && type === "Logout";
 
   const handleLogout = async () => {
     try {
@@ -28,7 +31,7 @@ const LogoutModal = ({ isOpen, onCloseModal }: ModalProps) => {
 
   return (
     <>
-      <AlertCommonModal isOpen={isOpen} onCloseModal={onCloseModal}>
+      <AlertCommonModal isOpen={isModalOpen} onCloseModal={onCloseModal}>
         <TitleHeader title="정말 로그아웃 하시겠습니까?" />
         <ButtonContainer>
           <Button
