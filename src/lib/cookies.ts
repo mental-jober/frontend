@@ -1,8 +1,14 @@
 export const setAccessTokenToCookie = (accessToken: string) => {
-  document.cookie = `accessToken=${accessToken}; path=/`;
+  if (typeof window !== "undefined" && document) {
+    document.cookie = `accessToken=${accessToken}; path=/`;
+  }
 };
 
 export const getAccessTokenCookie = () => {
+  if (typeof window === "undefined" || !document) {
+    return null;
+  }
+
   const cookie = document.cookie
     .split("; ")
     .find((cookie) => cookie.split("=")[0] === "accessToken");
@@ -10,9 +16,11 @@ export const getAccessTokenCookie = () => {
 };
 
 export const deleteAccessTokenCookie = () => {
-  const date = new Date();
+  if (typeof window !== "undefined" && document) {
+    const date = new Date();
 
-  const expires = "expires=" + date.toUTCString();
-  const expiresCookie = `accessToken=; ${expires}; path=/`;
-  document.cookie = expiresCookie;
+    const expires = "expires=" + date.toUTCString();
+    const expiresCookie = `accessToken=; ${expires}; path=/`;
+    document.cookie = expiresCookie;
+  }
 };
