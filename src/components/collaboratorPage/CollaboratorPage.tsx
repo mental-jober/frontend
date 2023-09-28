@@ -2,22 +2,17 @@ import { styled } from "styled-components";
 import Header from "@/components/common/Header";
 import Button from "@/components/common/Button";
 import CustomDropdown from "./CustomDropdown";
-import DeletePermissonModal from "@/components/modal/DeletePermissonModal";
-import ExitPageModal from "../modal/ExitPageModal";
-import NotFoundMemberModal from "../modal/NotFoundMemberModal";
-import useModal from "../../../hooks/UseModalHook";
 import useCustomBack from "../../../hooks/UseCustomBackHook";
 import { checkEmail } from "@/lib/api/checkEmailAPI";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useModal } from "../../../hooks/UseModalHook";
 
 const CollaboratorPage = () => {
-  const DeleteModal = useModal();
-  const ExitModal = useModal();
-  const NotFoundModal = useModal();
+  const { onOpenModal } = useModal();
   const [email, setEmail] = useState("");
 
   useCustomBack(() => {
-    ExitModal.onOpenModal();
+    onOpenModal("ExitPage");
   });
 
   const onCheckEmail = async (e: FormEvent) => {
@@ -27,7 +22,7 @@ const CollaboratorPage = () => {
       const response = await checkEmail(email);
 
       if (response === false) {
-        NotFoundModal.onOpenModal();
+        onOpenModal("NotFoundMember");
         return;
       }
     } catch (error) {
@@ -80,10 +75,8 @@ const CollaboratorPage = () => {
   ];
 
   const onDelete = (label: string) => {
-    console.log("onDelete 호출됨, value:", label);
     if (label === "삭제") {
-      console.log("모달 열기 시도");
-      DeleteModal.onOpenModal();
+      onOpenModal("DeletePermission");
     }
   };
 
@@ -134,24 +127,6 @@ const CollaboratorPage = () => {
           <Button $save="true">저장</Button>
         </BtnContainer>
       </Container>
-      {DeleteModal.isOpen && (
-        <DeletePermissonModal
-          isOpen={DeleteModal.isOpen}
-          onCloseModal={DeleteModal.onCloseModal}
-        />
-      )}
-      {ExitModal.isOpen && (
-        <ExitPageModal
-          isOpen={ExitModal.isOpen}
-          onCloseModal={ExitModal.onCloseModal}
-        />
-      )}
-      {NotFoundModal.isOpen && (
-        <NotFoundMemberModal
-          isOpen={NotFoundModal.isOpen}
-          onCloseModal={NotFoundModal.onCloseModal}
-        />
-      )}
     </div>
   );
 };

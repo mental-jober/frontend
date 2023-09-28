@@ -1,27 +1,24 @@
-import { useState } from "react";
+import { create } from "zustand";
 
-export interface ModalProps {
+export type ModalType =
+  | "NotFoundMember"
+  | "DeletePermission"
+  | "ExitPage"
+  | "AddLink"
+  | "DeletePage"
+  | "GetLayout"
+  | "Logout";
+
+interface ModalStore {
+  type: ModalType | null;
   isOpen: boolean;
+  onOpenModal: (type: ModalType) => void;
   onCloseModal: () => void;
 }
 
-function useModal() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const onOpenModal = () => {
-    setIsOpen(true);
-  };
-
-  const onCloseModal = () => {
-    console.log("onOpenModal 호출됨");
-    setIsOpen(false);
-  };
-
-  return {
-    isOpen,
-    onOpenModal,
-    onCloseModal,
-  };
-}
-
-export default useModal;
+export const useModal = create<ModalStore>((set) => ({
+  type: null,
+  isOpen: false,
+  onOpenModal: (type) => set({ isOpen: true, type }),
+  onCloseModal: () => set({ isOpen: false, type: null }),
+}));

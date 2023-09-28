@@ -2,16 +2,16 @@ import { styled } from "styled-components";
 import { GrFormPrevious } from "react-icons/gr";
 import { useRouter, usePathname } from "next/navigation";
 import { ExitPageModal } from "../modal/ExitPageModal";
-import useModal from "../../../hooks/UseModalHook";
+import { useModal } from "../../../hooks/UseModalHook";
 
 const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const ExitModal = useModal();
+  const { onOpenModal } = useModal();
 
   const handleBack = () => {
     if (pathname === "/space/textEdit") {
-      ExitModal.onOpenModal();
+      onOpenModal("ExitPage");
     } else {
       router.back();
     }
@@ -24,12 +24,6 @@ const Header = () => {
           <GrFormPrevious onClick={handleBack} />
         </HeaderContent>
       </HeaderBlock>
-      {ExitModal.isOpen && (
-        <ExitPageModal
-          isOpen={ExitModal.isOpen}
-          onCloseModal={ExitModal.onCloseModal}
-        />
-      )}
     </>
   );
 };
