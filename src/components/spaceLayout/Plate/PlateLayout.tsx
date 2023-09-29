@@ -3,24 +3,10 @@ import styled from "styled-components";
 
 interface PlateLayoutProps {
   children: ReactNode;
-  name: string;
 }
 
-// 완성 후 유틸로 이동
-const onClickPlate = (plate: string) => {
-  if (plate) console.log(`${plate}`);
-};
-
-const PlateLayout = ({ children, name }: PlateLayoutProps) => {
-  return (
-    <Wrapper
-      onClick={() => {
-        onClickPlate(name);
-      }}
-    >
-      {children}
-    </Wrapper>
-  );
+const PlateLayout = ({ children }: PlateLayoutProps) => {
+  return <Wrapper>{children}</Wrapper>;
 };
 
 const Wrapper = styled.div`

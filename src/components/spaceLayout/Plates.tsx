@@ -10,15 +10,25 @@ const Plates = () => {
 };
 
 const renderPlate = (names: string[]) => {
+  // 완성 후 유틸로 이동
+  const onClickPlate = (plate: string) => {
+    if (plate) console.log(`${plate}`);
+  };
+
   return names.map((name) => (
-    <PlateLayout key={name} name={name}>
+    <PlateLayout
+      key={name}
+      onClick={() => {
+        onClickPlate(name);
+      }}
+    >
       <PlateIcon name={name} />
       <PlateTitle name={name} />
     </PlateLayout>
   ));
 };
 
-const PlatesBox = styled.div`
+const PlatesBox = styled.button`
   gap: 8px;
   width: 320px;
   height: 71px;
