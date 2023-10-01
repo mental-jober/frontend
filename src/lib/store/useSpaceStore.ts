@@ -1,12 +1,13 @@
 import { create } from "zustand";
 
 export interface SpaceData {
+  createMember: number;
   url: string;
   title: string;
   description: string;
-  profile_image_url: string;
-  background_image_url: string;
-  path_ids: string;
+  profileImageUrl: string;
+  backgroundImageUrl: string;
+  pathIds: string;
   authorized: boolean;
   sequence: number;
 }
@@ -14,9 +15,17 @@ export interface SpaceData {
 interface useSpaceStore {
   datas: Record<string, SpaceData>;
   addData: (id: number, DataData: SpaceData) => void;
-  editData: (id: number, newData: Partial<SpaceData>) => void;
   deleteData: (id: number) => void;
   getData: (id: number) => SpaceData | null;
+  getValue: <K extends keyof SpaceData>(
+    id: number,
+    property: K,
+  ) => SpaceData[K] | null;
+  setValue: <K extends keyof SpaceData>(
+    id: number,
+    property: K,
+    newValue: SpaceData[K],
+  ) => void;
 }
 
 const useSpaceStore = create<useSpaceStore>((set, get) => ({
@@ -31,18 +40,6 @@ const useSpaceStore = create<useSpaceStore>((set, get) => ({
     }));
   },
 
-  editData: (id, editedData) => {
-    set((state) => ({
-      datas: {
-        ...state.datas,
-        [id]: {
-          ...state.datas[id],
-          ...editedData,
-        },
-      },
-    }));
-  },
-
   deleteData: (id) => {
     set((state) => {
       const { [id]: _, ...datas } = state.datas;
@@ -52,6 +49,23 @@ const useSpaceStore = create<useSpaceStore>((set, get) => ({
 
   getData: (id) => {
     return id in get().datas ? get().datas[id] : null;
+  },
+
+  getValue: (id, property) => {
+    const data = get().datas[id];
+    return data ? data[property] : null;
+  },
+
+  setValue: (id, property, newValue) => {
+    set((state) => ({
+      datas: {
+        ...state.datas,
+        [id]: {
+          ...state.datas[id],
+          [property]: newValue,
+        },
+      },
+    }));
   },
 }));
 
