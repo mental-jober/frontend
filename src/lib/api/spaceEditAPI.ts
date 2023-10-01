@@ -1,7 +1,10 @@
-import { SpaceData } from "../store/useSpaceStore";
 import { fetchData } from "./api";
 
-export const createSpace = async (spaceData: SpaceData) => {
+interface NewSpaceData {
+  parentId: number;
+}
+
+export const createSpace = async (spaceData: NewSpaceData) => {
   const res = await fetchData("newspaces", "post", spaceData);
   console.log(res);
   return res;
