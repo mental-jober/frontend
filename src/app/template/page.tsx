@@ -7,6 +7,7 @@ import Search from "@/components/template/Search";
 import TabList from "@/components/template/TabList";
 import TemplateItem from "@/components/template/TemplateItem";
 import TemplateList from "@/components/template/TemplateList";
+import { getTemplate } from "@/lib/api/templateAPI";
 import { useCallback, useEffect, useState } from "react";
 import { styled } from "styled-components";
 
@@ -27,6 +28,11 @@ const TemplatePage = () => {
     }
   };
 
+  const getTemplateData = useCallback(async () => {
+    const type = "전체";
+    await getTemplate(type);
+  }, []);
+
   useEffect(() => {
     window.addEventListener("scroll", onScroll);
     return () => {
@@ -34,6 +40,9 @@ const TemplatePage = () => {
     };
   }, []);
 
+  useEffect(() => {
+    getTemplateData();
+  }, [getTemplateData]);
 
   // Render
   return (
