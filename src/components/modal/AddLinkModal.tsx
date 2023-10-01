@@ -1,22 +1,23 @@
-import { useRef } from "react";
+import { useRef, MouseEvent } from "react";
 import styled from "styled-components";
 import { PiX } from "react-icons/pi";
 import Button from "@/components/common/Button";
 import { ModalClose, ModalContainer, ModalOverlay } from "./ModalParts";
+import { useModal } from "../../../hooks/UseModalHook";
 
-interface AddLinkModalProps {
-  isOpen: boolean;
-  onCloseModal: () => void;
-}
+const AddLinkModal = () => {
+  const { isOpen, onCloseModal, type } = useModal();
 
-const AddLinkModal = ({ isOpen, onCloseModal }: AddLinkModalProps) => {
+  const isModalOpen = isOpen && type === "AddLink";
+
   const modalRef = useRef(null);
 
-  if (!isOpen) return null;
+  if (!isModalOpen) return null;
 
-  const modalClose = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const modalClose = (e: MouseEvent) => {
     if (e.target === modalRef.current) onCloseModal();
   };
+
   return (
     <>
       <ModalContainer>

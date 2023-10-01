@@ -4,12 +4,16 @@ import {
   ButtonContainer,
 } from "@/components/modal/CommonModal";
 import TitleHeader from "./AlertTitleHeader";
-import { ModalProps } from "../../../hooks/UseModalHook";
 import Button from "../common/Button";
+import { useModal } from "../../../hooks/UseModalHook";
 
-export const DeletePermissonModal = ({ isOpen, onCloseModal }: ModalProps) => {
+export const DeletePermissonModal = () => {
+  const { isOpen, onCloseModal, type } = useModal();
+
+  const isModalOpen = isOpen && type === "DeletePermission";
+
   return (
-    <AlertCommonModal isOpen={isOpen} onCloseModal={onCloseModal}>
+    <AlertCommonModal isOpen={isModalOpen} onCloseModal={onCloseModal}>
       <TitleHeader
         title="권한 삭제"
         text="이 계정에 대한 권한을 삭제하시겠습니까?"

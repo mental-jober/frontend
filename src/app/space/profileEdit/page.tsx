@@ -12,7 +12,7 @@ const ProfileEditPage = () => {
   const [profileImage, setProfileImage] = useState("");
   const inputFileRef = useRef<HTMLInputElement>(null);
 
-  const handleImageClick = () => {
+  const onImageClick = () => {
     if (inputFileRef.current) {
       inputFileRef.current.click();
     }
@@ -58,7 +58,7 @@ const ProfileEditPage = () => {
             ref={inputFileRef}
           />
 
-          <div onClick={handleImageClick} className="cursor-pointer h-0">
+          <button onClick={onImageClick} className="cursor-pointer h-0 w-0 p-0">
             <Image
               src="/edit_icon.png"
               width={36}
@@ -66,7 +66,7 @@ const ProfileEditPage = () => {
               alt="편집"
               className="rounded-full border border-white relative top-[-36px] left-12 cursor-pointer"
             />
-          </div>
+          </button>
         </div>
 
         <div>

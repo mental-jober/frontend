@@ -6,8 +6,10 @@ const accessToken =
 
 client.interceptors.request.use(
   function (config) {
-    config.headers["Content-Type"] = "application/json";
-    config.headers["Authorization"] = `Bearer ${accessToken}`;
+    if (!accessToken) {
+      return config;
+    }
+    config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
   },
   function (error) {

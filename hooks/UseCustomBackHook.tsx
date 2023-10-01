@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import useModal from "./UseModalHook";
+import { useModal } from "./UseModalHook";
 
 const useCustomBack = (customBack: () => void) => {
   const { isOpen, onCloseModal } = useModal();
 
   useEffect(() => {
     const handlePopstate = (e: PopStateEvent) => {
-      e.preventDefault(); // 기본 동작 방지
+      e.preventDefault();
 
       if (isOpen) {
         onCloseModal();

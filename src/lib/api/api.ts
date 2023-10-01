@@ -1,4 +1,5 @@
 import { client } from "./client";
+import { getAccessTokenCookie } from "../cookies";
 
 type Method = "get" | "post" | "put" | "delete";
 
@@ -16,7 +17,63 @@ export const fetchData = async (
   }
 };
 
-// fetchData 사용예시
-export const exampleApi = () => {
-  return fetchData("/template", "get");
+client.interceptors.request.use(
+  function (config) {
+    const accessToken = getAccessTokenCookie();
+
+    if (!accessToken) {
+      return config;
+    }
+    config.headers.Authorization = `Bearer ${accessToken}`;
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  },
+);
+
+client.interceptors.response.use(
+  function (config) {
+    if (config.status === 404) {
+      console.log("404 Not Found");
+    }
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  },
+);
+
+export const loginApi = async (email: string, password: string) => {
+  try {
+    const requestBody = {
+      email,
+      password,
+    };
+    const res = await client({
+      url: "login",
+      method: "post",
+      data: requestBody,
+    });
+    return res;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const signupApi = async (
+  email: string,
+  password: string,
+  username: string,
+) => {
+  const requestBody = {
+    email,
+    password,
+    username,
+  };
+  return fetchData("join", "post", requestBody);
+};
+
+export const logoutApi = async () => {
+  return fetchData("logout", "post");
 };

@@ -2,18 +2,37 @@ import { styled } from "styled-components";
 import Header from "@/components/common/Header";
 import Button from "@/components/common/Button";
 import CustomDropdown from "./CustomDropdown";
-import DeletePermissonModal from "@/components/modal/DeletePermissonModal";
-import ExitPageModal from "../modal/ExitPageModal";
-import useModal from "../../../hooks/UseModalHook";
 import useCustomBack from "../../../hooks/UseCustomBackHook";
+import { checkEmail } from "@/lib/api/checkEmailAPI";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { useModal } from "../../../hooks/UseModalHook";
 
 const CollaboratorPage = () => {
-  const DeleteModal = useModal();
-  const ExitModal = useModal();
+  const { onOpenModal } = useModal();
+  const [email, setEmail] = useState("");
 
   useCustomBack(() => {
-    ExitModal.onOpenModal();
+    onOpenModal("ExitPage");
   });
+
+  const onCheckEmail = async (e: FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await checkEmail(email);
+
+      if (response === false) {
+        onOpenModal("NotFoundMember");
+        return;
+      }
+    } catch (error) {
+      console.error("이메일 체크 중 오류 발생:", error);
+    }
+  };
+
+  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
 
   const owner = {
     name: "김땡땡",
@@ -56,10 +75,8 @@ const CollaboratorPage = () => {
   ];
 
   const onDelete = (label: string) => {
-    console.log("onDelete 호출됨, value:", label);
     if (label === "삭제") {
-      console.log("모달 열기 시도");
-      DeleteModal.onOpenModal();
+      onOpenModal("DeletePermission");
     }
   };
 
@@ -68,13 +85,24 @@ const CollaboratorPage = () => {
       <Header />
       <Container>
         <PageHeadline>공동 작업자 추가</PageHeadline>
-        <InputContainer>
-          <MixBox>
-            <StyledInput type="text" placeholder="Email(자버계정)" />
-            <CustomDropdown items={settings} type="settings" />
-          </MixBox>
-          <Button $invitebtn="true">초대</Button>
-        </InputContainer>
+        <form onSubmit={onCheckEmail}>
+          <InputContainer>
+            <MixBox>
+              <StyledInput
+                type="text"
+                placeholder="Email(자버계정)"
+                value={email}
+                onChange={onEmailChange}
+                required
+              />
+              <CustomDropdown items={settings} type="settings" />
+            </MixBox>
+
+            <Button $invitebtn="true" type="submit">
+              초대
+            </Button>
+          </InputContainer>
+        </form>
         <Members>
           <Owner>
             <OwnerName> {owner.name}</OwnerName>
@@ -99,18 +127,6 @@ const CollaboratorPage = () => {
           <Button $save="true">저장</Button>
         </BtnContainer>
       </Container>
-      {DeleteModal.isOpen && (
-        <DeletePermissonModal
-          isOpen={DeleteModal.isOpen}
-          onCloseModal={DeleteModal.onCloseModal}
-        />
-      )}
-      {ExitModal.isOpen && (
-        <ExitPageModal
-          isOpen={ExitModal.isOpen}
-          onCloseModal={ExitModal.onCloseModal}
-        />
-      )}
     </div>
   );
 };

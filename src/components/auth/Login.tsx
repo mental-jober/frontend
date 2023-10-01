@@ -1,20 +1,39 @@
 "use client";
+import { loginApi } from "@/lib/api/api";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { setAccessTokenToCookie } from "@/lib/cookies";
 
 const Login: React.FC = () => {
   const router = useRouter();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    router.push("/");
-    // 여기에 백엔드 로그인 API 호출 로직을 추가
-    // 예: const response = await loginApi(email, password);
-    // if (response.success) router.push('/dashboard');
+    try {
+      const response = await loginApi(email, password);
+
+      if (response && response.status === 200) {
+        console.log("[로그인성공] : ", response);
+        console.log("response.headers: ", response.headers);
+        if (response.headers && response.headers["authorization"]) {
+          console.log(response.headers["authorization"]);
+          // 추가: headers 확인
+          const token = response.headers["authorization"].split(" ")[1];
+          console.log("[로그인token] : ", token);
+
+          setAccessTokenToCookie(token);
+        }
+        router.replace("/");
+      } else {
+        // 로그인 실패
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -48,6 +67,15 @@ const Login: React.FC = () => {
           로그인
         </button>
       </form>
+      <div className="text2-medium mt-3">
+        로그인 또는
+        <Link
+          href={"/auth/signup"}
+          className="ml-1 underline underline-offset-1"
+        >
+          회원가입
+        </Link>
+      </div>
     </div>
   );
 };
