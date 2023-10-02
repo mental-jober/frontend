@@ -1,4 +1,3 @@
-import React from "react";
 import { AlertCommonModal } from "@/components/modal/CommonModal";
 import TitleHeader from "./AlertTitleHeader";
 import Button from "@/components/common/Button";

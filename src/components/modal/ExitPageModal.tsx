@@ -1,4 +1,3 @@
-import React from "react";
 import {
   AlertCommonModal,
   ButtonContainer,
@@ -8,7 +7,7 @@ import Button from "@/components/common/Button";
 import { usePathname, useRouter } from "next/navigation";
 import { useModal } from "../../../hooks/UseModalHook";
 
-export const ExitPageModal = () => {
+const ExitPageModal = () => {
   const router = useRouter();
   const pathName = usePathname();
   const { isOpen, onCloseModal, type } = useModal();
