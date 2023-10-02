@@ -6,7 +6,7 @@ import TextEditor from "@/components/textEditor/FroalaTextEditor";
 import ToastUi from "@/components/toast/ToastUi";
 import { componentsSave } from "@/lib/api/componentsSaveAPI";
 import { froalaEditorStore, useToastStore } from "@/lib/store/store.module";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const TextEditPage = () => {
   const { text } = froalaEditorStore();
@@ -14,23 +14,9 @@ const TextEditPage = () => {
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
 
   const { showToast } = useToastStore();
-
-  useEffect(() => {
-    const saveInterval = setInterval(() => {
-      showToast("자동 저장 중...");
-    }, 10000);
-
-    return () => clearInterval(saveInterval);
-  }, [showToast]);
-
-  useEffect(() => {
-    setIsBtnDisabled(!text || text === prevText);
-  }, [text, prevText]);
-
-  const onSave = async () => {
+  const onSave = useCallback(async () => {
     if (!text) {
-      alert("내용이 비었습니다.");
-      return;
+      return false;
     }
 
     const componentTempId = 7;
@@ -44,13 +30,27 @@ const TextEditPage = () => {
 
     try {
       await componentsSave(componentTempId, params);
-      showToast("성공적으로 저장되었습니다.");
       setPrevText(text);
     } catch (error) {
       showToast("저장에 실패했습니다. 다시 시도해주세요.");
       console.error("error:", error);
     }
-  };
+  }, [text, showToast]);
+
+  useEffect(() => {
+    const autoSave = setInterval(async () => {
+      const isSaved = await onSave();
+      if (isSaved) {
+        showToast("자동 저장 중입니다.");
+      }
+    }, 10000);
+
+    return () => clearInterval(autoSave);
+  }, [showToast, onSave]);
+
+  useEffect(() => {
+    setIsBtnDisabled(!text || text === prevText);
+  }, [text, prevText]);
 
   return (
     <>
