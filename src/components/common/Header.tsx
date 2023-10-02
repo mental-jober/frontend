@@ -1,7 +1,6 @@
 import { styled } from "styled-components";
 import { GrFormPrevious } from "react-icons/gr";
 import { useRouter, usePathname } from "next/navigation";
-import { ExitPageModal } from "../modal/ExitPageModal";
 import { useModal } from "../../../hooks/UseModalHook";
 
 const Header = () => {

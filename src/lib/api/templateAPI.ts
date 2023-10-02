@@ -1,6 +1,8 @@
+import { getAccessTokenCookie } from "../cookies";
+import { fetchData } from "./api";
 import { client } from "./client";
 
-const accessToken = "";
+const accessToken = getAccessTokenCookie();
 
 client.interceptors.request.use(
   function (config) {
@@ -26,3 +28,17 @@ client.interceptors.response.use(
     Promise.reject(error);
   },
 );
+
+function encode(keyword: string) {
+  const rLang = /[ㄱ-ㅎ | ㅏ-ㅣ | 가-힣]/;
+  if (keyword.match(rLang)) {
+    const encodeKeyword = encodeURI(keyword);
+    return encodeKeyword;
+  } else {
+    return keyword;
+  }
+}
+
+export function getTemplate(type: string) {
+  return fetchData(`/templates?type=${encode(type)}`, "get");
+}

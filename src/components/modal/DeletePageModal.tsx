@@ -1,4 +1,3 @@
-import React from "react";
 import {
   AlertCommonModal,
   ButtonContainer,
@@ -7,7 +6,7 @@ import TitleHeader from "./AlertTitleHeader";
 import Button from "../common/Button";
 import { useModal } from "../../../hooks/UseModalHook";
 
-export const DeletePageModal = () => {
+const DeletePageModal = () => {
   const { isOpen, onCloseModal, type } = useModal();
 
   const isModalOpen = isOpen && type === "DeletePage";

@@ -1,4 +1,3 @@
-import React from "react";
 import {
   AlertCommonModal,
   ButtonContainer,
@@ -7,10 +6,18 @@ import TitleHeader from "./AlertTitleHeader";
 import Button from "../common/Button";
 import { useModal } from "../../../hooks/UseModalHook";
 
-export const DeletePermissonModal = () => {
-  const { isOpen, onCloseModal, type } = useModal();
+const DeletePermissonModal = () => {
+  const { isOpen, onCloseModal, type, data } = useModal();
 
   const isModalOpen = isOpen && type === "DeletePermission";
+
+  const onDeleteConfirm = () => {
+    if (data?.onDeleteConfirm) {
+      data.onDeleteConfirm();
+    }
+
+    onCloseModal();
+  };
 
   return (
     <AlertCommonModal isOpen={isModalOpen} onCloseModal={onCloseModal}>
@@ -19,10 +26,10 @@ export const DeletePermissonModal = () => {
         text="이 계정에 대한 권한을 삭제하시겠습니까?"
       />
       <ButtonContainer>
-        <Button $leftbtn="true" onClick={() => {}}>
+        <Button $leftbtn="true" onClick={onCloseModal}>
           취소
         </Button>
-        <Button $rightbtn="true" onClick={() => {}}>
+        <Button $rightbtn="true" onClick={onDeleteConfirm}>
           삭제하기
         </Button>
       </ButtonContainer>

@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 /* import { useState } from "react";
@@ -9,7 +10,7 @@ import { useModal } from "../../../hooks/UseModalHook";
 const HomeLayout = () => {
   const router = useRouter();
   /*   const {user} = useUserStore(); */
-  /*  const [isLogoutModalOpen, setLogoutModalOpen] = useState(false); */
+  /* const [isLogoutModalOpen, setLogoutModalOpen] = useState(false); */
   const { onOpenModal } = useModal();
 
   const toggleLogoutModal = () => {
@@ -187,7 +188,7 @@ const HomeLayout = () => {
 
       {/* 우측 배경색 부분 */}
       <div className="flex-1 bg-zinc-500"></div>
-      {/*  <LogoutModal /> */}
+      {/* <LogoutModal /> */}
     </div>
   );
 };

@@ -23,6 +23,7 @@ const LogoutModal = () => {
       // if (response?.status === 200) {
       // }
       deleteAccessTokenCookie();
+      onCloseModal();
       router.push("/auth/login"); // 로그인 페이지로 이동
     } catch (e) {
       console.error(e);

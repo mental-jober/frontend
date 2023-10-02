@@ -1,8 +1,7 @@
+import { ButtonHTMLAttributes } from "react";
 import { css, styled } from "styled-components";
 
-interface ButtonProps {
-  [props: string]: any;
-}
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
 interface CustomProps {
   $normal?: boolean;
