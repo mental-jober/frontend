@@ -1,11 +1,19 @@
 import { fetchData } from "./api";
 
 interface NewSpaceData {
-  parentId: number;
+  parentSpaceWallId: number | null;
+}
+
+interface NewBlockData {
+  parentSpaceWallTempId: number;
+  type: string;
+  sequence: number;
 }
 
 export const createSpace = async (spaceData: NewSpaceData) => {
-  const res = await fetchData("newspaces", "post", spaceData);
-  console.log(res);
-  return res;
+  return await fetchData("new-spaces", "post", spaceData);
+};
+
+export const createBlock = async (blockData: NewBlockData) => {
+  return await fetchData("componentTemps/new", "post", blockData);
 };
