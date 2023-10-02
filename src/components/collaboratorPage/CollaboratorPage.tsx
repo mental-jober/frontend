@@ -1,82 +1,157 @@
+"use client";
+
 import { styled } from "styled-components";
 import Header from "@/components/common/Header";
 import Button from "@/components/common/Button";
 import CustomDropdown from "./CustomDropdown";
 import useCustomBack from "../../../hooks/UseCustomBackHook";
 import { checkEmail } from "@/lib/api/checkEmailAPI";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { useModal } from "../../../hooks/UseModalHook";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { MemberType, useModal } from "../../../hooks/UseModalHook";
+import { checkMembers, memberCRUD } from "@/lib/api/memberAPI";
 
 const CollaboratorPage = () => {
   const { onOpenModal } = useModal();
   const [email, setEmail] = useState("");
+  const [owner, setOwner] = useState<MemberType | null>(null);
+  const [inviteeMember, setInviteeMember] = useState<MemberType[]>([]);
+  const [auths, setAuths] = useState("");
+
+  const settings = [
+    { value: "EDITOR", label: "편집자" },
+    { value: "VIEWER", label: "뷰어" },
+  ];
+
+  const changes = [
+    { value: "EDITOR", label: "편집자" },
+    { value: "VIEWER", label: "뷰어" },
+    { value: "DELETE", label: "삭제" },
+  ];
+
+  useEffect(() => {
+    const CheckeMembers = async () => {
+      try {
+        const response = await checkMembers(3);
+
+        let foundOwner: MemberType | null = null;
+        const foundInvitees: MemberType[] = [];
+
+        response.data.forEach((member: MemberType) => {
+          if (member.auths === "OWNER" && foundOwner === null) {
+            foundOwner = member;
+          } else {
+            foundInvitees.push(member);
+          }
+        });
+
+        if (foundOwner) {
+          setOwner(foundOwner);
+        }
+
+        if (foundInvitees) {
+          setInviteeMember(foundInvitees);
+        }
+      } catch (error) {
+        console.error("멤버 조회 중 오류 발생:", error);
+      }
+    };
+    CheckeMembers();
+  }, []);
 
   useCustomBack(() => {
     onOpenModal("ExitPage");
   });
 
-  const onCheckEmail = async (e: FormEvent) => {
+  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const onAuthsChange = (selectedAuths: string) => {
+    setAuths(selectedAuths);
+  };
+
+  const updateMembers = async (newMember?: {
+    email: string;
+    auths: string;
+  }) => {
+    try {
+      const allMembers = [
+        ...inviteeMember.map((member) => ({
+          email: member.email,
+          auths: member.auths,
+        })),
+      ];
+
+      if (newMember) {
+        allMembers.push(newMember);
+      }
+
+      if (owner) {
+        allMembers.push({ email: owner.email, auths: owner.auths });
+      }
+
+      await memberCRUD(3, allMembers);
+    } catch (error) {
+      console.error("멤버 정보 업데이트 중 오류 발생:", error);
+    }
+  };
+
+  const onChangeMember = async (e: FormEvent) => {
     e.preventDefault();
 
     try {
       const response = await checkEmail(email);
 
       if (response === false) {
+        setEmail("");
         onOpenModal("NotFoundMember");
         return;
       }
+
+      if (response === true) {
+        await updateMembers({ email, auths });
+      }
     } catch (error) {
-      console.error("이메일 체크 중 오류 발생:", error);
+      console.error("멤버 정보 변경 중 오류 발생:", error);
     }
   };
 
-  const onEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+  const onSaveChanges = async () => {
+    await updateMembers();
   };
 
-  const owner = {
-    name: "김땡땡",
-    email: "땡땡땡@naver.com",
-    value: "소유자",
+  const onDelete = (vlaue: string, deleteUsername: string) => {
+    if (vlaue === "DELETE") {
+      const modalData = {
+        onDeleteConfirm: () => {
+          setInviteeMember((members) => {
+            const updatedInviteeMembers = members.filter(
+              (member) => member.username !== deleteUsername,
+            );
+            return updatedInviteeMembers;
+          });
+        },
+      };
+      onOpenModal("DeletePermission", modalData);
+    }
   };
 
-  const invited = [
-    {
-      name: "남기훈",
-      email: "adfd@naver.com",
-      value: "편집자",
-    },
-    {
-      name: "배지환",
-      email: "adfd@naver.com",
-      value: "뷰어",
-    },
-    {
-      name: "배지환",
-      email: "adfd@naver.com",
-      value: "편집자",
-    },
-    {
-      name: "배지환",
-      email: "adfd@naver.com",
-      value: "뷰어",
-    },
-  ];
-
-  const settings = [
-    { value: "editor", label: "편집자" },
-    { value: "viewer", label: "뷰어" },
-  ];
-
-  const changes = [
-    { value: "editor", label: "편집자" },
-    { value: "viewer", label: "뷰어" },
-    { value: "delete", label: "삭제" },
-  ];
-
-  const onDelete = (label: string) => {
-    if (label === "삭제") {
-      onOpenModal("DeletePermission");
+  const onChangeAuths = (value: string, username: string) => {
+    if (value === "DELETE") {
+      onDelete(value, username);
+    } else {
+      setInviteeMember((members) => {
+        const updatedMembers = members.map((member) => {
+          if (member.username === username) {
+            return {
+              ...member,
+              auths: value,
+            };
+          }
+          return member;
+        });
+        return updatedMembers;
+      });
     }
   };
 
@@ -85,7 +160,7 @@ const CollaboratorPage = () => {
       <Header />
       <Container>
         <PageHeadline>공동 작업자 추가</PageHeadline>
-        <form onSubmit={onCheckEmail}>
+        <form onSubmit={onChangeMember}>
           <InputContainer>
             <MixBox>
               <StyledInput
@@ -95,7 +170,11 @@ const CollaboratorPage = () => {
                 onChange={onEmailChange}
                 required
               />
-              <CustomDropdown items={settings} type="settings" />
+              <CustomDropdown
+                items={settings}
+                type="settings"
+                onSelect={onAuthsChange}
+              />
             </MixBox>
 
             <Button $invitebtn="true" type="submit">
@@ -105,26 +184,41 @@ const CollaboratorPage = () => {
         </form>
         <Members>
           <Owner>
-            <OwnerName> {owner.name}</OwnerName>
-            <OwnerEmail>{owner.email}</OwnerEmail>
-            <OwnerValue>{owner.value}</OwnerValue>
+            {owner && (
+              <>
+                <OwnerName> {owner.username}</OwnerName>
+                <OwnerEmail>{owner.email}</OwnerEmail>
+                <OwnerValue>{owner.auths === "OWNER" && "소유자"}</OwnerValue>
+              </>
+            )}
           </Owner>
-          {invited.map((invite, index) => (
-            <Invitee key={index}>
-              <InviteeName>{invite.name}</InviteeName>
+          {inviteeMember.map((invite) => (
+            <Invitee key={invite.id}>
+              <InviteeName>{invite.username}</InviteeName>
               <InviteeEmail>{invite.email}</InviteeEmail>
               <InviteeValue>
                 <CustomDropdown
                   items={changes}
                   type="changes"
-                  onSelect={onDelete}
+                  onSelect={(value) => onChangeAuths(value, invite.username)}
+                  initialValue={
+                    invite.auths === "OWNER"
+                      ? "소유자"
+                      : invite.auths === "EDITOR"
+                      ? "편집자"
+                      : invite.auths === "VIEWER"
+                      ? "뷰어"
+                      : "선택"
+                  }
                 />
               </InviteeValue>
             </Invitee>
           ))}
         </Members>
         <BtnContainer>
-          <Button $save="true">저장</Button>
+          <Button $save="true" onClick={onSaveChanges}>
+            저장
+          </Button>
         </BtnContainer>
       </Container>
     </div>
