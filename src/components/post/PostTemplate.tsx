@@ -4,9 +4,9 @@ import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
 
-const TemplateView = () => {
+const PostTemplate = () => {
   return (
-    <TemplateViewPageBlock>
+    <PostTemplateBlock>
       <ContentList>
         <a>제목</a>
         <a>내용</a>
@@ -16,11 +16,11 @@ const TemplateView = () => {
           <a>작성하기</a>
         </StyledLink>
       </Link>
-    </TemplateViewPageBlock>
+    </PostTemplateBlock>
   );
 };
 
-const TemplateViewPageBlock = styled.div`
+const PostTemplateBlock = styled.div`
   display: flex;
   width: 320px;
   padding: 16px 2px 4px 2px;
@@ -84,4 +84,4 @@ const StyledLink = styled.button`
   }
 `;
 
-export default TemplateView;
+export default PostTemplate;
