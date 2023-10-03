@@ -1,10 +1,6 @@
 import React, { useState, useRef, useEffect, MouseEvent } from "react";
 import styled, { css } from "styled-components";
 
-interface ArrowIconProps {
-  isOpen: boolean;
-}
-
 interface items {
   value: string;
   label: string;
@@ -13,16 +9,22 @@ interface items {
 interface CustomDropdownProps {
   items: items[];
   type?: "settings" | "changes";
-  onSelect?: (value: string) => void;
+  onSelect?: (label: string) => void;
+  initialValue?: string | null;
 }
 
 interface DropdownContainerProps {
   type?: "settings" | "changes";
 }
 
-const CustomDropdown = ({ items, type, onSelect }: CustomDropdownProps) => {
+const CustomDropdown = ({
+  items,
+  type,
+  onSelect,
+  initialValue = null,
+}: CustomDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<string | null>(initialValue);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const toggleDropdown = (e: MouseEvent) => {
@@ -46,25 +48,26 @@ const CustomDropdown = ({ items, type, onSelect }: CustomDropdownProps) => {
     };
   }, []);
 
-  const onSelectItem = (label: string) => {
+  const onSelectItem = (value: string, label: string) => {
     if (onSelect) {
-      onSelect(label);
+      onSelect(value);
     }
     setSelectedItem(label);
     setIsOpen(false);
   };
+
   return (
     <DropdownContainer ref={dropdownRef} type={type}>
       <DropdownHeader onClick={toggleDropdown} type={type}>
         {selectedItem || "선택"}
-        <ArrowIcon isOpen={isOpen}>▼</ArrowIcon>
+        {isOpen ? <ArrowIconOpen>▼</ArrowIconOpen> : <ArrowIcon>▼</ArrowIcon>}
       </DropdownHeader>
       {isOpen && (
         <DropdownList type={type}>
           {items.map((item) => (
             <DropdownItem
               key={item.value}
-              onClick={() => onSelectItem(item.label)}
+              onClick={() => onSelectItem(item.value, item.label)}
               type={type}
             >
               {item.label}
@@ -131,9 +134,12 @@ const DropdownHeader = styled.div<DropdownContainerProps>`
       letter-spacing: -0.28px;
     `}
 `;
+const ArrowIcon = styled.div`
+  transform: rotate(0deg);
+`;
 
-const ArrowIcon = styled.div<ArrowIconProps>`
-  transform: ${(props) => (props.isOpen ? "rotate(180deg)" : "rotate(0deg)")};
+const ArrowIconOpen = styled.div`
+  transform: rotate(180deg);
 `;
 
 const DropdownList = styled.div<DropdownContainerProps>`

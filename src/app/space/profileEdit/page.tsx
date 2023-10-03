@@ -2,9 +2,7 @@
 
 import { MyTextInput, SpaceNameInput } from "@/components/textArea/TextArea";
 import Button from "@/components/common/Button";
-
 import Image from "next/image";
-
 import { ChangeEvent, useRef, useState } from "react";
 import Header from "@/components/common/Header";
 
