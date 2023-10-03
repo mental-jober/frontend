@@ -1,26 +1,28 @@
+"use client";
+
 import styled from "styled-components";
 import { PiTrash } from "react-icons/pi";
 import Chip from "../Chip";
 import ToggleSwitch from "@/components/common/ToggleSwitch";
 import { useState } from "react";
-import { BlockData } from "../SpaceProject";
+import { ComponentData } from "@/lib/store/useComponentStore";
 
 interface BlockBottomProps {
-  data: BlockData;
+  data: ComponentData;
 }
 
 const BlockBottom = ({ data }: BlockBottomProps) => {
-  const [isHidden, setIsHidden] = useState<boolean>(data.hidden);
+  const [isHidden, setIsHidden] = useState<boolean>(data.visible);
 
   return (
     <Bottom>
-      <Chip name={data.name} />
+      <Chip name={data.type} />
       <BotRight>
         <StyledTrashIcon onClick={() => {}} />
         <ToggleSwitch
           checked={!isHidden}
           onChange={() => {
-            console.log(data.id, isHidden);
+            console.log(data.componentTempId, isHidden);
             setIsHidden((prev) => !prev);
           }}
         />
