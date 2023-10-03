@@ -11,6 +11,14 @@ import { getTemplate } from "@/lib/api/templateAPI";
 import { useCallback, useEffect, useState } from "react";
 import { styled } from "styled-components";
 
+export interface Data {
+  title: string;
+  id?: number;
+  description: string;
+  hashtags: string[];
+  thumbnailUrl?: null;
+}
+
 const TemplatePage = () => {
   // State
   const [category, setCategory] = useState("all");
@@ -18,6 +26,7 @@ const TemplatePage = () => {
   const onSelect = useCallback((category: string) => setCategory(category), []);
   const onSelectTab = useCallback((tabItem: string) => setTab(tabItem), []);
   const [scroll, setScroll] = useState(false);
+  const [data, setData] = useState([]);
 
   // Function
   const onScroll = () => {
@@ -28,9 +37,11 @@ const TemplatePage = () => {
     }
   };
 
-  const getTemplateData = useCallback(async () => {
-    const type = "전체";
-    await getTemplate(type);
+  const fetchTempData = useCallback(async () => {
+    await getTemplate().then((res) => {
+      console.log(res.data.content);
+      setData(res.data.content);
+    });
   }, []);
 
   useEffect(() => {
@@ -41,8 +52,11 @@ const TemplatePage = () => {
   }, []);
 
   useEffect(() => {
-    getTemplateData();
-  }, [getTemplateData]);
+    fetchTempData();
+    return () => {
+      fetchTempData();
+    };
+  }, [fetchTempData]);
 
   // Render
   return (
@@ -61,10 +75,14 @@ const TemplatePage = () => {
       </HeaderBlock>
       {tab === "collection" ? <HeaderMargin /> : <MyTemplateMargin />}
       <TemplateList>
-        <TemplateItem />
-        <TemplateItem />
-        <TemplateItem />
-        <TemplateItem />
+        {data.map((item: Data) => (
+          <TemplateItem
+            key={item.id}
+            title={item.title}
+            description={item.description}
+            hashtags={item.hashtags}
+          />
+        ))}
       </TemplateList>
     </>
   );
