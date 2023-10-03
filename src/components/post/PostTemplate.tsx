@@ -4,26 +4,35 @@ import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
 
+// TODO : 이름 바꾸기
 const PostTemplate = () => {
   return (
-    <PostTemplateBlock>
-      <ContentList>
-        <a>제목</a>
-        <a>내용</a>
-      </ContentList>
-      <Link href="/space/profileConfirm">
-        <StyledLink>
-          <a>작성하기</a>
-        </StyledLink>
-      </Link>
-    </PostTemplateBlock>
+    <PostTemplateLayout>
+      <PostTemplateBlock>
+        <ContentList>
+          <span>제목</span>
+          <span>내용</span>
+        </ContentList>
+        <StyledLink href="/space/profileConfirm">작성하기</StyledLink>
+      </PostTemplateBlock>
+    </PostTemplateLayout>
   );
 };
 
+const PostTemplateLayout = styled.div`
+  width: 100%;
+  max-width: 430px;
+  min-width: 360px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+`;
+
 const PostTemplateBlock = styled.div`
   display: flex;
-  width: 320px;
-  padding: 16px 2px 4px 2px;
+  width: 100%;
+  padding: 16px;
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
@@ -40,48 +49,29 @@ const ContentList = styled.div`
   align-items: flex-start;
   margin-bottom: 28px;
   align-self: stretch;
-  a {
+  span {
     color: #000;
-    font-family: Pretendard;
     font-size: 14px;
-    font-style: normal;
     font-weight: 700;
     line-height: normal;
     display: flex;
-    width: 194px;
-    height: 19px;
     flex-direction: column;
     justify-content: center;
   }
 `;
 
-const StyledLink = styled.button`
-  width: 272px;
+const StyledLink = styled(Link)`
+  width: 100%;
   height: 32px;
   display: flex;
   justify-content: center;
-  align-self: stretch;
-  padding: var(--space-2, 8px) var(--space-1, 4px);
-  justify-content: center;
+  align-items: center;
   border-radius: 30px;
   background: var(--foundation-blue-300, #2593fc);
-  align-items: center;
-  text-align: center;
-  gap: var(--space-1, 4px);
-  margin-left: 22px;
-  margin-right: 22px;
-  margin-bottom: 16px;
-  align-self: stretch;
-  a {
-    color: var(--900, #fff);
-    text-align: center;
-    font-family: Pretendard;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 140%; /* 16.8px */
-    letter-spacing: -0.096px;
-  }
+  color: var(--900, #fff);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.1px;
 `;
 
 export default PostTemplate;
