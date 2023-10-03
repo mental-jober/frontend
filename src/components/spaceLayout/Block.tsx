@@ -1,17 +1,19 @@
+"use client";
+
 import BlockLayout from "./block/BlockLayout";
 import BlockTop from "./block/BlockTop";
 import BlockBottom from "./block/BlockBottom";
 import BlockMiddleLine from "./block/BlockMiddleLine";
-import { BlockData } from "./SpaceProject";
+import { ComponentData } from "@/lib/store/useComponentStore";
 
 interface BlockProps {
-  data: BlockData;
+  data: ComponentData;
 }
 
 const Block = ({ data }: BlockProps) => {
   return (
     <BlockLayout>
-      <BlockTop name={data.name} />
+      <BlockTop name={data.type} />
       <BlockMiddleLine />
       <BlockBottom data={data} />
     </BlockLayout>

@@ -1,3 +1,5 @@
+import useSpaceStore from "@/lib/store/useSpaceStore";
+import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
@@ -5,6 +7,8 @@ const IntroProjectText = () => {
   const [text, setText] = useState<string>("제목을 입력해주세요");
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const { spaceWallId } = useSpaceWallStore();
+  const { getValue, setValue } = useSpaceStore();
 
   const onClickText = () => {
     setIsEditing(true);
@@ -16,12 +20,17 @@ const IntroProjectText = () => {
     }
   }, [isEditing]);
 
-  const onBlurInput = () => {
+  const onEditComplete = () => {
     setIsEditing(false);
+    if (getValue(spaceWallId as number, "title") !== text) {
+      setValue(spaceWallId as number, "title", text);
+    }
   };
 
-  const onEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-    e.key === "Enter" && setIsEditing(false);
+  const onEnterDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onEditComplete();
+    }
   };
 
   const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,8 +44,8 @@ const IntroProjectText = () => {
           <TextInput
             type="text"
             value={text === "제목을 입력해주세요" ? "" : text}
-            onBlur={onBlurInput}
-            onKeyDown={onEnter}
+            onBlur={onEditComplete}
+            onKeyDown={onEnterDown}
             onChange={onChangeInput}
             ref={inputRef}
           />

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   DragDropContext,
   Droppable,
@@ -8,14 +8,18 @@ import {
   DropResult,
 } from "react-beautiful-dnd";
 import Block from "./Block";
-import { BlockData } from "./SpaceProject";
+import { ComponentData } from "@/lib/store/useComponentStore";
 
 interface DraggableBlocksProps {
-  blockData: BlockData[];
+  blockData: ComponentData[];
 }
 
 const DraggableBlocks = ({ blockData }: DraggableBlocksProps) => {
-  const [datas, setDatas] = useState<BlockData[]>(blockData);
+  const [datas, setDatas] = useState<ComponentData[]>(blockData);
+
+  useEffect(() => {
+    setDatas(blockData);
+  }, [blockData]);
 
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
@@ -35,7 +39,11 @@ const DraggableBlocks = ({ blockData }: DraggableBlocksProps) => {
           <div {...provided.droppableProps} ref={provided.innerRef}>
             {datas.map((data, idx) => (
               <>
-                <Draggable key={data.id} draggableId={data.id} index={idx}>
+                <Draggable
+                  key={data.componentTempId}
+                  draggableId={data.componentTempId.toString()}
+                  index={idx}
+                >
                   {(provided) => (
                     <div
                       {...provided.draggableProps}

@@ -18,7 +18,7 @@ const renderPlate = (names: string[]) => {
   ));
 };
 
-const PlatesBox = styled.div`
+const PlatesBox = styled.button`
   gap: 8px;
   width: 320px;
   height: 71px;

@@ -1,57 +1,61 @@
 import { create } from "zustand";
 
-interface ComponentData {
-  hidden: boolean;
-  title: string;
-  content: string;
-}
-
-interface SpaceData {
-  id: number;
+export interface SpaceData {
+  url: string;
   title: string;
   description: string;
-  img: string;
-  path: number;
+  profileImageUrl: string;
+  backgroundImageUrl: string;
+  componentList: [];
+  createMemberId: number;
+  pathIds: string;
+  authorized: boolean;
   sequence: number;
-  components: {
-    [key: number]: ComponentData;
-  };
+  createdAt: string;
+  updatedAt: string;
 }
 
-interface useSpaceStore {
+interface SpaceStore {
   datas: Record<string, SpaceData>;
-  addData: (id: number, DataData: SpaceData) => void;
-  editData: (id: number, newData: Partial<SpaceData>) => void;
+  addData: (id: number, DataData?: SpaceData) => void;
   deleteData: (id: number) => void;
   getData: (id: number) => SpaceData | null;
-  editComponent: (
-    dataId: number,
-    componentId: number,
-    componentData: ComponentData,
+  getValue: <K extends keyof SpaceData>(
+    id: number,
+    property: K,
+  ) => SpaceData[K] | null;
+  setValue: <K extends keyof SpaceData>(
+    id: number,
+    property: K,
+    newValue: SpaceData[K],
   ) => void;
-  getComponent: (dataId: number, componentId: number) => ComponentData | null;
 }
 
-const useSpaceStore = create<useSpaceStore>((set, get) => ({
+const useSpaceStore = create<SpaceStore>((set, get) => ({
   datas: {},
 
   addData: (id, newData) => {
+    if (!newData) {
+      newData = {
+        url: "",
+        title: "",
+        description: "",
+        profileImageUrl: "",
+        backgroundImageUrl: "",
+        componentList: [],
+        createMemberId: 0,
+        pathIds: "",
+        authorized: false,
+        sequence: 0,
+        createdAt: "",
+        updatedAt: "",
+      };
+    }
+
     set((state) => ({
       datas: {
         ...state.datas,
         [id]: newData,
-      },
-    }));
-  },
-
-  editData: (id, editedData) => {
-    set((state) => ({
-      datas: {
-        ...state.datas,
-        [id]: {
-          ...state.datas[id],
-          ...editedData,
-        },
       },
     }));
   },
@@ -67,35 +71,21 @@ const useSpaceStore = create<useSpaceStore>((set, get) => ({
     return id in get().datas ? get().datas[id] : null;
   },
 
-  editComponent: (dataId, componentId, componentData) => {
-    set((state) => {
-      const data = state.datas[dataId];
-      if (data && data.components[componentId]) {
-        const newData = {
-          ...data,
-          components: {
-            ...data.components,
-            [componentId]: {
-              ...data.components[componentId],
-              ...componentData,
-            },
-          },
-        };
-
-        return {
-          datas: {
-            ...state.datas,
-            [dataId]: newData,
-          },
-        };
-      }
-      return state;
-    });
+  getValue: (id, property) => {
+    const data = get().datas[id];
+    return data ? data[property] : null;
   },
 
-  getComponent: (dataId, componentId) => {
-    const data = get().datas[dataId];
-    return data ? data.components[componentId] : null;
+  setValue: (id, property, newValue) => {
+    set((state) => ({
+      datas: {
+        ...state.datas,
+        [id]: {
+          ...state.datas[id],
+          [property]: newValue,
+        },
+      },
+    }));
   },
 }));
 
