@@ -145,21 +145,30 @@ const ArrowIconOpen = styled.div`
 const DropdownList = styled.div<DropdownContainerProps>`
   position: absolute;
   top: 100%;
+  width: 50px;
   right: 0;
   background: white;
   border: 1px solid #ccc;
   z-index: 10;
 
-  ${(props) => props.type === "changes" && css``}
+  ${(props) =>
+    props.type === "changes" &&
+    css`
+      width: 70px;
+    `}
 `;
 
 const DropdownItem = styled.div<DropdownContainerProps>`
+  height: 34px;
   padding: 5px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
   &:hover {
-    background: #f7f7f7;
-
-    ${(props) => props.type === "changes" && css``}
+    background: #2593fc;
+    color: #fff;
   }
 `;
 

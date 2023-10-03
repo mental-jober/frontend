@@ -74,7 +74,7 @@ const ProfileEditPage = () => {
           <MyTextInput />
 
           <div className="flexable mt-6">
-            <Button $confirm="true" type="submit">
+            <Button $confirm type="submit">
               저장
             </Button>
           </div>
