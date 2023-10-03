@@ -3,8 +3,9 @@ import Button from "../common/Button";
 import { PiHeart, PiHeartFill } from "react-icons/pi";
 import { MdOutlineSearch } from "react-icons/md";
 import { useState } from "react";
+import { Data } from "@/app/template/page";
 
-const TemplateItem = () => {
+const TemplateItem = ({ title, description, hashtags }: Data) => {
   const [toggle, setToggle] = useState(false);
   const onClick = () => {
     setToggle((toggle) => !toggle);
@@ -12,15 +13,11 @@ const TemplateItem = () => {
   return (
     <TemplateItemBlock>
       <ContentWrapper>
-        <h2>제목</h2>
-        {/* Todo: p태그 자동 줄바꿈 문제 */}
-        <p>
-          여기는 설명이 들어가는 곳입니다. <br />
-          최대 두줄까지 들어갈 수 있습니다.
-        </p>
+        <h2>{title}</h2>
+        <p>{description}</p>
         <HashTag>
-          <span>#사내공문</span>
-          <span>#공지사항</span>
+          <span>#{hashtags[0]}</span>
+          {hashtags[1] ? <span>#{hashtags[1]}</span> : null}
         </HashTag>
       </ContentWrapper>
       <ButtonWrapper>
@@ -53,13 +50,17 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   gap: 8px;
   h2 {
-    font-size: 20px;
+    width: 220px;
+    font-size: 16px;
     font-weight: 700;
   }
   p {
+    width: 220px;
     font-size: 14px;
     color: #747e8a;
     font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
   }
 `;
 
@@ -107,6 +108,7 @@ const Heart = styled(PiHeart)`
 const HeartFill = styled(PiHeartFill)`
   color: red;
   animation: activeHeart 0.3s normal;
+  filter: drop-shadow(0 0 2px red);
   @keyframes activeHeart {
     0% {
       transform: none;

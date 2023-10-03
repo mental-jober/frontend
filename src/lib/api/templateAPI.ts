@@ -21,6 +21,8 @@ client.interceptors.response.use(
   function (config) {
     if (config.status === 404) {
       console.log("404 Not Found");
+    } else if (config.status === 500) {
+      console.log("500 Internal Server Error");
     }
     return config;
   },
@@ -29,16 +31,6 @@ client.interceptors.response.use(
   },
 );
 
-function encode(keyword: string) {
-  const rLang = /[ㄱ-ㅎ | ㅏ-ㅣ | 가-힣]/;
-  if (keyword.match(rLang)) {
-    const encodeKeyword = encodeURI(keyword);
-    return encodeKeyword;
-  } else {
-    return keyword;
-  }
-}
-
-export function getTemplate(type: string) {
-  return fetchData(`/templates?type=${encode(type)}`, "get");
+export function getTemplate() {
+  return fetchData(`/templates`, "get");
 }
