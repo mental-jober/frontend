@@ -1,12 +1,37 @@
+import { createBlock } from "@/lib/api/spaceEditAPI";
+import useComponentStore from "@/lib/store/useComponentStore";
+import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
 import { ReactNode } from "react";
 import styled from "styled-components";
 
 interface PlateLayoutProps {
   children: ReactNode;
+  name: string;
 }
 
-const PlateLayout = ({ children }: PlateLayoutProps) => {
-  return <Wrapper>{children}</Wrapper>;
+const PlateLayout = ({ children, name }: PlateLayoutProps) => {
+  const { spaceWallId } = useSpaceWallStore();
+  const { getSpaceComponents, setSpaceComponents } = useComponentStore();
+  const onClickPlate = async (plate: string) => {
+    if (spaceWallId) {
+      const blockData = {
+        parentSpaceWallTempId: 3, /// 원래는 spaceWallId를 넣어야함
+        type: plate,
+        sequence: Object.values(getSpaceComponents(spaceWallId)).length,
+      };
+      const { data } = await createBlock(blockData);
+      setSpaceComponents(spaceWallId, data.componentTempId, data);
+    }
+  };
+  return (
+    <Wrapper
+      onClick={() => {
+        onClickPlate(name);
+      }}
+    >
+      {children}
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.div`
