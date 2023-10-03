@@ -19,10 +19,10 @@ const GetLayoutModal = () => {
           text={`레이아웃을 적용하면 입력된 내용이 삭제됩니다.\n이 레이아웃을 적용하시겠습니까?`}
         />
         <ButtonContainer>
-          <Button $leftbtn="true" onClick={() => {}}>
+          <Button $leftbtn onClick={() => {}}>
             취소
           </Button>
-          <Button $rightbtn="true" onClick={() => {}}>
+          <Button $rightbtn onClick={() => {}}>
             적용하기
           </Button>
         </ButtonContainer>

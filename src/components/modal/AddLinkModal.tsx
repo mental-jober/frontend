@@ -49,7 +49,7 @@ const AddLinkModal = () => {
               </AddLinkModalLinkBox>
             </AddLinkModalForm>
             <BtnContainer>
-              <Button $save="true" type="submit" onClick={() => {}}>
+              <Button $save type="submit" onClick={() => {}}>
                 저장하기
               </Button>
             </BtnContainer>

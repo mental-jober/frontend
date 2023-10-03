@@ -15,7 +15,7 @@ interface CustomProps {
   $invitebtn?: boolean;
 }
 
-const Button = ({ ...props }: ButtonProps) => {
+const Button = ({ ...props }: ButtonProps & CustomProps) => {
   return <StyledButton {...props} />;
 };
 
