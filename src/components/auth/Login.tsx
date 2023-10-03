@@ -5,9 +5,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { setAccessTokenToCookie } from "@/lib/cookies";
+import { useUserStore } from "@/lib/store/useUserStore";
 
 const Login: React.FC = () => {
   const router = useRouter();
+  const { setUser } = useUserStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,10 +17,12 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       const response = await loginApi(email, password);
-
       if (response && response.status === 200) {
         console.log("[로그인성공] : ", response);
         console.log("response.headers: ", response.headers);
+        const { id, email, username } = response.data.data;
+        const userData = { id, email, username };
+        setUser(userData);
         if (response.headers && response.headers["authorization"]) {
           console.log(response.headers["authorization"]);
           // 추가: headers 확인

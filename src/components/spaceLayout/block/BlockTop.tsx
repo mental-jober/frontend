@@ -1,3 +1,5 @@
+"use client";
+
 import styled from "styled-components";
 import { PiDotsSixVertical, PiCaretRight } from "react-icons/pi";
 import BlockCont from "./BlockCont";
