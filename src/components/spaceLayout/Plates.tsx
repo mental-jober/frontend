@@ -10,18 +10,8 @@ const Plates = () => {
 };
 
 const renderPlate = (names: string[]) => {
-  // 완성 후 유틸로 이동
-  const onClickPlate = (plate: string) => {
-    if (plate) console.log(`${plate}`);
-  };
-
   return names.map((name) => (
-    <PlateLayout
-      key={name}
-      onClick={() => {
-        onClickPlate(name);
-      }}
-    >
+    <PlateLayout key={name} name={name}>
       <PlateIcon name={name} />
       <PlateTitle name={name} />
     </PlateLayout>
