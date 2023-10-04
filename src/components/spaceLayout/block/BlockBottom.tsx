@@ -31,7 +31,6 @@ const BlockBottom = ({ data }: BlockBottomProps) => {
         <ToggleSwitch
           checked={!visible}
           onChange={() => {
-            console.log(data.componentTempId, visible);
             setComponentValue(
               spaceWallId as number,
               data.componentTempId,
@@ -39,7 +38,7 @@ const BlockBottom = ({ data }: BlockBottomProps) => {
               !data.visible,
             );
             setVisible((prev) => !prev);
-            console.log(data);
+            console.log(data.componentTempId, data.visible);
           }}
         />
       </BotRight>
