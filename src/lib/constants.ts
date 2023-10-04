@@ -67,6 +67,7 @@ type CardType = {
   title: string;
   description: string;
   fileName: string;
+  composition: PlateName[];
 };
 
 type CardData = {
@@ -81,17 +82,67 @@ export const CARD_DATA: CardData = {
       description:
         "이름, 설명, 링크, 자기소개, 학업, 수상내역, 업적, 경력, 장단점 소개, 포트폴리오 첨부",
       fileName: "profile_example_resume.png",
+      composition: [
+        "cont",
+        "link",
+        "cont",
+        "line",
+        "cont",
+        "line",
+        "page",
+        "page",
+        "cont",
+        "line",
+        "page",
+        "page",
+        "cont",
+        "line",
+        "cont",
+        "line",
+        "temp",
+      ],
     },
     {
       title: "회사소개",
       description: "회사명, 회사소개, 연혁, 경력 등",
       fileName: "profile_example_company.png",
+      composition: [
+        "cont",
+        "link",
+        "cont",
+        "line",
+        "cont",
+        "line",
+        "cont",
+        "cont",
+        "cont",
+        "line",
+        "link",
+        "link",
+        "link",
+        "temp",
+        "page",
+        "page",
+        "line",
+        "temp",
+        "page",
+      ],
     },
     {
       title: "제품 소개",
       description:
         "제품 설명, 구매 신청서가 포함되어 있는 공동구매 신청 페이지 레이아웃 입니다.",
       fileName: "profile_example_product.png",
+      composition: [
+        "cont",
+        "line",
+        "cont",
+        "line",
+        "cont",
+        "line",
+        "temp",
+        "page",
+      ],
     },
   ],
   프로젝트형: [
@@ -100,18 +151,45 @@ export const CARD_DATA: CardData = {
       description:
         "프로젝트 설명, 참여 신청서가 포함되어 있는 사이드 프로젝트 페이지를 만들어보세요!",
       fileName: "project_example_sideproject.png",
+      composition: [
+        "cont",
+        "line",
+        "cont",
+        "line",
+        "cont",
+        "page",
+        "line",
+        "temp",
+      ],
     },
     {
       title: "이벤트 소개",
       description:
         "자버의 레이아웃을 활용해서 나만의 이벤트 페이지를 만들어보세요!",
       fileName: "project_example_event.png",
+      composition: [
+        "cont",
+        "page",
+        "line",
+        "cont",
+        "line",
+        "cont",
+        "temp",
+        "line",
+        "cont",
+        "temp",
+        "temp",
+        "line",
+        "page",
+        "page",
+      ],
     },
     {
       title: "세미나 주최",
       description:
         "자버의 레이아웃을 활용해서 나만의 세미나 신청 페이지를 만들어보세요!",
       fileName: "project_example_seminar.png",
+      composition: ["cont", "link", "line", "temp", "temp", "page"],
     },
   ],
 };
