@@ -8,7 +8,10 @@ import {
   DropResult,
 } from "react-beautiful-dnd";
 import Block from "./Block";
-import { ComponentData } from "@/lib/store/useComponentStore";
+import useComponentStore, {
+  ComponentData,
+} from "@/lib/store/useComponentStore";
+import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
 
 interface DraggableBlocksProps {
   blockData: ComponentData[];
@@ -16,10 +19,25 @@ interface DraggableBlocksProps {
 
 const DraggableBlocks = ({ blockData }: DraggableBlocksProps) => {
   const [datas, setDatas] = useState<ComponentData[]>(blockData);
+  const { replaceSpaceComponents, getSpaceComponents } = useComponentStore();
+  const { spaceWallId } = useSpaceWallStore();
 
   useEffect(() => {
     setDatas(blockData);
   }, [blockData]);
+
+  // 적용시 dnd 이전 상태로 돌아가버리는 문제
+
+  // useEffect(() => {
+  //   datas.forEach((component) => {
+  //     setComponentValue(
+  //       spaceWallId as number,
+  //       component.componentTempId,
+  //       "sequence",
+  //       component.sequence,
+  //     );
+  //   });
+  // }, [datas, setComponentValue, spaceWallId]);
 
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
@@ -28,8 +46,16 @@ const DraggableBlocks = ({ blockData }: DraggableBlocksProps) => {
     const updatedDatas = [...datas];
     const [reorderedDatas] = updatedDatas.splice(source.index, 1);
     updatedDatas.splice(destination.index, 0, reorderedDatas);
+    const reorderdComponents = Object.values(updatedDatas).map(
+      (reorderedComponent, index) => {
+        return { ...reorderedComponent, sequence: index };
+      },
+    );
+    setDatas(reorderdComponents);
+    replaceSpaceComponents(spaceWallId as number, reorderdComponents);
+    console.log(getSpaceComponents(spaceWallId as number));
 
-    setDatas(updatedDatas);
+    console.log(reorderdComponents);
   };
 
   return (

@@ -6,33 +6,34 @@ import BlockCont from "./BlockCont";
 import BlockTemp from "./BlockTemp";
 import BlockPage from "./BlockPage";
 import BlockLink from "./BlockLink";
+import { ComponentData } from "@/lib/store/useComponentStore";
 
 interface BlockTopProps {
-  name: string;
+  data: ComponentData;
 }
 
-const BlockTop = ({ name }: BlockTopProps) => {
+const BlockTop = ({ data }: BlockTopProps) => {
   return (
     <Top>
       <StyledDragDots />
-      <ContentArea>{renderBlockContent({ name })}</ContentArea>
+      <ContentArea>{renderBlockContent({ data })}</ContentArea>
       <StyledArrow />
     </Top>
   );
 };
 
-const renderBlockContent = ({ name }: BlockTopProps) => {
-  switch (name) {
+const renderBlockContent = ({ data }: BlockTopProps) => {
+  switch (data.type) {
     case "cont":
-      return <BlockCont />;
+      return <BlockCont content={data.content} />;
     case "temp":
-      return <BlockTemp />;
+      return <BlockTemp content={data.content} />;
     case "line":
       return <Line />;
     case "page":
-      return <BlockPage />;
+      return <BlockPage content={data.content} />;
     case "link":
-      return <BlockLink />;
+      return <BlockLink content={data.content} />;
   }
 };
 
