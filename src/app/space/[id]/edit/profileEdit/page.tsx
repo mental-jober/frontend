@@ -5,10 +5,15 @@ import Button from "@/components/common/Button";
 import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";
 import Header from "@/components/common/Header";
+import { handleUpload } from "@/lib/api/cloudinary";
+import { profileStore } from "@/lib/store/store.module";
+import { useRouter } from "next/navigation";
 
 const ProfileEditPage = () => {
   const [profileImage, setProfileImage] = useState("");
+  const { setProfileUrl } = profileStore();
   const inputFileRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const onImageClick = () => {
     if (inputFileRef.current) {
@@ -16,8 +21,11 @@ const ProfileEditPage = () => {
     }
   };
 
-  const onImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
+  const onImageUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+    let imageUrl = null;
+
     const file = event.target.files && event.target.files[0];
+
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -26,9 +34,24 @@ const ProfileEditPage = () => {
       };
       reader.readAsDataURL(file);
 
-      const formData = new FormData();
-      formData.append("profileImage", file);
+      try {
+        const response = await handleUpload(file);
+
+        if (response?.status === 200) {
+          const data = response.data;
+          imageUrl = data.url;
+          setProfileUrl(imageUrl);
+        }
+      } catch (error) {
+        console.error("업로드 실패:", error);
+        imageUrl = null;
+      }
     }
+    return imageUrl;
+  };
+
+  const onSave = () => {
+    router.push("/");
   };
 
   return (
@@ -74,7 +97,7 @@ const ProfileEditPage = () => {
           <MyTextInput />
 
           <div className="flexable mt-6">
-            <Button $confirm type="submit">
+            <Button $confirm onClick={onSave}>
               저장
             </Button>
           </div>
