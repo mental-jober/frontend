@@ -18,10 +18,10 @@ const DeletePageModal = () => {
         text={`해당 페이지를 정말로 삭제하시겠습니까?\n페이지 복구는 불가합니다.`}
       />
       <ButtonContainer>
-        <Button $leftbtn="true" onClick={() => {}}>
+        <Button $leftbtn onClick={() => {}}>
           취소
         </Button>
-        <Button $rightbtn="true" onClick={() => {}}>
+        <Button $rightbtn onClick={() => {}}>
           삭제하기
         </Button>
       </ButtonContainer>

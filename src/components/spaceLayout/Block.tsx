@@ -13,7 +13,7 @@ interface BlockProps {
 const Block = ({ data }: BlockProps) => {
   return (
     <BlockLayout>
-      <BlockTop name={data.type} />
+      <BlockTop data={data} />
       <BlockMiddleLine />
       <BlockBottom data={data} />
     </BlockLayout>

@@ -1,24 +1,28 @@
-"use client";
-import { useCallback, useEffect } from "react";
+// "use client";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { deleteAccessTokenCookie, getAccessTokenCookie } from "@/lib/cookies";
 import { tokenCheck } from "@/lib/api/tokenCheckAPI";
 
 const useAuthCheck = (redirectUrl: string = "/auth/login") => {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const router = useRouter();
-  const accessToken = getAccessTokenCookie(); // Zustand store에서 accessToken 가져오기
+  const accessToken = getAccessTokenCookie();
 
   const crossCheckToken = useCallback(async () => {
     try {
       const response = await tokenCheck();
 
       if (response !== true || !response) {
+        setIsAuthenticated(false);
         deleteAccessTokenCookie();
         router.refresh();
       }
     } catch (error) {
       console.error("토큰 확인 에러:", error);
+      setIsAuthenticated(false);
     }
+    setIsAuthenticated(true);
   }, [router]);
 
   useEffect(() => {
@@ -29,6 +33,8 @@ const useAuthCheck = (redirectUrl: string = "/auth/login") => {
       return;
     }
   }, [accessToken, router, redirectUrl, crossCheckToken]);
+
+  return isAuthenticated;
 };
 
 export default useAuthCheck;

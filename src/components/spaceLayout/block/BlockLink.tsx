@@ -1,11 +1,16 @@
 import styled from "styled-components";
 
 interface BlockLinkProps {
-  link?: string;
+  content: string;
 }
 
-const BlockLink = ({} /* link */ : BlockLinkProps) => {
-  return <LinkBox disabled placeholder="URL을 입력해주세요"></LinkBox>;
+const BlockLink = ({ content }: BlockLinkProps) => {
+  return (
+    <LinkBox
+      disabled
+      placeholder={content ? content : "URL을 입력해주세요"}
+    ></LinkBox>
+  );
 };
 const LinkBox = styled.input`
   width: 218px;
