@@ -27,7 +27,9 @@ const EditPage = () => {
       <IntroProject />
       <Plates />
       <DraggableBlocks
-        blockData={Object.values(getSpaceComponents(spaceWallId as number))}
+        blockData={Object.values(
+          getSpaceComponents(spaceWallId as number),
+        ).sort((a, b) => a.sequence - b.sequence)}
       />
     </Container>
   );

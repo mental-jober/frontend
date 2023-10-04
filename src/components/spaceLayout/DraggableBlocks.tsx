@@ -19,7 +19,7 @@ interface DraggableBlocksProps {
 
 const DraggableBlocks = ({ blockData }: DraggableBlocksProps) => {
   const [datas, setDatas] = useState<ComponentData[]>(blockData);
-  const { replaceSpaceComponents, getSpaceComponents } = useComponentStore();
+  const { setComponentValue, getSpaceComponents } = useComponentStore();
   const { spaceWallId } = useSpaceWallStore();
 
   useEffect(() => {
@@ -43,19 +43,23 @@ const DraggableBlocks = ({ blockData }: DraggableBlocksProps) => {
     if (!result.destination) return;
 
     const { source, destination } = result;
-    const updatedDatas = [...datas];
+    const updatedDatas = datas;
     const [reorderedDatas] = updatedDatas.splice(source.index, 1);
     updatedDatas.splice(destination.index, 0, reorderedDatas);
     const reorderdComponents = Object.values(updatedDatas).map(
       (reorderedComponent, index) => {
+        setComponentValue(
+          spaceWallId as number,
+          reorderedComponent.componentTempId,
+          "sequence",
+          index,
+        );
         return { ...reorderedComponent, sequence: index };
       },
     );
     setDatas(reorderdComponents);
-    replaceSpaceComponents(spaceWallId as number, reorderdComponents);
-    console.log(getSpaceComponents(spaceWallId as number));
 
-    console.log(reorderdComponents);
+    console.log(getSpaceComponents(spaceWallId as number));
   };
 
   return (
