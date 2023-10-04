@@ -19,6 +19,12 @@ const EditPage = () => {
   const paramSpaceWallId = useParams().id;
   const { type, composition } = usePageLayoutStore();
 
+  const filteredBlockData = Object.values(
+    getSpaceComponents(spaceWallId as number),
+  )
+    .filter((component) => !component.deleted)
+    .sort((a, b) => a.sequence - b.sequence);
+
   useEffect(() => {
     if (typeof paramSpaceWallId === "string") {
       if (spaceWallId !== parseInt(paramSpaceWallId)) {
@@ -49,11 +55,7 @@ const EditPage = () => {
       {type === "프로젝트형" ? <IntroProject /> : <IntroProfile />}
 
       <Plates />
-      <DraggableBlocks
-        blockData={Object.values(getSpaceComponents(spaceWallId as number))
-          .filter((component) => !component.deleted)
-          .sort((a, b) => a.sequence - b.sequence)}
-      />
+      <DraggableBlocks blockData={filteredBlockData} />
     </Container>
   );
 };
