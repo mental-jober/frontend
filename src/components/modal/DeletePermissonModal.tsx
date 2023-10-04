@@ -26,10 +26,10 @@ const DeletePermissonModal = () => {
         text="이 계정에 대한 권한을 삭제하시겠습니까?"
       />
       <ButtonContainer>
-        <Button $leftbtn="true" onClick={onCloseModal}>
+        <Button $leftbtn onClick={onCloseModal}>
           취소
         </Button>
-        <Button $rightbtn="true" onClick={onDeleteConfirm}>
+        <Button $rightbtn onClick={onDeleteConfirm}>
           삭제하기
         </Button>
       </ButtonContainer>

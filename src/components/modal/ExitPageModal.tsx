@@ -15,7 +15,7 @@ const ExitPageModal = () => {
   const isModalOpen = isOpen && type === "ExitPage";
 
   const onExit = () => {
-    if (pathName === "/test") {
+    if (pathName === "/test" || "/space/textEdit") {
       onCloseModal();
       router.push("/");
     }
@@ -28,10 +28,10 @@ const ExitPageModal = () => {
           text="저장하지 않으면 변경된 내용이 초기화됩니다."
         />
         <ButtonContainer>
-          <Button $leftbtn="true" onClick={onCloseModal}>
+          <Button $leftbtn onClick={onCloseModal}>
             머무르기
           </Button>
-          <Button $rightbtn="true" onClick={onExit}>
+          <Button $rightbtn onClick={onExit}>
             나가기
           </Button>
         </ButtonContainer>
