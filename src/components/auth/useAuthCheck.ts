@@ -14,40 +14,25 @@ const useAuthCheck = (redirectUrl: string = "/auth/login") => {
       const response = await tokenCheck();
 
       if (response !== true || !response) {
+        setIsAuthenticated(false);
         deleteAccessTokenCookie();
         router.refresh();
       }
     } catch (error) {
       console.error("토큰 확인 에러:", error);
+      setIsAuthenticated(false);
     }
+    setIsAuthenticated(true);
   }, [router]);
 
   useEffect(() => {
-    const checkAuthentication = async () => {
-      if (!accessToken) {
-        setIsAuthenticated(false);
-        router.replace(redirectUrl);
-      } else {
-        try {
-          const res = await checkTokenApi();
-          console.log("CHECK-TOKEN ", res);
-          if (res === true || res.status === 200) {
-            console.log("res === true : 확인");
-            setIsAuthenticated(true);
-          } else {
-            setIsAuthenticated(false);
-            router.replace(redirectUrl);
-          }
-        } catch (e) {
-          console.error(e);
-          setIsAuthenticated(false);
-          router.replace(redirectUrl);
-        }
-      }
-    };
+    crossCheckToken();
 
-    checkAuthentication();
-  }, [accessToken, router, redirectUrl]);
+    if (!accessToken) {
+      router.replace(redirectUrl); // accessToken이 없으면 redirectUrl로 리다이렉트
+      return;
+    }
+  }, [accessToken, router, redirectUrl, crossCheckToken]);
 
   return isAuthenticated;
 };
