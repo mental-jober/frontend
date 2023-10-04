@@ -1,13 +1,26 @@
 // "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getAccessTokenCookie } from "@/lib/cookies";
-import { checkTokenApi } from "@/lib/api/api";
+import { deleteAccessTokenCookie, getAccessTokenCookie } from "@/lib/cookies";
+import { tokenCheck } from "@/lib/api/tokenCheckAPI";
 
 const useAuthCheck = (redirectUrl: string = "/auth/login") => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const router = useRouter();
   const accessToken = getAccessTokenCookie();
+
+  const crossCheckToken = useCallback(async () => {
+    try {
+      const response = await tokenCheck();
+
+      if (response !== true || !response) {
+        deleteAccessTokenCookie();
+        router.refresh();
+      }
+    } catch (error) {
+      console.error("토큰 확인 에러:", error);
+    }
+  }, [router]);
 
   useEffect(() => {
     const checkAuthentication = async () => {
