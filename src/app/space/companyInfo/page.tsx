@@ -38,7 +38,7 @@ const dummyData = [
   },
 ];
 
-const ProductInfoPage = () => {
+const CompanyInfoPage = () => {
   return (
     <>
       <Header />
@@ -54,26 +54,19 @@ const ProductInfoPage = () => {
               <h2>{item.title}</h2>
               <PostLine />
               <p>{item.content}</p>
+              <iframe
+                src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
+                title="#"
+                width="320px"
+                height="180px"
+              ></iframe>
               <Image
                 src={item.imageUrl}
                 alt={item.title}
                 width={320}
                 height={240}
               />
-              {dummyData.map((item) => (
-                <div key={item.id}>
-                  <h2>{item.title}</h2>
-                  <p>{item.content}</p>
-                  <iframe
-                    src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
-                    title="#"
-                    width="320px"
-                    height="180px"
-                  ></iframe>
-
-                  <PostLine />
-                </div>
-              ))}
+              <PostLine />
             </PostContent>
           ))}
         </PostContentBlock>
@@ -119,6 +112,7 @@ const PostContentBlock = styled.div`
   max-width: 430px;
   min-width: 360px;
   padding: 0 20px;
+  /* gap:12px; */
 `;
 
 const PostContent = styled.div`
@@ -138,4 +132,4 @@ const StyledLink = styled(Link)`
   font-size: 14px;
   font-weight: 700;
 `;
-export default ProductInfoPage;
+export default CompanyInfoPage;
