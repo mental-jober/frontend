@@ -4,6 +4,7 @@ import { PiX } from "react-icons/pi";
 import { useRouter } from "next/navigation";
 import { createSpace } from "@/lib/api/spaceEditAPI";
 import useSpaceStore from "@/lib/store/useSpaceStore";
+import { usePageLayoutStore } from "@/lib/store/usePageLayoutStore";
 
 interface PreviewLayoutModalProps {
   isOpen: boolean;
@@ -23,8 +24,14 @@ const PreviewLayoutModal = ({
   const modalRef = useRef(null);
   const { addData } = useSpaceStore();
   const router = useRouter();
+  const type = usePageLayoutStore((state) => state.type);
+  const pageLayoutComposition = usePageLayoutStore(
+    (state) => state.composition,
+  );
   const onClickApply = async () => {
     const { data } = await createSpace({ parentSpaceWallId: null });
+    console.log("type :", type);
+    console.log("composition :", pageLayoutComposition);
     console.log(data);
     addData(data.id, data);
     router.push(`/space/${data.id}/edit`);
