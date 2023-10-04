@@ -36,7 +36,7 @@ const LogoutModal = () => {
         <TitleHeader title="정말 로그아웃 하시겠습니까?" />
         <ButtonContainer>
           <Button
-            $leftbtn="true"
+            $leftbtn
             onClick={() => {
               onCloseModal();
             }}
@@ -44,7 +44,7 @@ const LogoutModal = () => {
             취소
           </Button>
           <Button
-            $rightbtn="true"
+            $rightbtn
             onClick={() => {
               handleLogout();
             }}

@@ -14,6 +14,7 @@ const TextEditPage = () => {
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
 
   const { showToast } = useToastStore();
+
   const onSave = useCallback(async () => {
     if (!text) {
       return false;
@@ -32,10 +33,9 @@ const TextEditPage = () => {
       await componentsSave(componentTempId, params);
       setPrevText(text);
     } catch (error) {
-      showToast("저장에 실패했습니다. 다시 시도해주세요.");
       console.error("error:", error);
     }
-  }, [text, showToast]);
+  }, [text]);
 
   useEffect(() => {
     const autoSave = setInterval(async () => {
@@ -64,7 +64,7 @@ const TextEditPage = () => {
           <Button
             onClick={onSave}
             disabled={isBtnDisabled}
-            {...(isBtnDisabled ? { $disabled: "true" } : { $save: "true" })}
+            {...(isBtnDisabled ? { $disabled: true } : { $save: true })}
           >
             확인
           </Button>

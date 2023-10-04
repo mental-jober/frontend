@@ -193,3 +193,14 @@ export const CARD_DATA: CardData = {
     },
   ],
 };
+
+export const settings = [
+  { value: "EDITOR", label: "편집자" },
+  { value: "VIEWER", label: "뷰어" },
+];
+
+export const changes = [
+  { value: "EDITOR", label: "편집자" },
+  { value: "VIEWER", label: "뷰어" },
+  { value: "DELETE", label: "삭제" },
+];
