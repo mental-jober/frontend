@@ -17,3 +17,7 @@ export const createSpace = async (spaceData: NewSpaceData) => {
 export const createBlock = async (blockData: NewBlockData) => {
   return await fetchData("componentTemps/new", "post", blockData);
 };
+
+export const enterEdit = async (spaceWallId: string) => {
+  return await fetchData(`spaceTemps/new/${spaceWallId}`, "post");
+};
