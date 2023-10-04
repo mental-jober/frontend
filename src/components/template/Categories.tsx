@@ -36,6 +36,7 @@ interface CategoriesProps {
 }
 
 // Component
+// TODO: 스크롤 이벤트 제거
 const Categories = ({ category, onSelect }: CategoriesProps) => {
   // State
   const [isDrag, setIsDrag] = useState(false);
@@ -94,7 +95,7 @@ const Categories = ({ category, onSelect }: CategoriesProps) => {
 const CategoriesBlock = styled.div`
   height: 40px;
   padding: 0 20px;
-  height: 40px;
+  height: 50px;
   overflow: scroll;
   &::-webkit-scrollbar {
     display: none;
@@ -102,7 +103,7 @@ const CategoriesBlock = styled.div`
 `;
 
 const CategoriesList = styled.ul`
-  width: 510px;
+  width: 430px;
   display: flex;
   height: inherit;
   transform: translateX(0);
