@@ -13,7 +13,8 @@ import { ModalProvider } from "@/components/provider/ModalProvider";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   // TODO: 토큰 유효성 검사 api 호출
-  useAuthCheck();
+  const isAuthenticated = useAuthCheck();
+ 
 
   return (
     <html lang="ko">
@@ -23,7 +24,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <ReactQueryProviders>
             <Margin />
             <ModalProvider />
-            <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+              <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
           </ReactQueryProviders>
         </body>
       </ThemeProvider>
