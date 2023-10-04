@@ -1,18 +1,17 @@
-/* // Zustand store - user.ts
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 type User = {
   id?: number;
   email?: string;
-  username?: string;  // 추가된 항목
-  accessToken?: string;  // 추가된 항목
+  username?: string; 
+  accessToken?: string;  
 };
 
 type UserState = {
   user: User;
   setUser: (user: User) => void;
-  setToken: (token: string) => void;  // 추가된 함수
+  setToken: (token: string) => void;  
   clearUser: () => void;
 };
 
@@ -28,7 +27,7 @@ export const useUserStore = create<UserState>()(
             ...user,
           },
         })),
-      setToken: (token: string) =>  // 토큰을 저장하는 새로운 함수
+      setToken: (token: string) => 
         set((prevState) => ({
           ...prevState,
           user: {
@@ -46,4 +45,4 @@ export const useUserStore = create<UserState>()(
     }
   )
 );
- */
+
