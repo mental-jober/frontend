@@ -11,41 +11,51 @@ import { useParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 const TextEditPage = () => {
-  const { text } = froalaEditorStore();
+  const { text, setText } = froalaEditorStore();
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
 
-  const { contId } = useParams();
+  const { id, contId } = useParams();
 
+  const NumId = Number(id);
   const NumContId = Number(contId);
+  console.log(id, contId);
+  console.log(typeof NumContId);
 
-  const { data } = useComponentsViewQuery(NumContId);
-  console.log(data);
+  const { data } = useComponentsViewQuery(NumId, NumContId);
+  console.log(useComponentsViewQuery(NumId, NumContId));
+  console.log(data?.data.content);
+
+  useEffect(() => {
+    setText(data?.data.content);
+  }, [setText, data]);
 
   const { showToast } = useToastStore();
 
-  const onSave = useCallback(async () => {
-    if (!text) {
-      return false;
-    }
+  const onSave = useCallback(
+    async (isAutoSave = false) => {
+      if (!text) {
+        if (!isAutoSave) showToast("텍스트를 입력하세요.");
+        return false;
+      }
 
-    const params = {
-      componentTempId: NumContId,
-      content: text,
-    };
+      const params = {
+        componentTempId: NumContId,
+        content: text,
+      };
 
-    try {
-      await componentsSave(NumContId, params);
-    } catch (error) {
-      console.error("error:", error);
-    }
-  }, [text, NumContId]);
+      try {
+        await componentsSave(NumId, params);
+        showToast(isAutoSave ? "자동 저장 중입니다." : "저장되었습니다.");
+      } catch (error) {
+        console.error("error:", error);
+      }
+    },
+    [text, NumContId, NumId, showToast],
+  );
 
   useEffect(() => {
     const autoSave = setInterval(async () => {
-      const isSaved = await onSave();
-      if (isSaved) {
-        showToast("자동 저장 중입니다.");
-      }
+      await onSave(true);
     }, 10000);
 
     return () => clearInterval(autoSave);
@@ -65,7 +75,7 @@ const TextEditPage = () => {
 
         <div className="mt-8 w-full">
           <Button
-            onClick={onSave}
+            onClick={() => onSave(false)}
             disabled={isBtnDisabled}
             {...(isBtnDisabled ? { $disabled: true } : { $save: true })}
           >

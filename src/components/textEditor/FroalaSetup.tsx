@@ -76,13 +76,7 @@ const FroalaSetup = () => {
         ],
       },
     },
-    /*     imageUpload: true,
-    imageUploadParam: "file",
-    imageUploadParams: {
-      upload_preset: "dvmzwc5k",
-    },
-    imageUploadURL: url,
-    imageUploadMethod: "POST", */
+
     imageUpload: true,
     imagePaste: true,
     imagePasteProcess: true,
