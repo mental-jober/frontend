@@ -36,7 +36,7 @@ const HeaderBlock = styled.div`
   display: flex;
   align-items: center;
   position: sticky;
-  background: #fff;
+  background: coral;
   top: 0;
   z-index: 9999;
   svg {
