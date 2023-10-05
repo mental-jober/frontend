@@ -7,13 +7,13 @@ import Search from "@/components/template/Search";
 import TabList from "@/components/template/TabList";
 import TemplateItem from "@/components/template/TemplateItem";
 import TemplateList from "@/components/template/TemplateList";
-import { getTemplate } from "@/lib/api/templateAPI";
+import { getFavorite, getTemplate } from "@/lib/api/templateAPI";
 import { useCallback, useEffect, useState } from "react";
 import { styled } from "styled-components";
 
 export interface Data {
   title: string;
-  id?: number;
+  id: number;
   description: string;
   hashtags: string[];
   thumbnailUrl?: null;
@@ -27,6 +27,7 @@ const TemplatePage = () => {
   const onSelectTab = useCallback((tabItem: string) => setTab(tabItem), []);
   const [scroll, setScroll] = useState(false);
   const [data, setData] = useState([]);
+  const [myTemp, setMyTemp] = useState([]);
 
   // Function
   const onScroll = () => {
@@ -39,8 +40,15 @@ const TemplatePage = () => {
 
   const fetchTempData = useCallback(async () => {
     await getTemplate().then((res) => {
-      console.log(res.data.content);
+      console.log("템플릿 모음:", res.data.content);
       setData(res.data.content);
+    });
+  }, []);
+
+  const fetchMyTempData = useCallback(async () => {
+    await getFavorite().then((res) => {
+      console.log("내 템플릿:", res.data.content);
+      setMyTemp(res.data.content);
     });
   }, []);
 
@@ -57,6 +65,13 @@ const TemplatePage = () => {
       fetchTempData();
     };
   }, [fetchTempData]);
+
+  useEffect(() => {
+    fetchMyTempData();
+    return () => {
+      fetchMyTempData();
+    };
+  }, [fetchMyTempData]);
 
   // Render
   return (
@@ -75,14 +90,26 @@ const TemplatePage = () => {
       </HeaderBlock>
       {tab === "collection" ? <HeaderMargin /> : <MyTemplateMargin />}
       <TemplateList>
-        {data.map((item: Data) => (
-          <TemplateItem
-            key={item.id}
-            title={item.title}
-            description={item.description}
-            hashtags={item.hashtags}
-          />
-        ))}
+        {tab === "collection"
+          ? category === "all" &&
+            data.map((item: Data) => (
+              <TemplateItem
+                key={item.id}
+                title={item.title}
+                description={item.description}
+                hashtags={item.hashtags}
+                id={item.id}
+              />
+            ))
+          : myTemp.map((item: Data) => (
+              <TemplateItem
+                key={item.id}
+                title={item.title}
+                description={item.description}
+                hashtags={item.hashtags}
+                id={item.id}
+              />
+            ))}
       </TemplateList>
     </>
   );
