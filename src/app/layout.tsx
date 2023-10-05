@@ -7,7 +7,6 @@ import { theme } from "@/styles/theme";
 import ReactQueryProviders from "@/queries/queryProvider";
 import GlobalStyle from "@/styles/GlobalStyle";
 import StyledComponentsRegistry from "@/lib/registry";
-import Margin from "@/components/common/Margin";
 import useAuthCheck from "@/components/auth/useAuthCheck";
 import { ModalProvider } from "@/components/provider/ModalProvider";
 
@@ -22,7 +21,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <body>
           <GlobalStyle />
           <ReactQueryProviders>
-            <Margin />
             <ModalProvider />
             <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
           </ReactQueryProviders>
