@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import IntroCameraButton from "./IntroCameraButton";
 
 interface IntroBackGroundProps {
   imgURL?: string;
@@ -7,7 +8,12 @@ interface IntroBackGroundProps {
 const IntroBackGround = ({
   imgURL = "/default_background.png",
 }: IntroBackGroundProps) => {
-  return <Img $url={imgURL} />;
+  return (
+    <>
+      <Img $url={imgURL} />
+      <IntroCameraButton />
+    </>
+  );
 };
 
 const Img = styled.div<{ $url: string }>`
