@@ -2,14 +2,23 @@ import { styled } from "styled-components";
 import Button from "../common/Button";
 import { PiHeart, PiHeartFill } from "react-icons/pi";
 import { MdOutlineSearch } from "react-icons/md";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Data } from "@/app/template/page";
+import { postFavorite } from "@/lib/api/templateAPI";
 
-const TemplateItem = ({ title, description, hashtags }: Data) => {
+const TemplateItem = ({ title, description, hashtags, id }: Data) => {
+  // State
   const [toggle, setToggle] = useState(false);
-  const onClick = () => {
-    setToggle((toggle) => !toggle);
-  };
+
+  // Function
+  const onClick = useCallback(async () => {
+    await postFavorite(id).then((res) => {
+      console.log(res.message);
+      setToggle((toggle) => !toggle);
+    });
+  }, [id]);
+
+  // Render
   return (
     <TemplateItemBlock>
       <ContentWrapper>
@@ -33,6 +42,7 @@ const TemplateItem = ({ title, description, hashtags }: Data) => {
   );
 };
 
+// Style
 const TemplateItemBlock = styled.li`
   width: 100%;
   height: 160px;
