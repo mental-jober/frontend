@@ -8,6 +8,7 @@ import { createBlock } from "@/lib/api/spaceEditAPI";
 import useComponentStore from "@/lib/store/useComponentStore";
 import { usePageLayoutStore } from "@/lib/store/usePageLayoutStore";
 import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
+import { useEnterEditQuery } from "@/queries/queries";
 
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
@@ -18,6 +19,11 @@ const EditPage = () => {
   const { getSpaceComponents, setSpaceComponents } = useComponentStore();
   const paramSpaceWallId = useParams().id;
   const { type, composition } = usePageLayoutStore();
+  const queryOption = { refetchOnWindowFocus: false };
+  const { isSuccess } = useEnterEditQuery(
+    paramSpaceWallId as string,
+    queryOption,
+  );
 
   const filteredBlockData = Object.values(
     getSpaceComponents(spaceWallId as number),
@@ -36,24 +42,42 @@ const EditPage = () => {
   useEffect(() => {
     const onCreateLayoutComponents = async () => {
       for (const type of composition) {
-        const blockData = {
-          parentSpaceWallTempId: 3, /// 원래는 spaceWallId를 넣어야 함
-          type: type,
-          sequence: Object.values(getSpaceComponents(spaceWallId as number))
-            .length,
-        };
-        const { data } = await createBlock(blockData);
-        setSpaceComponents(spaceWallId as number, data.componentTempId, data);
+        if (typeof paramSpaceWallId === "string") {
+          const blockData = {
+            spaceWallId: parseInt(paramSpaceWallId),
+            type: type,
+            sequence: Object.values(
+              getSpaceComponents(parseInt(paramSpaceWallId)),
+            ).length,
+          };
+
+          if (isSuccess) {
+            const { data } = await createBlock(
+              parseInt(paramSpaceWallId),
+              blockData,
+            );
+            setSpaceComponents(
+              parseInt(paramSpaceWallId),
+              data.componentTempId,
+              data,
+            );
+          }
+        }
       }
     };
 
     onCreateLayoutComponents();
-  }, [composition, getSpaceComponents, setSpaceComponents, spaceWallId]);
+  }, [
+    composition,
+    getSpaceComponents,
+    setSpaceComponents,
+    paramSpaceWallId,
+    isSuccess,
+  ]);
 
   return (
     <Container>
       {type === "프로젝트형" ? <IntroProject /> : <IntroProfile />}
-
       <Plates />
       <DraggableBlocks blockData={filteredBlockData} />
     </Container>
