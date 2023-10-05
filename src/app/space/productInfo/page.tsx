@@ -40,10 +40,10 @@ const ProductInfoPage = () => {
         <IntroProfile />
 
         <PostContentBlock>
-          {dummyData.map((item) => (
+          {dummyData.map((item, index: number) => (
             <PostContent key={item.id}>
               <h2>{item.title}</h2>
-              <PostLine />
+              {index < 0 && <PostLine />}
               <p>{item.content}</p>
               {item.imageUrl && ( // 이미지가 있을 때만 렌더링//
                 <Image
@@ -88,10 +88,10 @@ const PostContent = styled.div`
     margin-bottom: 8px;
     font-size: 18px;
     font-weight: 700;
-    padding: 20px;
   }
   p {
     margin-top: 8px;
+    padding: 16px 4px;
   }
 `;
 
