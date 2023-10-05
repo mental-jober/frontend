@@ -39,12 +39,13 @@ export const useEnterEditQuery = (
 };
 
 export const useComponentsViewQuery = (
+  space_wall_id: number,
   componentTempId: number,
   options?: QueryOptions,
 ) => {
   return useQuery(
-    [queryKey.CONTVIEW, componentTempId],
-    () => componentsView(componentTempId),
+    [queryKey.CONTVIEW, space_wall_id, componentTempId],
+    () => componentsView(space_wall_id, componentTempId),
     { ...options },
   );
 };

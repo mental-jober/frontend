@@ -1,4 +1,3 @@
-import { MouseEvent, useCallback, useRef, useState } from "react";
 import { styled, css } from "styled-components";
 
 // Data(임시)
@@ -38,44 +37,9 @@ interface CategoriesProps {
 // Component
 // TODO: 스크롤 이벤트 제거
 const Categories = ({ category, onSelect }: CategoriesProps) => {
-  // State
-  const [isDrag, setIsDrag] = useState(false);
-  const [scroll, setScroll] = useState(0);
-  const [clickPoint, setClickPoint] = useState(0);
-
-  // Reference
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  // Function
-  const onMouseDown = useCallback((event: MouseEvent) => {
-    setIsDrag(true);
-    if (scrollRef.current) {
-      setClickPoint(event.pageX);
-      setScroll(scrollRef.current.scrollLeft);
-    }
-  }, []);
-
-  const onMouseMove = useCallback(
-    (event: MouseEvent) => {
-      if (!isDrag) return;
-      event.preventDefault();
-      if (scrollRef.current) {
-        const move = event.pageX - clickPoint;
-        scrollRef.current.scrollLeft = scroll - move;
-      }
-    },
-    [isDrag, clickPoint, scroll],
-  );
-
   // Render
   return (
-    <CategoriesBlock
-      ref={scrollRef}
-      onMouseDown={onMouseDown}
-      onMouseLeave={() => setIsDrag(false)}
-      onMouseUp={() => setIsDrag(false)}
-      onMouseMove={onMouseMove}
-    >
+    <CategoriesBlock>
       <CategoriesList>
         {categories.map((item) => (
           <CategoryItem
@@ -96,10 +60,6 @@ const CategoriesBlock = styled.div`
   height: 40px;
   padding: 0 20px;
   height: 50px;
-  overflow: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 const CategoriesList = styled.ul`

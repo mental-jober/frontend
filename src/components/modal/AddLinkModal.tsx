@@ -1,12 +1,30 @@
-import { useRef, MouseEvent } from "react";
+import { useRef, MouseEvent, useState, ChangeEvent } from "react";
 import styled from "styled-components";
 import { PiX } from "react-icons/pi";
 import Button from "@/components/common/Button";
 import { ModalClose, ModalContainer, ModalOverlay } from "./ModalParts";
 import { useModal } from "../../../hooks/UseModalHook";
+import { useParams } from "next/navigation";
+import { componentsSave } from "@/lib/api/componentsAPI";
+import useCompnetTempIdStore from "@/lib/store/useComponentTempIdStore";
 
 const AddLinkModal = () => {
   const { isOpen, onCloseModal, type } = useModal();
+  const [form, setForm] = useState({ title: "", text: "" });
+  const { componentTempId } = useCompnetTempIdStore();
+
+  const { id } = useParams();
+
+  const NumId = Number(id);
+  const NumContId = Number(componentTempId);
+
+  const onFormChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const isModalOpen = isOpen && type === "AddLink";
 
@@ -18,13 +36,32 @@ const AddLinkModal = () => {
     if (e.target === modalRef.current) onCloseModal();
   };
 
+  const onSave = async () => {
+    if (!form.title || !form.text) {
+      return false;
+    }
+    const params = {
+      componentTempId: NumContId,
+      title: form.title,
+      content: form.text,
+    };
+
+    try {
+      await componentsSave(NumId, params);
+
+      onCloseModal();
+    } catch (error) {
+      console.error("error:", error);
+    }
+  };
+
   return (
     <>
       <ModalContainer>
         <ModalOverlay ref={modalRef} onClick={modalClose}>
           <AddLinkModalBox>
             <ModalClose>
-              <PiX size="18" />
+              <PiX size="18" onClick={modalClose} />
             </ModalClose>
             <AddLinkModdalHeader>
               <AddLinkModalTitle>링크추가</AddLinkModalTitle>
@@ -37,19 +74,25 @@ const AddLinkModal = () => {
                 <AddLinkModalText>텍스트</AddLinkModalText>
                 <AddLinkModalTextInput
                   type="text"
+                  name="title"
+                  value={form.title}
                   placeholder="텍스트를 입력하세요."
+                  onChange={onFormChange}
                 />
               </AddLinkModalTextBox>
               <AddLinkModalLinkBox>
                 <AddLinkModalLink>링크</AddLinkModalLink>
                 <AddLinkModalLinkInput
                   type="text"
+                  name="text"
+                  value={form.text}
+                  onChange={onFormChange}
                   placeholder="링크 URL을 입력하세요."
                 />
               </AddLinkModalLinkBox>
             </AddLinkModalForm>
             <BtnContainer>
-              <Button $save type="submit" onClick={() => {}}>
+              <Button $save type="submit" onClick={() => onSave()}>
                 저장하기
               </Button>
             </BtnContainer>
