@@ -8,9 +8,7 @@ import TabList from "@/components/template/TabList";
 import TemplateItem from "@/components/template/TemplateItem";
 import TemplateList from "@/components/template/TemplateList";
 import { getFavorite, getTemplate } from "@/lib/api/templateAPI";
-import { AxiosError } from "axios";
 import { useCallback, useEffect, useState } from "react";
-import { useQuery } from "react-query";
 import { styled } from "styled-components";
 
 export interface Data {
@@ -73,7 +71,7 @@ const TemplatePage = () => {
     return () => {
       fetchMyTempData();
     };
-  }, []);
+  }, [fetchMyTempData]);
 
   // Render
   return (
