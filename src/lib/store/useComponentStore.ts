@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import useSpaceStore from "./useSpaceStore";
 
 export interface ComponentData {
   createdAt: string;
@@ -47,6 +48,7 @@ interface ComponentStore {
     spaceId: number,
     componentsData: { [key: number]: ComponentData },
   ) => void;
+  updateSpaceComponents: (spaceId: number) => void;
 }
 
 const useComponentStore = create<ComponentStore>((set, get) => ({
@@ -54,6 +56,12 @@ const useComponentStore = create<ComponentStore>((set, get) => ({
 
   getSpaceComponents: (spaceId) => {
     return get().componentsBySpace[spaceId] || {};
+  },
+
+  updateSpaceComponents: (spaceId) => {
+    const spaceComponents = get().componentsBySpace[spaceId];
+    const updatedComponentList = Object.values(spaceComponents);
+    useSpaceStore.getState().updateComponentList(spaceId, updatedComponentList);
   },
 
   setSpaceComponents: (spaceId, componentId, componentData) => {
@@ -66,6 +74,8 @@ const useComponentStore = create<ComponentStore>((set, get) => ({
         },
       },
     }));
+
+    get().updateSpaceComponents(spaceId);
   },
 
   deleteSpaceComponents: (spaceId, componentId) => {
@@ -79,6 +89,8 @@ const useComponentStore = create<ComponentStore>((set, get) => ({
         },
       };
     });
+
+    get().updateSpaceComponents(spaceId);
   },
 
   getComponent: (spaceId, componentId) => {
@@ -98,6 +110,8 @@ const useComponentStore = create<ComponentStore>((set, get) => ({
         },
       },
     }));
+
+    get().updateSpaceComponents(spaceId);
   },
 
   deleteComponent: (spaceId, componentId) => {
@@ -111,6 +125,8 @@ const useComponentStore = create<ComponentStore>((set, get) => ({
         },
       };
     });
+
+    get().updateSpaceComponents(spaceId);
   },
 
   setComponentValue: (spaceId, componentId, key, value) => {
@@ -126,6 +142,8 @@ const useComponentStore = create<ComponentStore>((set, get) => ({
         },
       },
     }));
+
+    get().updateSpaceComponents(spaceId);
   },
 
   getComponentValue: (spaceId, componentId, key) => {
@@ -144,6 +162,8 @@ const useComponentStore = create<ComponentStore>((set, get) => ({
         [spaceId]: componentsData,
       },
     }));
+
+    get().updateSpaceComponents(spaceId);
   },
 }));
 
