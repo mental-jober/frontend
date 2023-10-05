@@ -46,3 +46,7 @@ export function postFavorite(id: number) {
 export function getFavorite() {
   return fetchData("/my-templates", "get");
 }
+
+export function removeFavorite() {
+  return fetchData(`/my-templates/favorite`, "delete");
+}

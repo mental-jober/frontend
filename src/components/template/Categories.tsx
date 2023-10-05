@@ -35,7 +35,6 @@ interface CategoriesProps {
 }
 
 // Component
-// TODO: 스크롤 이벤트 제거
 const Categories = ({ category, onSelect }: CategoriesProps) => {
   // Render
   return (
@@ -57,16 +56,18 @@ const Categories = ({ category, onSelect }: CategoriesProps) => {
 
 // Style
 const CategoriesBlock = styled.div`
-  height: 40px;
+  width: 100%;
+  min-width: 360px;
+  max-width: 430px;
   padding: 0 20px;
   height: 50px;
 `;
 
 const CategoriesList = styled.ul`
-  width: 430px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   height: inherit;
-  transform: translateX(0);
 `;
 
 const CategoryItem = styled.li<{ $active?: boolean }>`
@@ -77,7 +78,6 @@ const CategoryItem = styled.li<{ $active?: boolean }>`
   cursor: pointer;
   font-weight: 500;
   font-size: 18px;
-  margin-right: 40px;
   ${(props) =>
     props.$active &&
     css`
