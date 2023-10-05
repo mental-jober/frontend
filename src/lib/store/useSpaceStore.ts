@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { ComponentData } from "./useComponentStore";
 
 export interface SpaceData {
   url: string;
@@ -6,7 +7,7 @@ export interface SpaceData {
   description: string;
   profileImageUrl: string;
   backgroundImageUrl: string;
-  componentList: [];
+  componentList: ComponentData[];
   createMemberId: number;
   pathIds: string;
   authorized: boolean;
@@ -28,6 +29,10 @@ interface SpaceStore {
     id: number,
     property: K,
     newValue: SpaceData[K],
+  ) => void;
+  updateComponentList: (
+    spaceId: number,
+    newComponentList: ComponentData[],
   ) => void;
 }
 
@@ -84,6 +89,18 @@ const useSpaceStore = create<SpaceStore>((set, get) => ({
         [id]: {
           ...state.datas[id],
           [property]: newValue,
+        },
+      },
+    }));
+  },
+
+  updateComponentList: (spaceId, newComponentList) => {
+    set((state) => ({
+      datas: {
+        ...state.datas,
+        [spaceId]: {
+          ...state.datas[spaceId],
+          componentList: newComponentList,
         },
       },
     }));
