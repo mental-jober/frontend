@@ -82,6 +82,8 @@ const CollaboratorPage = () => {
       }
 
       await memberCRUD(3, allMembers);
+
+      setEmail("");
     } catch (error) {
       console.error("멤버 정보 업데이트 중 오류 발생:", error);
     }

@@ -26,19 +26,6 @@ const DraggableBlocks = ({ blockData }: DraggableBlocksProps) => {
     setDatas(blockData);
   }, [blockData]);
 
-  // 적용시 dnd 이전 상태로 돌아가버리는 문제
-
-  // useEffect(() => {
-  //   datas.forEach((component) => {
-  //     setComponentValue(
-  //       spaceWallId as number,
-  //       component.componentTempId,
-  //       "sequence",
-  //       component.sequence,
-  //     );
-  //   });
-  // }, [datas, setComponentValue, spaceWallId]);
-
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
 

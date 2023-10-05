@@ -5,7 +5,7 @@ import Margin from "@/components/common/Margin";
 import LinkPage from "@/components/post/LinkPage";
 import PostLine from "@/components/post/PostLine";
 import PostTemplate from "@/components/post/PostTemplate";
-import IntroProfile from "@/components/spaceLayout/IntroProfile";
+import IntroBackGround from "@/components/spaceLayout/intro/IntroBackGround";
 import styled from "styled-components";
 import Image from "next/image";
 
@@ -14,13 +14,13 @@ const dummyData = [
     id: 1,
     title: "첫 번째 포스트",
     content: "첫 번째 포스트 내용",
-    imageUrl: "https://loremflickr.com/320/240/",
+    // imageUrl: "https://loremflickr.com/320/240/",
   },
   {
     id: 2,
     title: "두 번째 포스트",
     content: "두 번째 포스트 내용",
-    // imageUrl: "https://loremflickr.com/320/240/",
+    imageUrl: "https://loremflickr.com/320/240/",
   },
 
   {
@@ -31,21 +31,20 @@ const dummyData = [
   },
 ];
 
-const ProductInfoPage = () => {
+const EventPage = () => {
   return (
     <>
       <Header />
       <Margin />
-      <ProductInfoBlock>
-        <IntroProfile />
-
-        <PostContentBlock>
+      <EventBlock>
+        <IntroBackGround />
+        <EventBlock>
           {dummyData.map((item) => (
             <PostContent key={item.id}>
               <h2>{item.title}</h2>
-              <PostLine />
+
               <p>{item.content}</p>
-              {item.imageUrl && ( // 이미지가 있을 때만 렌더링//
+              {item.imageUrl && ( // 이미지가 있을 때만 렌더링
                 <Image
                   src={item.imageUrl}
                   alt={item.title}
@@ -56,15 +55,18 @@ const ProductInfoPage = () => {
               <PostLine />
             </PostContent>
           ))}
-        </PostContentBlock>
+        </EventBlock>
         <PostTemplate />
+        <PostTemplate />
+        <PostLine />
         <LinkPage />
-      </ProductInfoBlock>
+        <LinkPage />
+      </EventBlock>
     </>
   );
 };
 
-const ProductInfoBlock = styled.div`
+const EventBlock = styled.div`
   gap: 18px;
   width: 100%;
   min-width: 360px;
@@ -75,12 +77,12 @@ const ProductInfoBlock = styled.div`
   flex-direction: column;
 `;
 
-const PostContentBlock = styled.div`
-  width: 100%;
-  max-width: 430px;
-  min-width: 360px;
-  padding: 20px;
-`;
+// const EventContentBlock = styled.div`
+//   width: 100%;
+//   max-width: 430px;
+//   min-width: 360px;
+//   padding: 20px;
+// `;
 
 const PostContent = styled.div`
   margin-bottom: 20px;
@@ -95,6 +97,4 @@ const PostContent = styled.div`
   }
 `;
 
-export default ProductInfoPage;
-
-// /</Postline> 도 더미 데이터에 넣어야하는거 아닌가?/
+export default EventPage;
