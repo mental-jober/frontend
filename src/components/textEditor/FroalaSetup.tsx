@@ -7,7 +7,7 @@ import FroalaEditorComponent from "react-froala-wysiwyg";
 /* import Froalaeditor from "froala-editor"; */
 import React from "react";
 import { froalaEditorStore } from "@/lib/store/store.module";
-import { preset, url } from "@/lib/api/cloudinary";
+import { url } from "@/lib/api/cloudinary";
 
 const FroalaSetup = () => {
   const { text, setText } = froalaEditorStore();
@@ -93,7 +93,7 @@ const FroalaSetup = () => {
     imageUpload: true,
     imageUploadParam: "file",
     imageUploadParams: {
-      upload_preset: preset,
+      upload_preset: "dvmzwc5k",
     },
     imageUploadURL: url,
     imageUploadMethod: "POST",
