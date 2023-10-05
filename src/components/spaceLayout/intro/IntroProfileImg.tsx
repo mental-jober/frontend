@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Image from "next/image";
+import IntroEditButton from "./IntroEditButton";
 
 interface IntroProfileImgProps {
   imgURL?: string;
@@ -9,7 +10,12 @@ const IntroProfileImg = ({
   imgURL = "/default_profile.png",
 }: IntroProfileImgProps) => {
   {
-    return <PfImg src={imgURL} width={116} height={116} alt="프로필 이미지" />;
+    return (
+      <>
+        <PfImg src={imgURL} width={116} height={116} alt="프로필 이미지" />
+        <IntroEditButton />
+      </>
+    );
   }
 };
 
