@@ -85,3 +85,7 @@ export const checkTokenApi = async () => {
 export const getShareSpaceListApi = async () => {
   return fetchData("my-spaces", "get");
 };
+
+export const getTempSpaceByIdApi = async (spaceWallId: number) => {
+  return fetchData(`spaceTemps/view/${spaceWallId}`, "get");
+};
