@@ -4,7 +4,7 @@ import { PiHeart, PiHeartFill } from "react-icons/pi";
 import { MdOutlineSearch } from "react-icons/md";
 import { useCallback, useState } from "react";
 import { Data } from "@/app/template/page";
-import { postFavorite } from "@/lib/api/templateAPI";
+import { postFavorite, removeFavorite } from "@/lib/api/templateAPI";
 
 const TemplateItem = ({ title, description, hashtags, id }: Data) => {
   // State
@@ -12,11 +12,17 @@ const TemplateItem = ({ title, description, hashtags, id }: Data) => {
 
   // Function
   const onClick = useCallback(async () => {
-    await postFavorite(id).then((res) => {
-      console.log(res.message);
-      setToggle((toggle) => !toggle);
-    });
-  }, [id]);
+    if (toggle === false) {
+      await postFavorite(id).then((res) => {
+        console.log(res.message);
+      });
+    } else {
+      await removeFavorite().then((res) => {
+        console.log(res.message);
+      });
+    }
+    setToggle((toggle) => !toggle);
+  }, [id, toggle]);
 
   // Render
   return (
