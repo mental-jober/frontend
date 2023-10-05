@@ -31,8 +31,12 @@ client.interceptors.response.use(
   },
 );
 
-export function getTemplate() {
+export function getTemplateAll() {
   return fetchData(`/templates`, "get");
+}
+
+export function getTemplate(type: string) {
+  return fetchData(`/templates?type=${type}`, "get");
 }
 
 export function postFavorite(id: number) {
@@ -41,4 +45,8 @@ export function postFavorite(id: number) {
 
 export function getFavorite() {
   return fetchData("/my-templates", "get");
+}
+
+export function removeFavorite() {
+  return fetchData(`/my-templates/favorite`, "delete");
 }

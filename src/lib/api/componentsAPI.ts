@@ -9,12 +9,17 @@ interface ComponentsSaveParams {
 }
 
 export const componentsSave = async (
-  componentTempId: number,
+  space_wall_id: number,
   params: ComponentsSaveParams,
 ) => {
-  return fetchData(`componentTemps/edit/${componentTempId}`, "put", params);
+  return fetchData(`componentTemps/edit/${space_wall_id}`, "put", params);
 };
 
-export const componentsView = async (componentTempId: number) => {
-  return fetchData(`componentTemps/view/${componentTempId}`, "get");
+export const componentsView = async (
+  space_wall_id: number,
+  componentTempId: number,
+) => {
+  return fetchData(`componentTemps/view/${space_wall_id}`, "get", {
+    componentTempId,
+  });
 };

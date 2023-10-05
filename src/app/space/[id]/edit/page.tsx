@@ -6,9 +6,15 @@ import IntroProject from "@/components/spaceLayout/IntroProject";
 import Plates from "@/components/spaceLayout/Plates";
 import { createBlock } from "@/lib/api/spaceEditAPI";
 import useComponentStore from "@/lib/store/useComponentStore";
+import { useIsNewSpaceStore } from "@/lib/store/useIsNewSpace";
 import { usePageLayoutStore } from "@/lib/store/usePageLayoutStore";
+import useSpaceStore, { SpaceData } from "@/lib/store/useSpaceStore";
 import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
-import { useEnterEditQuery } from "@/queries/queries";
+import {
+  useEnterEditQuery,
+  useSpaceTempSaveQuery,
+  useSpaceTempViewQuery,
+} from "@/queries/queries";
 
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
@@ -16,13 +22,23 @@ import styled from "styled-components";
 
 const EditPage = () => {
   const { spaceWallId, setSpaceWallId } = useSpaceWallStore();
+  // const { getData } = useSpaceStore();
   const { getSpaceComponents, setSpaceComponents } = useComponentStore();
+  const { isNewSpace, setIsNewSpace } = useIsNewSpaceStore();
+  const { data } = useSpaceTempViewQuery(spaceWallId as number);
+  console.log("data:", data);
+  // const spaceTempSaveQueryOption = { refetchInterval: 10000 };
+  // const {} = useSpaceTempSaveQuery(
+  //   spaceWallId as number,
+  //   getData(spaceWallId as number) as SpaceData,
+  //   spaceTempSaveQueryOption,
+  // );
   const paramSpaceWallId = useParams().id;
   const { type, composition } = usePageLayoutStore();
-  const queryOption = { refetchOnWindowFocus: false };
+  const enterEditQueryOption = { refetchOnWindowFocus: false };
   const { isSuccess } = useEnterEditQuery(
     paramSpaceWallId as string,
-    queryOption,
+    enterEditQueryOption,
   );
 
   const filteredBlockData = Object.values(
@@ -41,26 +57,29 @@ const EditPage = () => {
 
   useEffect(() => {
     const onCreateLayoutComponents = async () => {
-      for (const type of composition) {
-        if (typeof paramSpaceWallId === "string") {
-          const blockData = {
-            spaceWallId: parseInt(paramSpaceWallId),
-            type: type,
-            sequence: Object.values(
-              getSpaceComponents(parseInt(paramSpaceWallId)),
-            ).length,
-          };
+      if (isNewSpace) {
+        for (const type of composition) {
+          if (typeof paramSpaceWallId === "string") {
+            const blockData = {
+              spaceWallId: parseInt(paramSpaceWallId),
+              type: type,
+              sequence: Object.values(
+                getSpaceComponents(parseInt(paramSpaceWallId)),
+              ).length,
+            };
 
-          if (isSuccess) {
-            const { data } = await createBlock(
-              parseInt(paramSpaceWallId),
-              blockData,
-            );
-            setSpaceComponents(
-              parseInt(paramSpaceWallId),
-              data.componentTempId,
-              data,
-            );
+            if (isSuccess) {
+              const { data } = await createBlock(
+                parseInt(paramSpaceWallId),
+                blockData,
+              );
+              setSpaceComponents(
+                parseInt(paramSpaceWallId),
+                data.componentTempId,
+                data,
+              );
+              setIsNewSpace(false);
+            }
           }
         }
       }
@@ -73,6 +92,8 @@ const EditPage = () => {
     setSpaceComponents,
     paramSpaceWallId,
     isSuccess,
+    isNewSpace,
+    setIsNewSpace,
   ]);
 
   return (

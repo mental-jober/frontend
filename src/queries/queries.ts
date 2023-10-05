@@ -2,8 +2,9 @@
 import { useQuery } from "react-query";
 import { queryKey } from "./queryKeys";
 import { checkMembers } from "@/lib/api/memberAPI";
-import { enterEdit } from "@/lib/api/spaceEditAPI";
+import { enterEdit, getEditSpace, saveEditSpace } from "@/lib/api/spaceEditAPI";
 import { componentsView } from "@/lib/api/componentsAPI";
+import { SpaceData } from "@/lib/store/useSpaceStore";
 
 interface QueryOptions {
   [key: string]: unknown;
@@ -38,12 +39,36 @@ export const useEnterEditQuery = (
 };
 
 export const useComponentsViewQuery = (
+  space_wall_id: number,
   componentTempId: number,
   options?: QueryOptions,
 ) => {
   return useQuery(
-    [queryKey.CONTVIEW, componentTempId],
-    () => componentsView(componentTempId),
+    [queryKey.CONTVIEW, space_wall_id, componentTempId],
+    () => componentsView(space_wall_id, componentTempId),
+    { ...options },
+  );
+};
+
+export const useSpaceTempSaveQuery = (
+  spaceWallId: number,
+  spaceData: SpaceData,
+  options?: QueryOptions,
+) => {
+  return useQuery(
+    [queryKey.SPACETEMP_SAVE, spaceWallId],
+    () => saveEditSpace(spaceWallId, spaceData),
+    { ...options },
+  );
+};
+
+export const useSpaceTempViewQuery = (
+  spaceWallId: number,
+  options?: QueryOptions,
+) => {
+  return useQuery(
+    [queryKey.SPACETEMP_VIEW, spaceWallId],
+    () => getEditSpace(spaceWallId),
     { ...options },
   );
 };
