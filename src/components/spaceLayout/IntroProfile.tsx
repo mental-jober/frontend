@@ -15,9 +15,8 @@ const IntroProfile = () => {
 
 const Wrapper = styled.div`
   gap: 70px;
-  width: 360px;
+  width: 100%;
   display: flex;
-  width: fit-content;
   position: relative;
   align-items: center;
   flex-direction: column;
