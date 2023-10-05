@@ -34,3 +34,11 @@ client.interceptors.response.use(
 export function getTemplate() {
   return fetchData(`/templates`, "get");
 }
+
+export function postFavorite(id: number) {
+  return fetchData(`/templates/favorite?templateId=${id}`, "post");
+}
+
+export function getFavorite() {
+  return fetchData("/my-templates", "get");
+}

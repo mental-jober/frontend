@@ -8,10 +8,6 @@ const categories = [
     text: "전체",
   },
   {
-    name: "recent",
-    text: "최근",
-  },
-  {
     name: "personal",
     text: "개인",
   },
@@ -20,20 +16,16 @@ const categories = [
     text: "회사",
   },
   {
-    name: "recurit",
-    text: "채용",
+    name: "survay",
+    text: "설문",
   },
   {
     name: "contract",
     text: "계약",
   },
   {
-    name: "notice",
-    text: "공지",
-  },
-  {
-    name: "etc",
-    text: "기타",
+    name: "law",
+    text: "법률",
   },
 ];
 
@@ -44,6 +36,7 @@ interface CategoriesProps {
 }
 
 // Component
+// TODO: 스크롤 이벤트 제거
 const Categories = ({ category, onSelect }: CategoriesProps) => {
   // State
   const [isDrag, setIsDrag] = useState(false);
@@ -102,7 +95,7 @@ const Categories = ({ category, onSelect }: CategoriesProps) => {
 const CategoriesBlock = styled.div`
   height: 40px;
   padding: 0 20px;
-  height: 40px;
+  height: 50px;
   overflow: scroll;
   &::-webkit-scrollbar {
     display: none;
@@ -110,7 +103,7 @@ const CategoriesBlock = styled.div`
 `;
 
 const CategoriesList = styled.ul`
-  width: 570px;
+  width: 430px;
   display: flex;
   height: inherit;
   transform: translateX(0);
