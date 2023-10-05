@@ -1,4 +1,4 @@
-"use client";
+/* "use client";
 
 import styled from "styled-components";
 import Plates from "./Plates";
@@ -42,3 +42,4 @@ const Container = styled.div`
 `;
 
 export default SpaceProject;
+ */
