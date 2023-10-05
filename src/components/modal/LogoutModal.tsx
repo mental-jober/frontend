@@ -7,7 +7,7 @@ import {
 import TitleHeader from "./AlertTitleHeader";
 import Button from "../common/Button";
 import { useRouter } from "next/navigation";
-import { logoutApi } from "@/lib/api/api";
+/* import { logoutApi } from "@/lib/api/api"; */
 import { deleteAccessTokenCookie } from "@/lib/cookies";
 import { useModal } from "../../../hooks/UseModalHook";
 

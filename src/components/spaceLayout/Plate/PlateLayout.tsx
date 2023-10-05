@@ -1,5 +1,6 @@
 import { createBlock } from "@/lib/api/spaceEditAPI";
 import useComponentStore from "@/lib/store/useComponentStore";
+import useCompnetTempIdStore from "@/lib/store/useComponentTempIdStore";
 import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
 import { ReactNode } from "react";
 import styled from "styled-components";
@@ -11,16 +12,18 @@ interface PlateLayoutProps {
 
 const PlateLayout = ({ children, name }: PlateLayoutProps) => {
   const { spaceWallId } = useSpaceWallStore();
+  const { setComponentTempId } = useCompnetTempIdStore();
   const { getSpaceComponents, setSpaceComponents } = useComponentStore();
   const onClickPlate = async (plate: string) => {
     if (spaceWallId) {
       const blockData = {
-        parentSpaceWallTempId: 3, /// 원래는 spaceWallId를 넣어야함
+        spaceWallId: spaceWallId,
         type: plate,
         sequence: Object.values(getSpaceComponents(spaceWallId)).length,
       };
-      const { data } = await createBlock(blockData);
+      const { data } = await createBlock(spaceWallId, blockData);
       setSpaceComponents(spaceWallId, data.componentTempId, data);
+      setComponentTempId(data.componentTempId);
     }
   };
   return (

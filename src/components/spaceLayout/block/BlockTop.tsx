@@ -7,14 +7,30 @@ import BlockTemp from "./BlockTemp";
 import BlockPage from "./BlockPage";
 import BlockLink from "./BlockLink";
 import { ComponentData } from "@/lib/store/useComponentStore";
+import { useRouter } from "next/navigation";
+import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
+import { useModal } from "../../../../hooks/UseModalHook";
 
 interface BlockTopProps {
   data: ComponentData;
 }
 
 const BlockTop = ({ data }: BlockTopProps) => {
+  const router = useRouter();
+  const { spaceWallId } = useSpaceWallStore();
+  const { onOpenModal } = useModal();
+
+  const onClick = () => {
+    if (data.type === "cont") {
+      router.push(
+        `/space/${spaceWallId}/edit/${data.componentTempId}/textEdit`,
+      );
+    } else if (data.type === "link") {
+      onOpenModal("AddLink");
+    }
+  };
   return (
-    <Top>
+    <Top onClick={() => onClick()}>
       <StyledDragDots />
       <ContentArea>{renderBlockContent({ data })}</ContentArea>
       <StyledArrow />
