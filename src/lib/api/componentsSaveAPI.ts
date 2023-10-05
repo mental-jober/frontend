@@ -1,8 +1,7 @@
 import { fetchData } from "./api";
 
 interface ComponentsSaveParams {
-  id: number;
-  spaceWallTempId: number;
+  componentTempId: number;
   templateId?: number;
   childSpaceWallTempId?: number;
   type: "cont" | "link" | "line" | "page" | "temp";
