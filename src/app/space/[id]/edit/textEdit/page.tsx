@@ -10,7 +10,6 @@ import { useCallback, useEffect, useState } from "react";
 
 const TextEditPage = () => {
   const { text } = froalaEditorStore();
-  const [prevText, setPrevText] = useState("");
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
 
   const { showToast } = useToastStore();
@@ -20,18 +19,16 @@ const TextEditPage = () => {
       return false;
     }
 
-    const componentTempId = 7;
+    const componentTempId = 1;
     const textType: "cont" | "link" | "temp" | "line" | "page" = "cont";
     const params = {
-      id: 7,
-      spaceWallTempId: 3,
+      componentTempId: 165,
       type: textType,
       content: text,
     };
 
     try {
       await componentsSave(componentTempId, params);
-      setPrevText(text);
     } catch (error) {
       console.error("error:", error);
     }
@@ -49,8 +46,8 @@ const TextEditPage = () => {
   }, [showToast, onSave]);
 
   useEffect(() => {
-    setIsBtnDisabled(!text || text === prevText);
-  }, [text, prevText]);
+    setIsBtnDisabled(!text);
+  }, [text]);
 
   return (
     <>

@@ -13,7 +13,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   $invitebtn?: boolean;
 }
 
-const Button = ({ ...props }: ButtonProps & CustomProps) => {
+const Button = ({ ...props }: ButtonProps) => {
   return <StyledButton {...props} />;
 };
 

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { useState } from "react";
 import { useModal } from "../../../hooks/UseModalHook";
 
 interface Props {

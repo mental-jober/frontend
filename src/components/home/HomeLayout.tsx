@@ -1,12 +1,17 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import DocumentSpace from "./DocumentSpace";
 import SharedSpace from "./ShareSpace";
-import LeftSideBar from './LeftSideBar';
+import LeftSideBar from "./LeftSideBar";
 
 const HomeLayout = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const router = useRouter();
-  const [isSelected, setIsSelected] = useState<"document" | "shared">("document");
+  const [isSelected, setIsSelected] = useState<"document" | "shared">(
+    "document",
+  );
   const [iconSrc, setIconSrc] = useState({
     document: "home_2_reversed.svg",
     shared: "home_3.svg",
