@@ -1,10 +1,14 @@
-import DndPage from '@/components/pageLayout/DndPage'
-import React from 'react'
+"use client";
+import DndPage from "@/components/pageLayout/DndPage";
+import React, { useEffect, useState } from "react";
 
 const Hamburger = () => {
-  return (
-    <div><DndPage /></div>
-  )
-}
+  const [winReady, setWinReady] = useState(false);
+  useEffect(() => {
+    setWinReady(true);
+  }, []);
 
-export default Hamburger
+  return <>{winReady ? <DndPage /> : null}</>;
+};
+
+export default Hamburger;
