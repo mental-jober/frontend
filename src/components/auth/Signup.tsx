@@ -28,7 +28,7 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div className="box-border flex flex-col -mt-[58px] items-center h-screen ">
+    <div className="box-border flex flex-col items-center h-screen ">
       <div className="relative w-[143px] h-[143px] my-5 object-cover overflow-hidden">
         <Image src="/logo_jober.png" alt="Logo" fill />
       </div>
