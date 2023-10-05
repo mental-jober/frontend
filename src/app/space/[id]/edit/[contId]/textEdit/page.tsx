@@ -4,13 +4,22 @@ import Button from "@/components/common/Button";
 import Header from "@/components/common/Header";
 import TextEditor from "@/components/textEditor/FroalaTextEditor";
 import ToastUi from "@/components/toast/ToastUi";
-import { componentsSave } from "@/lib/api/componentsSaveAPI";
+import { componentsSave } from "@/lib/api/componentsAPI";
 import { froalaEditorStore, useToastStore } from "@/lib/store/store.module";
+import { useComponentsViewQuery } from "@/queries/queries";
+import { useParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 const TextEditPage = () => {
   const { text } = froalaEditorStore();
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
+
+  const { contId } = useParams();
+
+  const NumContId = Number(contId);
+
+  const { data } = useComponentsViewQuery(NumContId);
+  console.log(data);
 
   const { showToast } = useToastStore();
 
@@ -19,20 +28,17 @@ const TextEditPage = () => {
       return false;
     }
 
-    const componentTempId = 1;
-    const textType: "cont" | "link" | "temp" | "line" | "page" = "cont";
     const params = {
-      componentTempId: 165,
-      type: textType,
+      componentTempId: NumContId,
       content: text,
     };
 
     try {
-      await componentsSave(componentTempId, params);
+      await componentsSave(NumContId, params);
     } catch (error) {
       console.error("error:", error);
     }
-  }, [text]);
+  }, [text, NumContId]);
 
   useEffect(() => {
     const autoSave = setInterval(async () => {

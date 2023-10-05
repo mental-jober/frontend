@@ -7,14 +7,22 @@ import BlockTemp from "./BlockTemp";
 import BlockPage from "./BlockPage";
 import BlockLink from "./BlockLink";
 import { ComponentData } from "@/lib/store/useComponentStore";
+import { useRouter } from "next/navigation";
+import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
 
 interface BlockTopProps {
   data: ComponentData;
 }
 
 const BlockTop = ({ data }: BlockTopProps) => {
+  const router = useRouter();
+  const { spaceWallId } = useSpaceWallStore();
+
+  const onMove = () => {
+    router.push(`/space/${spaceWallId}/edit/${data.componentTempId}/textEdit`);
+  };
   return (
-    <Top>
+    <Top onClick={() => onMove()}>
       <StyledDragDots />
       <ContentArea>{renderBlockContent({ data })}</ContentArea>
       <StyledArrow />
