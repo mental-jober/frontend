@@ -2,6 +2,7 @@
 import { useQuery } from "react-query";
 import { queryKey } from "./queryKeys";
 import { checkMembers } from "@/lib/api/memberAPI";
+import { enterEdit } from "@/lib/api/spaceEditAPI";
 
 interface QueryOptions {
   [key: string]: unknown;
@@ -21,5 +22,16 @@ export const useMemberCheckQuery = (
     {
       ...options,
     },
+  );
+};
+
+export const useEnterEditQuery = (
+  spaceWallId: string,
+  options?: QueryOptions,
+) => {
+  return useQuery(
+    [queryKey.ENTER_EDIT, spaceWallId],
+    () => enterEdit(spaceWallId),
+    { ...options },
   );
 };
