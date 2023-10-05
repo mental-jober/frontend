@@ -15,7 +15,7 @@ interface BlockBottomProps {
 }
 
 const BlockBottom = ({ data }: BlockBottomProps) => {
-  const { setComponentValue, deleteComponent } = useComponentStore();
+  const { setComponentValue } = useComponentStore();
   const { spaceWallId } = useSpaceWallStore();
   const [visible, setVisible] = useState<boolean>(data.visible);
 
@@ -25,7 +25,12 @@ const BlockBottom = ({ data }: BlockBottomProps) => {
       <BotRight>
         <StyledTrashIcon
           onClick={() => {
-            deleteComponent(spaceWallId as number, data.componentTempId);
+            setComponentValue(
+              spaceWallId as number,
+              data.componentTempId,
+              "deleted",
+              true,
+            );
           }}
         />
         <ToggleSwitch
