@@ -3,6 +3,7 @@
 import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
+import { IoLinkOutline } from "react-icons/io5";
 
 // TODO : 이름 바꾸기
 const PostTemplate = () => {
@@ -10,6 +11,7 @@ const PostTemplate = () => {
     <PostTemplateLayout>
       <PostTemplateBlock>
         <ContentList>
+          <StyledIoLinkOutline />
           <span>제목</span>
           <span>내용</span>
         </ContentList>
@@ -25,7 +27,7 @@ const PostTemplateLayout = styled.div`
   min-width: 360px;
   padding: 0 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   margin-bottom: 40px;
 `;
 
@@ -72,6 +74,16 @@ const StyledLink = styled(Link)`
   font-size: 12px;
   font-weight: 700;
   letter-spacing: -0.1px;
+`;
+
+const StyledIoLinkOutline = styled(IoLinkOutline)`
+  display: flex;
+  width: 20px;
+  height: 20px;
+  padding: 16px 2px 4px 2px;
+  flex-direction: space;
+  justify-content: space-between;
+  gap: 10px;
 `;
 
 export default PostTemplate;

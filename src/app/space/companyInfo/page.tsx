@@ -8,22 +8,21 @@ import PostTemplate from "@/components/post/PostTemplate";
 import IntroProfile from "@/components/spaceLayout/IntroProfile";
 import Link from "next/link";
 import styled from "styled-components";
-import Image from "next/image";
 
 const dummyData = [
   {
     id: 1,
     title: "첫 번째 포스트",
     content: "첫 번째 포스트 내용",
-    imageUrl: "https://loremflickr.com/320/240/",
-    videoUrl:
-      "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
+
+    // videoUrl:
+    //   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
   },
   {
     id: 2,
     title: "두 번째 포스트",
     content: "두 번째 포스트 내용",
-    imageUrl: "https://loremflickr.com/320/240/",
+
     videoUrl:
       "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
   },
@@ -32,9 +31,9 @@ const dummyData = [
     id: 3,
     title: "세 번째 포스트",
     content: "세 번째 포스트 내용",
-    imageUrl: "https://loremflickr.com/320/240/",
-    videoUrl:
-      "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
+
+    // videoUrl:
+    //   "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
   },
 ];
 
@@ -43,7 +42,7 @@ const CompanyInfoPage = () => {
     <>
       <Header />
       <Margin />
-      <ResumeBlock>
+      <CompanyInfoBlock>
         <IntroProfile />
         <SocialList>
           <StyledLink href="#">링크</StyledLink>
@@ -54,30 +53,30 @@ const CompanyInfoPage = () => {
               <h2>{item.title}</h2>
               <PostLine />
               <p>{item.content}</p>
-              <iframe
-                src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4"
-                title="#"
-                width="320px"
-                height="180px"
-              ></iframe>
-              <Image
-                src={item.imageUrl}
-                alt={item.title}
-                width={320}
-                height={240}
-              />
+              {item.videoUrl && ( // 동영상 URL이 존재할 때만 렌더링
+                <iframe
+                  src={item.videoUrl}
+                  title="#"
+                  width="320px"
+                  height="180px"
+                ></iframe>
+              )}
               <PostLine />
             </PostContent>
           ))}
         </PostContentBlock>
         <LinkPage />
         <PostTemplate />
-      </ResumeBlock>
+        <LinkPage />
+        <LinkPage />
+        <PostTemplate />
+        <PostTemplate />
+      </CompanyInfoBlock>
     </>
   );
 };
 
-const ResumeBlock = styled.div`
+const CompanyInfoBlock = styled.div`
   gap: 18px;
   width: 100%;
   min-width: 360px;
