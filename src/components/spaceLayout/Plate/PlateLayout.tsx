@@ -15,11 +15,11 @@ const PlateLayout = ({ children, name }: PlateLayoutProps) => {
   const onClickPlate = async (plate: string) => {
     if (spaceWallId) {
       const blockData = {
-        parentSpaceWallTempId: 3, /// 원래는 spaceWallId를 넣어야함
+        spaceWallId: spaceWallId,
         type: plate,
         sequence: Object.values(getSpaceComponents(spaceWallId)).length,
       };
-      const { data } = await createBlock(blockData);
+      const { data } = await createBlock(spaceWallId, blockData);
       setSpaceComponents(spaceWallId, data.componentTempId, data);
     }
   };

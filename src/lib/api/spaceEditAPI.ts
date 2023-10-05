@@ -1,11 +1,11 @@
 import { fetchData } from "./api";
 
 interface NewSpaceData {
-  parentSpaceWallId: number | null;
+  spaceWallId: number | null;
 }
 
 interface NewBlockData {
-  parentSpaceWallTempId: number;
+  spaceWallId: number;
   type: string;
   sequence: number;
 }
@@ -14,8 +14,15 @@ export const createSpace = async (spaceData: NewSpaceData) => {
   return await fetchData("new-spaces", "post", spaceData);
 };
 
-export const createBlock = async (blockData: NewBlockData) => {
-  return await fetchData("componentTemps/new", "post", blockData);
+export const createBlock = async (
+  spaceWallId: number,
+  blockData: NewBlockData,
+) => {
+  return await fetchData(
+    `componentTemps/new/${spaceWallId}`,
+    "post",
+    blockData,
+  );
 };
 
 export const enterEdit = async (spaceWallId: string) => {
