@@ -5,31 +5,47 @@ import { PiTrash } from "react-icons/pi";
 import Chip from "../Chip";
 import ToggleSwitch from "@/components/common/ToggleSwitch";
 import { useState } from "react";
-import { ComponentData } from "@/lib/store/useComponentStore";
+import useComponentStore, {
+  ComponentData,
+} from "@/lib/store/useComponentStore";
+import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
 
 interface BlockBottomProps {
   data: ComponentData;
 }
 
 const BlockBottom = ({ data }: BlockBottomProps) => {
-  const [isHidden, setIsHidden] = useState<boolean>(data.visible);
+  const { setComponentValue, deleteComponent } = useComponentStore();
+  const { spaceWallId } = useSpaceWallStore();
+  const [visible, setVisible] = useState<boolean>(data.visible);
 
   return (
     <Bottom>
       <Chip name={data.type} />
       <BotRight>
-        <StyledTrashIcon onClick={() => {}} />
+        <StyledTrashIcon
+          onClick={() => {
+            deleteComponent(spaceWallId as number, data.componentTempId);
+          }}
+        />
         <ToggleSwitch
-          checked={!isHidden}
+          checked={!visible}
           onChange={() => {
-            console.log(data.componentTempId, isHidden);
-            setIsHidden((prev) => !prev);
+            setComponentValue(
+              spaceWallId as number,
+              data.componentTempId,
+              "visible",
+              !data.visible,
+            );
+            setVisible((prev) => !prev);
+            console.log(data.componentTempId, data.visible);
           }}
         />
       </BotRight>
     </Bottom>
   );
 };
+
 const Bottom = styled.div`
   display: flex;
   align-items: center;

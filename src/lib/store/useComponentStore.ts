@@ -38,6 +38,15 @@ interface ComponentStore {
     key: keyof ComponentData,
     value: any,
   ) => void;
+  getComponentValue: (
+    spaceId: number,
+    componentId: number,
+    key: keyof ComponentData,
+  ) => void;
+  replaceSpaceComponents: (
+    spaceId: number,
+    componentsData: { [key: number]: ComponentData },
+  ) => void;
 }
 
 const useComponentStore = create<ComponentStore>((set, get) => ({
@@ -115,6 +124,24 @@ const useComponentStore = create<ComponentStore>((set, get) => ({
             [key]: value,
           },
         },
+      },
+    }));
+  },
+
+  getComponentValue: (spaceId, componentId, key) => {
+    const componentData = get().componentsBySpace[spaceId]?.[componentId];
+    if (componentData) {
+      return componentData[key];
+    } else {
+      return null;
+    }
+  },
+
+  replaceSpaceComponents: (spaceId, componentsData) => {
+    set((state) => ({
+      componentsBySpace: {
+        ...state.componentsBySpace,
+        [spaceId]: componentsData,
       },
     }));
   },
