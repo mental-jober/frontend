@@ -45,7 +45,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="box-border flex flex-col -mt-[58px] mx-auto h-screen max-w-[430px] ">
+    <div className="box-border flex flex-col mx-auto h-screen max-w-[430px] ">
       <div className="relative w-[143px] h-[143px] self-center my-5 object-cover overflow-hidden">
         <Image src="/logo_jober.png" alt="Logo" fill />
       </div>
