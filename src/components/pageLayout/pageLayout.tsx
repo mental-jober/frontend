@@ -1,7 +1,5 @@
 "use client";
 
-/* import Header from "@/components/common/Header"; */
-import styled from "styled-components";
 import { CARD_DATA, PlateName } from "@/lib/constants";
 import Image from "next/image";
 import { useState } from "react";
@@ -149,12 +147,3 @@ const Card: React.FC<CardProps> = ({ title, description, onPreview }) => {
 };
 
 export default PageLayout;
-
-const HeaderWrapper = styled.div`
-  & > div {
-    margin-top: -58px;
-    margin-left: -20px;
-    /* left: 50%;
-    transform: translateX(-50%); */
-  }
-`;
