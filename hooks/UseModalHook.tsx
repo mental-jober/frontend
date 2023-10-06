@@ -17,7 +17,6 @@ export interface MemberType {
 }
 
 interface ModalData {
-  data: string;
   onDeleteConfirm?: () => void;
 }
 
