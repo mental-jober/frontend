@@ -149,7 +149,7 @@ const CollaboratorPage = () => {
   };
 
   return (
-    <div className="">
+    <div>
       <Header />
       <Container>
         <PageHeadline>공동 작업자 추가</PageHeadline>
@@ -180,16 +180,19 @@ const CollaboratorPage = () => {
 };
 
 const BtnContainer = styled.div`
+  width: 100%;
   max-width: 430px;
   min-width: 320px;
   bottom: 35px;
-  position: fixed;
+  position: absolute;
+  left: 0;
+  padding: 0 20px;
 `;
 
 const Members = styled.div``;
 
 const Container = styled.div`
-  width: 360px;
+  width: 100%;
   background: #fff;
   padding: 0 20px;
 `;

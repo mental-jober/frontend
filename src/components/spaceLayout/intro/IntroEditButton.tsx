@@ -1,10 +1,17 @@
 import styled from "styled-components";
 import { PiPencilSimpleLine } from "react-icons/pi";
+import { useParams, useRouter } from "next/navigation";
 
 const IntroEditButton = () => {
+  const router = useRouter();
+  const { id } = useParams();
+
+  const onMoveProfileEdit = () => {
+    router.push(`/space/${id}/edit/profileEdit`);
+  };
   return (
     <Wrapper>
-      <StyledPencilIcon />
+      <StyledPencilIcon onClick={onMoveProfileEdit} />
     </Wrapper>
   );
 };

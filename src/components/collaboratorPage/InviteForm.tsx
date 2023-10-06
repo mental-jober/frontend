@@ -48,7 +48,7 @@ const InviteForm = ({
 };
 
 const InputContainer = styled.div`
-  width: 320px;
+  width: 100%;
   height: 40px;
   display: flex;
   justify-content: center;

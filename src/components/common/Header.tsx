@@ -1,15 +1,19 @@
 import { styled } from "styled-components";
 import { GrFormPrevious } from "react-icons/gr";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useParams } from "next/navigation";
 import { useModal } from "../../../hooks/UseModalHook";
 
 const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { onOpenModal } = useModal();
+  const { id, contId } = useParams();
 
   const handleBack = () => {
-    if (pathname === "/space/textEdit") {
+    if (
+      pathname === `/space/${id}/edit/${contId}/textEdit` ||
+      `/space/${id}/edit/profileEdit`
+    ) {
       onOpenModal("ExitPage");
     } else {
       router.back();

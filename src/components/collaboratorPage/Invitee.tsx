@@ -37,7 +37,7 @@ const Invitee = ({ invite, onChangeAuths }: InviteeProps) => {
 
 const StyledInvitee = styled.div`
   display: flex;
-  width: 320px;
+  width: 100%;
   height: 50px;
   align-items: center;
   gap: 8px;
