@@ -18,12 +18,8 @@ const TextEditPage = () => {
 
   const NumId = Number(id);
   const NumContId = Number(contId);
-  console.log(id, contId);
-  console.log(typeof NumContId);
 
   const { data } = useComponentsViewQuery(NumId, NumContId);
-  console.log(useComponentsViewQuery(NumId, NumContId));
-  console.log(data?.data.content);
 
   useEffect(() => {
     setText(data?.data.content);

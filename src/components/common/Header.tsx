@@ -9,9 +9,13 @@ const Header = () => {
   const pathname = usePathname();
   const { id } = useParams();
   const { onOpenModal } = useModal();
+  const { id, contId } = useParams();
 
   const handleBack = () => {
-    if (pathname === "/space/textEdit") {
+    if (
+      pathname === `/space/${id}/edit/${contId}/textEdit` ||
+      `/space/${id}/edit/profileEdit`
+    ) {
       onOpenModal("ExitPage");
     } else {
       router.back();

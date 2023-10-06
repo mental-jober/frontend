@@ -23,7 +23,7 @@ const Owner = ({ owner }: ownerProps) => {
 
 const StyledOwner = styled.div`
   display: flex;
-  width: 320px;
+  width: 100%;
   height: 50px;
   align-items: center;
   gap: 8px;
@@ -66,7 +66,8 @@ const OwnerEmail = styled.div`
 const OwnerValue = styled.div`
   flex: 1 0 0;
   display: flex;
-  justify-content: center;
+  margin-right: 20px;
+  justify-content: end;
   padding: 10px 12px 10px 16px;
   align-items: center;
   gap: 4px;
