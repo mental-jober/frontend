@@ -52,10 +52,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({ TYPE }) => {
   };
 
   return (
-    <div className="min-w-[360px] max-w-[430px] px-5 mx-auto flex flex-col w-full h-auto">
-      <HeaderWrapper>
-        <Header />
-      </HeaderWrapper>
+    <div className="min-w-[360px] max-w-[430px] px-5 flex flex-col w-full h-auto">
       <b className="mb-[10px] title2-bold">
         <p>{TYPE}의</p>
         <p>레이아웃을 선택해주세요</p>
