@@ -8,11 +8,11 @@ import { createBlock } from "@/lib/api/spaceEditAPI";
 import useComponentStore from "@/lib/store/useComponentStore";
 import { useIsNewSpaceStore } from "@/lib/store/useIsNewSpace";
 import { usePageLayoutStore } from "@/lib/store/usePageLayoutStore";
-import useSpaceStore, { SpaceData } from "@/lib/store/useSpaceStore";
+// import useSpaceStore, { SpaceData } from "@/lib/store/useSpaceStore";
 import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
 import {
   useEnterEditQuery,
-  useSpaceTempSaveQuery,
+  // useSpaceTempSaveQuery,
   useSpaceTempViewQuery,
 } from "@/queries/queries";
 
