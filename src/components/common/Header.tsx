@@ -49,7 +49,7 @@ const HeaderBlock = styled.div`
   align-items: center;
   position: sticky;
   top: 0;
-  z-index: 9998;
+  z-index: 10;
   svg {
     cursor: pointer;
     font-size: 30px;

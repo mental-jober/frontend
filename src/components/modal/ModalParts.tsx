@@ -5,6 +5,7 @@ export const ModalContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+  z-index: 9997;
 `;
 
 export const ModalOverlay = styled.div`
@@ -28,6 +29,7 @@ export const ModalBox = styled.div`
   flex-direction: column;
   gap: 18px;
   box-shadow: 0 0 18px 0 rgba (191, 192, 196, 0.18);
+  z-index: 9998;
 `;
 
 export const ModalContents = styled.div`
@@ -36,6 +38,7 @@ export const ModalContents = styled.div`
   justify-content: center;
   align-items: center;
   gap: 18px;
+  z-index: 9995;
 `;
 
 export const ModalClose = styled.div`

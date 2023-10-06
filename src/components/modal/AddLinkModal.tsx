@@ -1,4 +1,4 @@
-import { useRef, MouseEvent, useState, ChangeEvent } from "react";
+import { useRef, MouseEvent, useState, ChangeEvent, useEffect } from "react";
 import styled from "styled-components";
 import { PiX } from "react-icons/pi";
 import Button from "@/components/common/Button";
@@ -7,6 +7,7 @@ import { useModal } from "../../../hooks/UseModalHook";
 import { useParams } from "next/navigation";
 import { componentsSave } from "@/lib/api/componentsAPI";
 import useCompnetTempIdStore from "@/lib/store/useComponentTempIdStore";
+import { useComponentsViewQuery } from "@/queries/queries";
 
 const AddLinkModal = () => {
   const { isOpen, onCloseModal, type } = useModal();
@@ -18,6 +19,23 @@ const AddLinkModal = () => {
   const NumId = Number(id);
   const NumContId = Number(componentTempId);
 
+  const { data } = useComponentsViewQuery(NumId, NumContId);
+
+  const isModalOpen = isOpen && type === "AddLink";
+
+  useEffect(() => {
+    if (data) {
+      setForm({
+        title: data.data.title ? data.data.title : "",
+        text: data.data.content ? data.data.content : "",
+      });
+    }
+  }, [setForm, data, isOpen]);
+
+  const modalRef = useRef(null);
+
+  if (!isModalOpen) return null;
+
   const onFormChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm((prev) => ({
@@ -25,12 +43,6 @@ const AddLinkModal = () => {
       [name]: value,
     }));
   };
-
-  const isModalOpen = isOpen && type === "AddLink";
-
-  const modalRef = useRef(null);
-
-  if (!isModalOpen) return null;
 
   const modalClose = (e: MouseEvent) => {
     if (e.target === modalRef.current) onCloseModal();

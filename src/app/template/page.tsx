@@ -1,6 +1,5 @@
 "use client";
 
-import Header from "@/components/common/Header";
 import Categories from "@/components/template/Categories";
 import CreateTemplate from "@/components/template/CreateTemplate";
 import Search from "@/components/template/Search";
@@ -156,7 +155,6 @@ const TemplatePage = () => {
   return (
     <>
       <HeaderBlock className={scroll ? "scrolled" : ""}>
-        <Header />
         <TabList tab={tab} onSelectTab={onSelectTab} />
         {tab === "collection" ? (
           <>

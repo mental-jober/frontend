@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "@/components/common/Header";
+/* import Header from "@/components/common/Header"; */
 import styled from "styled-components";
 import { CARD_DATA, PlateName } from "@/lib/constants";
 import Image from "next/image";
@@ -48,14 +48,11 @@ const PageLayout: React.FC<PageLayoutProps> = ({ TYPE }) => {
         : "프로젝트형",
     );
     setComposition(composition);
- 
   };
 
   return (
     <div className="min-w-[360px] max-w-[430px] px-5 mx-auto flex flex-col w-full h-auto">
-      <HeaderWrapper>
-        <Header />
-      </HeaderWrapper>
+      <HeaderWrapper>{/* <Header /> */}</HeaderWrapper>
       <b className="mb-[10px] title2-bold">
         <p>{TYPE}의</p>
         <p>레이아웃을 선택해주세요</p>

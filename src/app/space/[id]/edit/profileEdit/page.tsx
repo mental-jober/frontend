@@ -3,17 +3,21 @@
 import { MyTextInput, SpaceNameInput } from "@/components/textArea/TextArea";
 import Button from "@/components/common/Button";
 import Image from "next/image";
-import { ChangeEvent, useRef, useState } from "react";
-import Header from "@/components/common/Header";
+import { ChangeEvent, useRef } from "react";
 import { handleUpload } from "@/lib/api/cloudinary";
-import { profileStore } from "@/lib/store/store.module";
-import { useRouter } from "next/navigation";
+
+import { useParams, useRouter } from "next/navigation";
+import useSpaceStore from "@/lib/store/useSpaceStore";
 
 const ProfileEditPage = () => {
-  const [profileImage, setProfileImage] = useState("");
-  const { setProfileUrl } = profileStore();
+  const { getValue, setValue } = useSpaceStore();
   const inputFileRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const { id } = useParams();
+
+  const NumId = Number(id);
+
+  const profileImage = getValue(NumId, "profileImageUrl");
 
   const onImageClick = () => {
     if (inputFileRef.current) {
@@ -28,10 +32,7 @@ const ProfileEditPage = () => {
 
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => {
-        const base64Data = e.target?.result as string;
-        setProfileImage(base64Data);
-      };
+
       reader.readAsDataURL(file);
 
       try {
@@ -40,7 +41,7 @@ const ProfileEditPage = () => {
         if (response?.status === 200) {
           const data = response.data;
           imageUrl = data.url;
-          setProfileUrl(imageUrl);
+          setValue(NumId, "profileImageUrl", imageUrl);
         }
       } catch (error) {
         console.error("업로드 실패:", error);
@@ -51,13 +52,12 @@ const ProfileEditPage = () => {
   };
 
   const onSave = () => {
-    router.push("/");
+    router.push(`/space/${id}/edit`);
   };
 
   return (
     <>
       <div>
-        <Header />
         <div className="mt-[82px]">
           <p className="profile-edit font-bold">프로필 편집</p>
         </div>

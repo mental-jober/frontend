@@ -19,7 +19,8 @@ export const componentsView = async (
   space_wall_id: number,
   componentTempId: number,
 ) => {
-  return fetchData(`componentTemps/view/${space_wall_id}`, "get", {
-    componentTempId,
-  });
+  return fetchData(
+    `componentTemps/view/${space_wall_id}?componentTempId=${componentTempId}`,
+    "get",
+  );
 };
