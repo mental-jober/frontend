@@ -19,7 +19,7 @@ const CollaboratorPage = () => {
   const [inviteeMember, setInviteeMember] = useState<MemberType[]>([]);
   const [auths, setAuths] = useState("");
 
-  const { data } = useMemberCheckQuery(3);
+  const { data } = useMemberCheckQuery(6);
 
   useEffect(() => {
     const CheckeMembers = async () => {
