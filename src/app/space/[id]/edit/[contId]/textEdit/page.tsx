@@ -1,18 +1,18 @@
 "use client";
 
 import Button from "@/components/common/Button";
-import Header from "@/components/common/Header";
 import TextEditor from "@/components/textEditor/FroalaTextEditor";
 import ToastUi from "@/components/toast/ToastUi";
 import { componentsSave } from "@/lib/api/componentsAPI";
 import { froalaEditorStore, useToastStore } from "@/lib/store/store.module";
 import { useComponentsViewQuery } from "@/queries/queries";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 const TextEditPage = () => {
   const { text, setText } = froalaEditorStore();
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
+  const router = useRouter();
 
   const { id, contId } = useParams();
 
@@ -22,7 +22,7 @@ const TextEditPage = () => {
   const { data } = useComponentsViewQuery(NumId, NumContId);
 
   useEffect(() => {
-    setText(data?.data.content);
+    setText(data?.data.content ? data.data.content : "");
   }, [setText, data]);
 
   const { showToast } = useToastStore();
@@ -42,11 +42,12 @@ const TextEditPage = () => {
       try {
         await componentsSave(NumId, params);
         showToast(isAutoSave ? "자동 저장 중입니다." : "저장되었습니다.");
+        router.push(`/space/${id}/edit`);
       } catch (error) {
         console.error("error:", error);
       }
     },
-    [text, NumContId, NumId, showToast],
+    [text, NumContId, NumId, showToast, id, router],
   );
 
   useEffect(() => {
@@ -64,7 +65,6 @@ const TextEditPage = () => {
   return (
     <>
       <div className="flexable flex-col">
-        <Header />
         <div className="mt-4">
           <TextEditor />
         </div>
@@ -75,7 +75,7 @@ const TextEditPage = () => {
             disabled={isBtnDisabled}
             {...(isBtnDisabled ? { $disabled: true } : { $save: true })}
           >
-            확인
+            저장
           </Button>
         </div>
       </div>

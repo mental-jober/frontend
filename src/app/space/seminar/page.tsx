@@ -1,6 +1,5 @@
 "use client";
 
-import Header from "@/components/common/Header";
 import LinkPage from "@/components/post/LinkPage";
 import PostLine from "@/components/post/PostLine";
 import PostTemplate from "@/components/post/PostTemplate";
@@ -33,7 +32,6 @@ const dummyData = [
 const SeminarPage = () => {
   return (
     <>
-      <Header />
       <EventBlock>
         <IntroBackGround />
         <EventBlock>

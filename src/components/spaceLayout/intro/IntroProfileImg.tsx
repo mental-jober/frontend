@@ -1,18 +1,25 @@
 import styled from "styled-components";
 import Image from "next/image";
 import IntroEditButton from "./IntroEditButton";
+import useSpaceStore from "@/lib/store/useSpaceStore";
+import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
 
-interface IntroProfileImgProps {
-  imgURL?: string;
-}
-
-const IntroProfileImg = ({
-  imgURL = "/default_profile.png",
-}: IntroProfileImgProps) => {
+const IntroProfileImg = () => {
   {
+    const { getValue } = useSpaceStore();
+    const { spaceWallId } = useSpaceWallStore();
+    const defaultImg = "/default_profile.png";
+
+    const profileImg = getValue(spaceWallId as number, "profileImageUrl");
+
     return (
       <>
-        <PfImg src={imgURL} width={116} height={116} alt="프로필 이미지" />
+        <PfImg
+          src={profileImg || defaultImg}
+          width={116}
+          height={116}
+          alt="프로필 이미지"
+        />
         <IntroEditButton />
       </>
     );

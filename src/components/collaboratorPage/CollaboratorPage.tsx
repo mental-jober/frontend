@@ -1,7 +1,6 @@
 "use client";
 
 import { styled } from "styled-components";
-import Header from "@/components/common/Header";
 import Button from "@/components/common/Button";
 import useCustomBack from "../../../hooks/UseCustomBackHook";
 import { checkEmail } from "@/lib/api/checkEmailAPI";
@@ -150,7 +149,6 @@ const CollaboratorPage = () => {
 
   return (
     <div>
-      <Header />
       <Container>
         <PageHeadline>공동 작업자 추가</PageHeadline>
         <InviteForm

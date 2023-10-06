@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "@/components/common/Header";
+/* import Header from "@/components/common/Header"; */
 import styled from "styled-components";
 import { CARD_DATA, PlateName } from "@/lib/constants";
 import Image from "next/image";
@@ -48,7 +48,6 @@ const PageLayout: React.FC<PageLayoutProps> = ({ TYPE }) => {
         : "프로젝트형",
     );
     setComposition(composition);
- 
   };
 
   return (
