@@ -89,8 +89,8 @@ const FroalaSetup = () => {
     videoInsertButtons: ["videoBack", "|", "videoByURL", "videoUpload"],
     paragraphFormat: {
       N: "Normal",
-      heading1: "Heading 1",
-      H2: "Heading 2",
+      head1: "Heading 1",
+      head2: "Heading 2",
     },
     events: {
       "image.beforeUpload": function (images: Blob[]) {

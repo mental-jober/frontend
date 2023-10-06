@@ -92,7 +92,7 @@ const ProfileEditPage = () => {
               width={36}
               height={36}
               alt="편집"
-              className="rounded-full border border-white relative top-[-36px] left-12 cursor-pointer"
+              className="rounded-full border border-white relative top-[-36px] left-10 cursor-pointer"
             />
           </button>
         </div>

@@ -17,7 +17,7 @@ const IntroEditButton = () => {
 };
 
 const Wrapper = styled.button`
-  top: 0;
+  top: -50px;
   left: 0;
   right: 0;
   bottom: 0;
