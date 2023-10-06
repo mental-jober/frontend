@@ -5,14 +5,16 @@ import IntroProfile from "@/components/spaceLayout/IntroProfile";
 import IntroProject from "@/components/spaceLayout/IntroProject";
 import Plates from "@/components/spaceLayout/Plates";
 import { createBlock } from "@/lib/api/spaceEditAPI";
-import useComponentStore from "@/lib/store/useComponentStore";
+import useComponentStore, {
+  ComponentData,
+} from "@/lib/store/useComponentStore";
 import { useIsNewSpaceStore } from "@/lib/store/useIsNewSpace";
 import { usePageLayoutStore } from "@/lib/store/usePageLayoutStore";
-// import useSpaceStore, { SpaceData } from "@/lib/store/useSpaceStore";
+import useSpaceStore, { SpaceData } from "@/lib/store/useSpaceStore";
 import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
 import {
   useEnterEditQuery,
-  // useSpaceTempSaveQuery,
+  useSpaceTempSaveQuery,
   useSpaceTempViewQuery,
 } from "@/queries/queries";
 
@@ -22,20 +24,24 @@ import styled from "styled-components";
 
 const EditPage = () => {
   const { spaceWallId, setSpaceWallId } = useSpaceWallStore();
-  // const { getData } = useSpaceStore();
+  const { addData, getData } = useSpaceStore();
   const { getSpaceComponents, setSpaceComponents } = useComponentStore();
   const { isNewSpace, setIsNewSpace } = useIsNewSpaceStore();
-  const { data } = useSpaceTempViewQuery(spaceWallId as number);
-  console.log("data:", data);
-  // const spaceTempSaveQueryOption = { refetchInterval: 10000 };
-  // const {} = useSpaceTempSaveQuery(
-  //   spaceWallId as number,
-  //   getData(spaceWallId as number) as SpaceData,
-  //   spaceTempSaveQueryOption,
-  // );
+  const { data: tempData } = useSpaceTempViewQuery(spaceWallId as number);
+  const spaceTempSaveQueryOption = {
+    refetchInterval: 10000,
+  };
+  useSpaceTempSaveQuery(
+    spaceWallId as number,
+    getData(spaceWallId as number) as SpaceData,
+    spaceTempSaveQueryOption,
+  );
   const paramSpaceWallId = useParams().id;
   const { type, composition } = usePageLayoutStore();
-  const enterEditQueryOption = { refetchOnWindowFocus: false };
+  const enterEditQueryOption = {
+    refetchOnWindowFocus: false,
+  };
+
   const { isSuccess } = useEnterEditQuery(
     paramSpaceWallId as string,
     enterEditQueryOption,
@@ -85,8 +91,22 @@ const EditPage = () => {
       }
     };
 
-    onCreateLayoutComponents();
+    if (tempData) {
+      addData(spaceWallId as number, tempData.data);
+      tempData.data.componentTempList.forEach((component: ComponentData) => {
+        setSpaceComponents(
+          spaceWallId as number,
+          component.componentTempId,
+          component,
+        );
+      });
+    } else {
+      onCreateLayoutComponents();
+    }
   }, [
+    spaceWallId,
+    addData,
+    tempData,
     composition,
     getSpaceComponents,
     setSpaceComponents,
