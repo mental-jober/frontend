@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 type User = {
   id: number;
@@ -12,8 +13,16 @@ type UserState = {
   clearUser: () => void;
 };
 
-export const useUserStore = create<UserState>((set) => ({
-  user: {},
-  setUser: (user) => set({ user }),
-  clearUser: () => set({ user: {} }),
-}));
+export const useUserStore = create<UserState>()(
+  persist(
+     (set) => ({
+      user: {},
+      setUser: (user) => set({ user }),
+      clearUser: () => set({ user: {} }),
+    }),
+    {
+      name: "user-store",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);
