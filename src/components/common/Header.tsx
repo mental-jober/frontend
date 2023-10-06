@@ -7,7 +7,6 @@ import SpaceEditHeader from "../spaceLayout/SpaceEditHeader";
 const Header = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { id } = useParams();
   const { onOpenModal } = useModal();
   const { id, contId } = useParams();
 
