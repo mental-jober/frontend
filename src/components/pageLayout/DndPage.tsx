@@ -10,14 +10,14 @@ import Image from "next/image";
 export default function DndPage() {
   const [items, setItems] = useState(initialViableMinimalData);
   return (
-    <div className = "mx-[20px]">
+    <div className="mx-[20px]">
       <div className="rounded-2xl bg-white shadow w-full h-[110px] px-5 flex justify-between items-start mb-6">
         <div className="flex flex-col mb-4">
           <div className="flex gap-2 items-center mb-1">
             <Image src={"/home/rocket.svg"} alt="로켓" width={22} height={22} />
-            <p className='title2-bold'>공유 스페이스 이름</p>
+            <p className="title2-bold">공유 스페이스 이름</p>
           </div>
-          <p className='text1-medium'>
+          <p className="text1-medium">
             공유 스페이스 설명글이 들어가는 곳입니다.공유 스페이스 설명글이
             들어가는 곳입니다.공유 스페이스 설명글이 들어가는 곳입니다.
           </p>
@@ -43,15 +43,10 @@ const TreeItem = React.forwardRef<
   HTMLDivElement,
   TreeItemComponentProps<MinimalTreeItemData>
 >((props, ref) => {
-  const { isOver, isOverParent } = props;
-
   return (
     <>
       <SimpleTreeItemWrapper {...props} ref={ref}>
-        <div className="font-bold">
-          {props.item.value}
-        </div>
-        
+        <div className="font-bold">{props.item.value}</div>
       </SimpleTreeItemWrapper>
     </>
   );
