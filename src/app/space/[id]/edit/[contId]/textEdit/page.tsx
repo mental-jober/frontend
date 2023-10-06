@@ -42,7 +42,9 @@ const TextEditPage = () => {
       try {
         await componentsSave(NumId, params);
         showToast(isAutoSave ? "자동 저장 중입니다." : "저장되었습니다.");
-        router.push(`/space/${id}/edit`);
+        if (!isAutoSave) {
+          router.push(`/space/${id}/edit`);
+        }
       } catch (error) {
         console.error("error:", error);
       }
