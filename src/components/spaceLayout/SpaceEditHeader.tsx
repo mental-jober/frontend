@@ -3,6 +3,9 @@
 import { PiList, PiClockClockwise } from "react-icons/pi";
 import styled from "styled-components";
 import Button from "../common/Button";
+import { useState } from 'react';
+import DndPage from '../pageLayout/DndPage';
+import { GrFormPrevious } from "react-icons/gr";
 // import { useRouter } from "next/navigation";
 // import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
 // import useSpaceStore, { SpaceData } from "@/lib/store/useSpaceStore";
@@ -28,15 +31,36 @@ const SpaceEditHeader = () => {
     // saveSpace(spaceWallId as number, spaceData as SaveSpaceData);
   };
 
+  const [showDndPage, setShowDndPage] = useState(false); // 상태 추가
+
+  const toggleDndPage = () => {
+    setShowDndPage((prev) => !prev); // 상태를 반전
+  };
+
   return (
+    <>
     <SpaceEditHeaderIcons>
-      <StyledListIcon />
+      <StyledListIcon onClick={toggleDndPage} />
       <RightIcons>
         <HistoryButton></HistoryButton>
         <PreviewButton>미리보기</PreviewButton>
         <CompleteButton onClick={onClickComplete}>완료</CompleteButton>
       </RightIcons>
     </SpaceEditHeaderIcons>
+
+     {/* 조건부 렌더링 */}
+     {showDndPage && (
+        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1000, backgroundColor: 'white' }}>
+          <div className='mt-10'>
+          <DndPage />
+          </div>
+          {/* 뒤로가기 버튼 */}
+          <button style={{ position: 'absolute', top: 0, left: 0, zIndex: 1001 }} onClick={toggleDndPage}>
+            <GrFormPrevious />
+          </button>
+        </div>
+      )}
+    </>
   );
 };
 const SpaceEditHeaderIcons = styled.div`
