@@ -5,6 +5,7 @@ import IntroProfile from "@/components/spaceLayout/IntroProfile";
 import IntroProject from "@/components/spaceLayout/IntroProject";
 import Plates from "@/components/spaceLayout/Plates";
 import { createBlock } from "@/lib/api/spaceEditAPI";
+import { useToastStore } from "@/lib/store/store.module";
 import useComponentStore, {
   ComponentData,
 } from "@/lib/store/useComponentStore";
@@ -17,6 +18,7 @@ import {
   useSpaceTempSaveQuery,
   useSpaceTempViewQuery,
 } from "@/queries/queries";
+import ToastUi from "@/components/toast/ToastUi";
 
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
@@ -28,8 +30,13 @@ const EditPage = () => {
   const { getSpaceComponents, setSpaceComponents } = useComponentStore();
   const { isNewSpace, setIsNewSpace } = useIsNewSpaceStore();
   const { data: tempData } = useSpaceTempViewQuery(spaceWallId as number);
+  const { showToast } = useToastStore();
+
   const spaceTempSaveQueryOption = {
     refetchInterval: 10000,
+    onSuccess: () => {
+      showToast("임시 저장 중 입니다.");
+    },
   };
   useSpaceTempSaveQuery(
     spaceWallId as number,
@@ -117,11 +124,14 @@ const EditPage = () => {
   ]);
 
   return (
-    <Container>
-      {type === "프로젝트형" ? <IntroProject /> : <IntroProfile />}
-      <Plates />
-      <DraggableBlocks blockData={filteredBlockData} />
-    </Container>
+    <>
+      <Container>
+        {type === "프로젝트형" ? <IntroProject /> : <IntroProfile />}
+        <Plates />
+        <DraggableBlocks blockData={filteredBlockData} />
+      </Container>
+      <ToastUi />
+    </>
   );
 };
 
