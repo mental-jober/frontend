@@ -31,11 +31,14 @@ const BlockTop = ({ data }: BlockTopProps) => {
     } else if (data.type === "link") {
       setComponentTempId(data.componentTempId);
       onOpenModal("AddLink");
+    } else if (data.type === "temp") {
+      setComponentTempId(data.componentTempId);
+      router.push("/template");
     }
   };
   return (
     <>
-      <Top onClick={() => onClick()}>
+      <Top onClick={onClick}>
         <StyledDragDots />
         <ContentArea>{renderBlockContent({ data })}</ContentArea>
         <StyledArrow />
@@ -75,8 +78,10 @@ const StyledDragDots = styled(PiDotsSixVertical)`
 `;
 
 const ContentArea = styled.div`
-  flex-grow: 1;
+  width: 270px;
   display: flex;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 const StyledArrow = styled(PiCaretRight)`

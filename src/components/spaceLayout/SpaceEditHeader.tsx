@@ -3,15 +3,38 @@
 import { PiList, PiClockClockwise } from "react-icons/pi";
 import styled from "styled-components";
 import Button from "../common/Button";
+// import { useRouter } from "next/navigation";
+// import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
+// import useSpaceStore, { SpaceData } from "@/lib/store/useSpaceStore";
+// import { SaveSpaceData, saveSpace } from "@/lib/api/spaceEditAPI";
 
 const SpaceEditHeader = () => {
+  // const router = useRouter();
+  // const { spaceWallId, spaceWallTempId } = useSpaceWallStore();
+  // const { getData } = useSpaceStore();
+  // const space = getData(spaceWallId as number) as SpaceData;
+  // const spaceData = {
+  //   title: space?.title,
+  //   description: space?.description,
+  //   profileImageUrl: space?.profileImageUrl,
+  //   backgroundImageUrl: space?.backgroundImageUrl,
+  //   spaceWallId,
+  //   spaceWallTempId,
+  //   componentTempList: space?.componentList,
+  // };
+
+  const onClickComplete = () => {
+    // router.push(`/`);
+    // saveSpace(spaceWallId as number, spaceData as SaveSpaceData);
+  };
+
   return (
     <SpaceEditHeaderIcons>
       <StyledListIcon />
       <RightIcons>
         <HistoryButton></HistoryButton>
         <PreviewButton>미리보기</PreviewButton>
-        <CompleteButton>완료</CompleteButton>
+        <CompleteButton onClick={onClickComplete}>완료</CompleteButton>
       </RightIcons>
     </SpaceEditHeaderIcons>
   );

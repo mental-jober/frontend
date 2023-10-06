@@ -8,12 +8,13 @@ import { useParams } from "next/navigation";
 import { componentsSave } from "@/lib/api/componentsAPI";
 import useCompnetTempIdStore from "@/lib/store/useComponentTempIdStore";
 import { useComponentsViewQuery } from "@/queries/queries";
+import useComponentStore from "@/lib/store/useComponentStore";
 
 const AddLinkModal = () => {
   const { isOpen, onCloseModal, type } = useModal();
   const [form, setForm] = useState({ title: "", text: "" });
   const { componentTempId } = useCompnetTempIdStore();
-
+  const { setComponentValue } = useComponentStore();
   const { id } = useParams();
 
   const NumId = Number(id);
@@ -60,7 +61,8 @@ const AddLinkModal = () => {
 
     try {
       await componentsSave(NumId, params);
-
+      setComponentValue(NumId, NumContId, "title", form.title);
+      setComponentValue(NumId, NumContId, "content", form.text);
       onCloseModal();
     } catch (error) {
       console.error("error:", error);

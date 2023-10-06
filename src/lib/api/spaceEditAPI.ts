@@ -17,7 +17,7 @@ interface ComponentTempData {
   sequence: number;
   deleted: boolean;
 }
-interface SaveSpaceData {
+export interface SaveSpaceData {
   spaceWallTempId: number;
   spaceWallId: number;
   title: string;

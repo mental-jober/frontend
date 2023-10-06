@@ -15,6 +15,12 @@ const IntroProjectText = () => {
   };
 
   useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
+  useEffect(() => {
     if (isEditing && inputRef.current) {
       inputRef.current.focus();
     }
@@ -75,7 +81,6 @@ const TextAreaContent = styled.div`
   padding: 0 10px;
   align-items: center;
   word-spacing: -1.6px;
-  border-left: 2px solid #575e67;
 `;
 
 const Text = styled.span`

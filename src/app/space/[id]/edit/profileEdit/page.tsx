@@ -7,10 +7,13 @@ import { ChangeEvent, useRef } from "react";
 import { handleUpload } from "@/lib/api/cloudinary";
 
 import { useParams, useRouter } from "next/navigation";
-import useSpaceStore from "@/lib/store/useSpaceStore";
+import useSpaceStore, { SpaceData } from "@/lib/store/useSpaceStore";
+import { saveEditSpace } from "@/lib/api/spaceEditAPI";
+import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
 
 const ProfileEditPage = () => {
-  const { getValue, setValue } = useSpaceStore();
+  const { spaceWallId } = useSpaceWallStore();
+  const { getValue, setValue, getData } = useSpaceStore();
   const inputFileRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const { id } = useParams();
@@ -52,6 +55,10 @@ const ProfileEditPage = () => {
   };
 
   const onSave = () => {
+    saveEditSpace(
+      spaceWallId as number,
+      getData(spaceWallId as number) as SpaceData,
+    );
     router.push(`/space/${id}/edit`);
   };
 

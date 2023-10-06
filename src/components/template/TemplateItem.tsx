@@ -1,14 +1,21 @@
 import { styled } from "styled-components";
 import Button from "../common/Button";
 import { PiHeart, PiHeartFill } from "react-icons/pi";
-import { MdOutlineSearch } from "react-icons/md";
+// import { MdOutlineSearch } from "react-icons/md";
 import { useCallback, useState } from "react";
 import { Data } from "@/app/template/page";
 import { postFavorite, removeFavorite } from "@/lib/api/templateAPI";
+import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
+import { useRouter } from "next/navigation";
+import useCompnetTempIdStore from "@/lib/store/useComponentTempIdStore";
+import { componentsSave } from "@/lib/api/componentsAPI";
 
 const TemplateItem = ({ title, description, hashtags, id }: Data) => {
   // State
   const [toggle, setToggle] = useState(false);
+  const router = useRouter();
+  const { componentTempId } = useCompnetTempIdStore();
+  const { spaceWallId } = useSpaceWallStore();
 
   // Function
   const onClick = useCallback(async () => {
@@ -23,6 +30,14 @@ const TemplateItem = ({ title, description, hashtags, id }: Data) => {
     }
     setToggle((toggle) => !toggle);
   }, [id, toggle]);
+
+  const onApplyTemplate = () => {
+    componentsSave(spaceWallId as number, {
+      componentTempId: componentTempId as number,
+      templateId: id,
+    });
+    router.push(`/space/${spaceWallId}/edit`);
+  };
 
   // Render
   return (
@@ -39,9 +54,9 @@ const TemplateItem = ({ title, description, hashtags, id }: Data) => {
         <HeartButton onClick={onClick}>
           {toggle ? <HeartFill /> : <Heart />}
         </HeartButton>
-        <Button $templatebtn>
-          <MdOutlineSearch />
-          미리보기
+        <Button $templatebtn onClick={onApplyTemplate}>
+          {/* <MdOutlineSearch /> */}
+          적용하기
         </Button>
       </ButtonWrapper>
     </TemplateItemBlock>

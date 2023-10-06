@@ -5,7 +5,11 @@ interface BlockTextProps {
 }
 
 const BlockText = ({ content }: BlockTextProps) => {
-  return <TextBox>{content ? content : "내용을 입력해주세요"}</TextBox>;
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(content, "text/html");
+  const extractedText = doc.querySelector("p")?.textContent;
+
+  return <TextBox>{content ? extractedText : "내용을 입력해주세요"}</TextBox>;
 };
 
 const TextBox = styled.span`
