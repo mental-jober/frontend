@@ -107,9 +107,11 @@ const EditPage = () => {
 
 const Container = styled.div`
   gap: 18px;
-  min-width: 360px;
-  max-width: 430px;
+  width: 100%;
   display: flex;
+  max-width: 430px;
+  min-width: 360px;
+  min-height: 100vh;
   align-items: center;
   flex-direction: column;
   background-color: #f6f8fb;

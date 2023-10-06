@@ -38,7 +38,7 @@ const HomeLayout = () => {
   };
 
   return (
-    <div className="h-screen flex -mt-[58px]">
+    <div className="h-screen flex">
       <LeftSideBar iconSrc={iconSrc} handleClick={handleClick} />
       <div>
         {isSelected === "document" && <DocumentSpace />}

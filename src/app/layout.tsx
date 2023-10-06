@@ -9,6 +9,7 @@ import GlobalStyle from "@/styles/GlobalStyle";
 import StyledComponentsRegistry from "@/lib/registry";
 import useAuthCheck from "@/components/auth/useAuthCheck";
 import { ModalProvider } from "@/components/provider/ModalProvider";
+import Header from "@/components/common/Header";
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   // TODO: 토큰 유효성 검사 api 호출
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <ThemeProvider theme={theme}>
         <body>
           <GlobalStyle />
+          <Header />
           <ReactQueryProviders>
             <ModalProvider />
             <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
