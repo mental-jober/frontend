@@ -3,7 +3,7 @@
 import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
-import { IoLinkOutline } from "react-icons/io5";
+import { PiPencilSimpleLine } from "react-icons/pi";
 
 // TODO : 이름 바꾸기
 const PostTemplate = () => {
@@ -11,11 +11,13 @@ const PostTemplate = () => {
     <PostTemplateLayout>
       <PostTemplateBlock>
         <ContentList>
-          <StyledIoLinkOutline />
           <span>제목</span>
           <span>내용</span>
         </ContentList>
-        <StyledLink href="/space/profileConfirm">작성하기</StyledLink>
+        <StyledLink href="/space/profileConfirm">
+          <PiPencilSimpleLine />
+          작성하기
+        </StyledLink>
       </PostTemplateBlock>
     </PostTemplateLayout>
   );
@@ -51,6 +53,11 @@ const ContentList = styled.div`
   align-items: flex-start;
   margin-bottom: 28px;
   align-self: stretch;
+  svg {
+    width: 20px;
+    height: 20px;
+    flex-direction: row;
+  }
   span {
     color: #000;
     font-size: 14px;
@@ -74,16 +81,11 @@ const StyledLink = styled(Link)`
   font-size: 12px;
   font-weight: 700;
   letter-spacing: -0.1px;
-`;
-
-const StyledIoLinkOutline = styled(IoLinkOutline)`
-  display: flex;
-  width: 20px;
-  height: 20px;
-  padding: 16px 2px 4px 2px;
-  flex-direction: space;
-  justify-content: space-between;
-  gap: 10px;
+  svg {
+    width: 15px;
+    height: 15px;
+    padding-right: 4px;
+  }
 `;
 
 export default PostTemplate;
