@@ -10,7 +10,6 @@ import { ComponentData } from "@/lib/store/useComponentStore";
 import { useRouter } from "next/navigation";
 import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
 import { useModal } from "../../../../hooks/UseModalHook";
-import AddLinkModal from "@/components/modal/AddLinkModal";
 import useComponentTempIdStore from "@/lib/store/useComponentTempIdStore";
 
 interface BlockTopProps {
@@ -43,7 +42,6 @@ const BlockTop = ({ data }: BlockTopProps) => {
         <ContentArea>{renderBlockContent({ data })}</ContentArea>
         <StyledArrow />
       </Top>
-      <AddLinkModal />
     </>
   );
 };

@@ -8,6 +8,7 @@ import { froalaEditorStore, useToastStore } from "@/lib/store/store.module";
 import { useComponentsViewQuery } from "@/queries/queries";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import useDebounce from "../../../../../../../hooks/useDebounce";
 
 const TextEditPage = () => {
   const { text, setText } = froalaEditorStore();
@@ -27,11 +28,13 @@ const TextEditPage = () => {
 
   const { showToast } = useToastStore();
 
+  const deboucedText = useDebounce(text, 0);
+
   const onSave = useCallback(
-    async (isAutoSave = false) => {
+    async (isAutoSave = false, text: string) => {
       if (!text) {
-        if (!isAutoSave) showToast("텍스트를 입력하세요.");
-        return false;
+        showToast("텍스트를 입력하세요.");
+        return;
       }
 
       const params = {
@@ -49,16 +52,17 @@ const TextEditPage = () => {
         console.error("error:", error);
       }
     },
-    [text, NumContId, NumId, showToast, id, router],
+    [NumContId, NumId, showToast, id, router],
   );
 
   useEffect(() => {
-    const autoSave = setInterval(async () => {
-      await onSave(true);
-    }, 10000);
-
-    return () => clearInterval(autoSave);
-  }, [showToast, onSave]);
+    if (deboucedText) {
+      const autoSave = setTimeout(async () => {
+        await onSave(true, deboucedText);
+      }, 10000);
+      return () => clearTimeout(autoSave);
+    }
+  }, [deboucedText, onSave]);
 
   useEffect(() => {
     setIsBtnDisabled(!text);
@@ -73,7 +77,7 @@ const TextEditPage = () => {
 
         <div className="mt-8 w-full">
           <Button
-            onClick={() => onSave(false)}
+            onClick={() => onSave(false, text)}
             disabled={isBtnDisabled}
             {...(isBtnDisabled ? { $disabled: true } : { $save: true })}
           >

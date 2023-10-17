@@ -7,6 +7,7 @@ import DeletePermissonModal from "../modal/DeletePermissonModal";
 import LogoutModal from "../modal/LogoutModal";
 import DeletePageModal from "../modal/DeletePageModal";
 import GetLayoutModal from "../modal/GetLayoutModal";
+import AddLinkModal from "../modal/AddLinkModal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -27,6 +28,7 @@ export const ModalProvider = () => {
       <LogoutModal />
       <DeletePageModal />
       <GetLayoutModal />
+      <AddLinkModal />
     </>
   );
 };

@@ -5,7 +5,7 @@ interface BlockLinkProps {
 }
 
 const BlockLink = ({ content }: BlockLinkProps) => {
-  console.log(content);
+  /* console.log(content); */
   return (
     <LinkBox
       disabled
