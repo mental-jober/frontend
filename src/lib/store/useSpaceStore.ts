@@ -1,19 +1,9 @@
 import { create } from "zustand";
 import { ComponentData } from "./useComponentStore";
+import { BaseSpaceData } from "../api/spaceEditAPI";
 
-export interface SpaceData {
-  url: string;
-  title: string;
-  description: string;
-  profileImageUrl: string;
-  backgroundImageUrl: string;
+export interface SpaceData extends BaseSpaceData {
   componentList: ComponentData[];
-  createMemberId: number;
-  pathIds: string;
-  authorized: boolean;
-  sequence: number;
-  createdAt: string;
-  updatedAt: string;
 }
 
 interface SpaceStore {

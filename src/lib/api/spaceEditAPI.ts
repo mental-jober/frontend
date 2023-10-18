@@ -1,4 +1,4 @@
-import { SpaceData } from "../store/useSpaceStore";
+import { ComponentData } from "../store/useComponentStore";
 import { fetchData } from "./api";
 
 interface NewSpaceData {
@@ -27,6 +27,24 @@ export interface SaveSpaceData {
   componentTempList: ComponentTempData[];
 }
 
+export interface BaseSpaceData {
+  url: string;
+  title: string;
+  description: string;
+  profileImageUrl: string;
+  backgroundImageUrl: string;
+  createMemberId: number;
+  pathIds: string;
+  authorized: boolean;
+  sequence: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface TempSpaceData extends BaseSpaceData {
+  componentTempList: ComponentData[];
+}
+
 export const createSpace = async (spaceData: NewSpaceData) => {
   return await fetchData("new-spaces", "post", spaceData);
 };
@@ -48,7 +66,7 @@ export const enterEdit = async (spaceWallId: string) => {
 
 export const saveEditSpace = async (
   spaceWallId: number,
-  spaceData: SpaceData,
+  spaceData: TempSpaceData,
 ) => {
   return await fetchData(`spaceTemps/save/${spaceWallId}`, "put", spaceData);
 };

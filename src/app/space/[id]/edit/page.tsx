@@ -4,14 +4,14 @@ import DraggableBlocks from "@/components/spaceLayout/DraggableBlocks";
 import IntroProfile from "@/components/spaceLayout/IntroProfile";
 import IntroProject from "@/components/spaceLayout/IntroProject";
 import Plates from "@/components/spaceLayout/Plates";
-import { createBlock } from "@/lib/api/spaceEditAPI";
+import { TempSpaceData, createBlock } from "@/lib/api/spaceEditAPI";
 import { useToastStore } from "@/lib/store/store.module";
 import useComponentStore, {
   ComponentData,
 } from "@/lib/store/useComponentStore";
 import { useIsNewSpaceStore } from "@/lib/store/useIsNewSpace";
 import { usePageLayoutStore } from "@/lib/store/usePageLayoutStore";
-import useSpaceStore, { SpaceData } from "@/lib/store/useSpaceStore";
+import useSpaceStore from "@/lib/store/useSpaceStore";
 import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
 import {
   useEnterEditQuery,
@@ -38,11 +38,20 @@ const EditPage = () => {
       showToast("임시 저장 중 입니다.");
     },
   };
+
+  const modifiedData = {
+    ...getData(spaceWallId as number),
+    componentTempList: getData(spaceWallId as number)?.componentList,
+  };
+
+  delete modifiedData.componentList;
+
   useSpaceTempSaveQuery(
     spaceWallId as number,
-    getData(spaceWallId as number) as SpaceData,
+    modifiedData as TempSpaceData,
     spaceTempSaveQueryOption,
   );
+
   const paramSpaceWallId = useParams().id;
   const { type, composition } = usePageLayoutStore();
   const enterEditQueryOption = {
@@ -99,6 +108,7 @@ const EditPage = () => {
     };
 
     if (tempData) {
+      console.log(tempData);
       addData(spaceWallId as number, tempData.data);
       tempData.data.componentTempList.forEach((component: ComponentData) => {
         setSpaceComponents(
