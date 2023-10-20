@@ -8,7 +8,7 @@ export interface SpaceData extends BaseSpaceData {
 
 interface SpaceStore {
   datas: Record<string, SpaceData>;
-  addData: (id: number, DataData?: SpaceData) => void;
+  addData: (id: number, data?: SpaceData) => void;
   deleteData: (id: number) => void;
   getData: (id: number) => SpaceData | null;
   getValue: <K extends keyof SpaceData>(

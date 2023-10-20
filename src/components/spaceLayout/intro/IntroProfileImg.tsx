@@ -8,14 +8,17 @@ const IntroProfileImg = () => {
   {
     const { getValue } = useSpaceStore();
     const { spaceWallId } = useSpaceWallStore();
-    const defaultImg = "/default_profile.png";
+    const profileImg = getValue(
+      spaceWallId as number,
+      "profileImageUrl",
+    ) as string;
 
-    const profileImg = getValue(spaceWallId as number, "profileImageUrl");
+    const dummy = "/default_profile.png";
 
     return (
       <>
         <PfImg
-          src={profileImg || defaultImg}
+          src={profileImg || dummy}
           width={116}
           height={116}
           alt="프로필 이미지"
