@@ -13,9 +13,16 @@ const IntroProfileImg = () => {
       "profileImageUrl",
     ) as string;
 
+    const dummy = "/default_profile.png";
+
     return (
       <>
-        <PfImg src={profileImg} width={116} height={116} alt="프로필 이미지" />
+        <PfImg
+          src={profileImg || dummy}
+          width={116}
+          height={116}
+          alt="프로필 이미지"
+        />
         <IntroEditButton />
       </>
     );
