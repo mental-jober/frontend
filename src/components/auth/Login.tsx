@@ -7,22 +7,44 @@ import { useState } from "react";
 import { setAccessTokenToCookie } from "@/lib/cookies";
 import { PiEyeLight, PiEyeClosedLight } from "react-icons/pi";
 import { useUserStore } from "@/lib/store/useUserStore";
+import { useToastStore } from "@/lib/store/store.module";
 
 const Login: React.FC = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  
+  const { showToast } = useToastStore();
   const { setUser } = useUserStore();
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const validateEmail = (email: string) => {
+    // <-- 여기 추가!
+    const regex = /^[\w._%+-]+@[\w.-]+\.[a-zA-Z]{2,6}$/;
+    return regex.test(email);
+  };
+
+  const handleEmailBlur = () => {
+    // <-- 여기 추가!
+    if (!validateEmail(email)) {
+      setEmailError("유효한 이메일 형식이 아닙니다.");
+    } else {
+      setEmailError("");
+    }
   };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const response = await loginApi(email, password);
+      console.log("response : ",response);
       if (response && response.status === 200) {
+        showToast("로그인에 성공하였습니다.");
         console.log("[로그인성공] : ", response);
         console.log("response.headers: ", response.headers);
         const { id, email, username } = response.data.data;
@@ -37,7 +59,9 @@ const Login: React.FC = () => {
         }
         router.replace("/");
       } else {
-        // 로그인 실패
+        // 로그인 
+        alert("로그인에 실패하였습니다.\n아이디와 비밀번호를 확인해주세요")
+        showToast("로그인에 실패하였습니다.\n아이디와 비밀번호를 확인해주세요");
       }
     } catch (error) {
       console.error(error);
@@ -51,13 +75,17 @@ const Login: React.FC = () => {
       </div>
       <form onSubmit={handleLogin} className="">
         <input
-          type="email"
+          type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          onBlur={handleEmailBlur}
           placeholder="이메일"
           className="box-border text2-medium mb-[10px] w-full h-[52px] px-4 focus:outline-none border-none rounded-md placeholder-gray-400 bg-foundation-grey-200"
           required
         />
+        <div className="h-5 text-xs mb-2">
+          {emailError && <p className="text-red-500">{emailError}</p>}
+        </div>
         <div className="flex justify-between box-border text2-medium mb-[40px] w-full h-[52px] px-4  border-none rounded-md placeholder-gray-400 bg-foundation-grey-200">
           <input
             type={showPassword ? "text" : "password"}
