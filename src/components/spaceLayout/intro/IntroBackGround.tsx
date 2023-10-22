@@ -1,12 +1,13 @@
 import styled, { css } from "styled-components";
 import IntroCameraButton from "./IntroCameraButton";
 import { ChangeEvent, useRef } from "react";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import useSpaceStore from "@/lib/store/useSpaceStore";
 import { handleUpload } from "@/lib/api/cloudinary";
 
 const IntroBackGround = () => {
   const { getValue, setValue } = useSpaceStore();
+  const pathName = usePathname();
   const backInputFileRef = useRef<HTMLInputElement>(null);
   const { id } = useParams();
   const NumId = Number(id);
@@ -60,7 +61,7 @@ const IntroBackGround = () => {
       />
 
       <UploadBtn onClick={onImageClick}>
-        <IntroCameraButton />
+        {pathName === `/space/${id}/edit` ? <IntroCameraButton /> : null}
       </UploadBtn>
     </>
   );
