@@ -12,12 +12,14 @@ export const getKRPlateTitle = (name: string) => {
 };
 
 export const modifySpaceData = (data: SpaceData) => {
-  const { componentList, ...exceptComponentListData } = data;
+  if (data) {
+    const { componentList, ...exceptComponentListData } = data;
 
-  const modifiedData = {
-    ...exceptComponentListData,
-    componentTempList: componentList,
-  };
+    const modifiedData = {
+      ...exceptComponentListData,
+      componentTempList: componentList,
+    };
 
-  return modifiedData;
+    return modifiedData;
+  }
 };

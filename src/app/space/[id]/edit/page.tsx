@@ -4,7 +4,7 @@ import DraggableBlocks from "@/components/spaceLayout/DraggableBlocks";
 import IntroProfile from "@/components/spaceLayout/IntroProfile";
 import IntroProject from "@/components/spaceLayout/IntroProject";
 import Plates from "@/components/spaceLayout/Plates";
-import { createBlock } from "@/lib/api/spaceEditAPI";
+import { TempSpaceData, createBlock } from "@/lib/api/spaceEditAPI";
 import { useToastStore } from "@/lib/store/store.module";
 import useComponentStore, {
   ComponentData,
@@ -81,7 +81,7 @@ const EditPage = () => {
 
   useSpaceTempSaveQuery(
     spaceWallId as number,
-    modifiedData,
+    modifiedData as TempSpaceData,
     spaceTempSaveQueryOption,
   );
 
