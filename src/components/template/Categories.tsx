@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { styled, css } from "styled-components";
 
 // Data(임시)
@@ -5,26 +6,32 @@ const categories = [
   {
     name: "all",
     text: "전체",
+    query: "/template",
   },
   {
     name: "personal",
     text: "개인",
+    query: "/template/person",
   },
   {
     name: "company",
     text: "회사",
+    query: "/template/company",
   },
   {
     name: "survay",
     text: "설문",
+    query: "/template/survay",
   },
   {
     name: "contract",
     text: "계약",
+    query: "/template/contract",
   },
   {
     name: "law",
     text: "법률",
+    query: "/template/law",
   },
 ];
 
@@ -45,6 +52,7 @@ const Categories = ({ category, onSelect }: CategoriesProps) => {
             key={item.name}
             $active={category === item.name}
             onClick={() => onSelect(item.name)}
+            href={item.query}
           >
             {item.text}
           </CategoryItem>
@@ -63,14 +71,14 @@ const CategoriesBlock = styled.div`
   height: 50px;
 `;
 
-const CategoriesList = styled.ul`
+const CategoriesList = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: inherit;
 `;
 
-const CategoryItem = styled.li<{ $active?: boolean }>`
+const CategoryItem = styled(Link)<{ $active?: boolean }>`
   height: inherit;
   display: flex;
   justify-content: center;
