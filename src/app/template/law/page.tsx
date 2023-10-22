@@ -1,36 +1,21 @@
 "use client";
 
-import TemplateHeader from "@/components/template/TemplateHeader";
-import TemplateItem from "@/components/template/TemplateItem";
-import TemplateList from "@/components/template/TemplateList";
-import { getTemplateAll } from "@/lib/api/templateAPI";
+import { getTemplate } from "@/lib/api/templateAPI";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { Data } from "../page";
+import TemplateItem from "@/components/template/TemplateItem";
+import TemplateHeader from "@/components/template/TemplateHeader";
+import TemplateList from "@/components/template/TemplateList";
 
-export interface Data {
-  title: string;
-  id: number;
-  description: string;
-  hashtags: string[];
-  thumbnailUrl?: null;
-}
-
-const TemplatePage = () => {
-  // State
-  const [category, setCategory] = useState("/template");
+const TemplateContractPage = () => {
+  const [category, setCategory] = useState("/template/law");
   const [tab, setTab] = useState("/template");
   const onSelect = useCallback((category: string) => setCategory(category), []);
   const onSelectTab = useCallback((tabItem: string) => setTab(tabItem), []);
   const [scroll, setScroll] = useState(false);
-  const [allData, setAllData] = useState([]);
-
-  // search test
+  const [lawData, setLawData] = useState([]);
   const [keyword, setKeyword] = useState("");
 
-  const onSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(event.target.value);
-  }, []);
-
-  // Function
   const onScroll = () => {
     if (window.scrollY > 0) {
       setScroll(true);
@@ -39,10 +24,14 @@ const TemplatePage = () => {
     }
   };
 
-  const fetchTempAllData = useCallback(async () => {
-    await getTemplateAll().then((res) => {
-      console.log("템플릿 모음:", res.data.content);
-      setAllData(res.data.content);
+  const onSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setKeyword(event.target.value);
+  }, []);
+
+  const fetchLawData = useCallback(async () => {
+    await getTemplate("법률").then((res) => {
+      console.log("법률:", res.data.content);
+      setLawData(res.data.content);
     });
   }, []);
 
@@ -54,13 +43,12 @@ const TemplatePage = () => {
   }, []);
 
   useEffect(() => {
-    fetchTempAllData();
+    fetchLawData();
     return () => {
-      fetchTempAllData();
+      fetchLawData();
     };
-  }, [fetchTempAllData]);
+  }, [fetchLawData]);
 
-  // Render
   return (
     <>
       <TemplateHeader
@@ -73,7 +61,7 @@ const TemplatePage = () => {
         onSelect={onSelect}
       />
       <TemplateList>
-        {allData.map((item: Data) => (
+        {lawData.map((item: Data) => (
           <TemplateItem
             key={item.id}
             title={item.title}
@@ -87,4 +75,4 @@ const TemplatePage = () => {
   );
 };
 
-export default TemplatePage;
+export default TemplateContractPage;

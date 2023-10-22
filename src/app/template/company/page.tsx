@@ -1,36 +1,21 @@
 "use client";
 
-import TemplateHeader from "@/components/template/TemplateHeader";
-import TemplateItem from "@/components/template/TemplateItem";
-import TemplateList from "@/components/template/TemplateList";
-import { getTemplateAll } from "@/lib/api/templateAPI";
+import { getTemplate } from "@/lib/api/templateAPI";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { Data } from "../page";
+import TemplateItem from "@/components/template/TemplateItem";
+import TemplateHeader from "@/components/template/TemplateHeader";
+import TemplateList from "@/components/template/TemplateList";
 
-export interface Data {
-  title: string;
-  id: number;
-  description: string;
-  hashtags: string[];
-  thumbnailUrl?: null;
-}
-
-const TemplatePage = () => {
-  // State
-  const [category, setCategory] = useState("/template");
+const TemplateCompanyPage = () => {
+  const [category, setCategory] = useState("/template/company");
   const [tab, setTab] = useState("/template");
   const onSelect = useCallback((category: string) => setCategory(category), []);
   const onSelectTab = useCallback((tabItem: string) => setTab(tabItem), []);
   const [scroll, setScroll] = useState(false);
-  const [allData, setAllData] = useState([]);
-
-  // search test
+  const [companyData, setCompanyData] = useState([]);
   const [keyword, setKeyword] = useState("");
 
-  const onSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(event.target.value);
-  }, []);
-
-  // Function
   const onScroll = () => {
     if (window.scrollY > 0) {
       setScroll(true);
@@ -39,10 +24,14 @@ const TemplatePage = () => {
     }
   };
 
-  const fetchTempAllData = useCallback(async () => {
-    await getTemplateAll().then((res) => {
-      console.log("템플릿 모음:", res.data.content);
-      setAllData(res.data.content);
+  const onSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setKeyword(event.target.value);
+  }, []);
+
+  const fetchCompanyData = useCallback(async () => {
+    await getTemplate("회사").then((res) => {
+      console.log("회사:", res.data.content);
+      setCompanyData(res.data.content);
     });
   }, []);
 
@@ -54,13 +43,12 @@ const TemplatePage = () => {
   }, []);
 
   useEffect(() => {
-    fetchTempAllData();
+    fetchCompanyData();
     return () => {
-      fetchTempAllData();
+      fetchCompanyData();
     };
-  }, [fetchTempAllData]);
+  }, [fetchCompanyData]);
 
-  // Render
   return (
     <>
       <TemplateHeader
@@ -73,7 +61,7 @@ const TemplatePage = () => {
         onSelect={onSelect}
       />
       <TemplateList>
-        {allData.map((item: Data) => (
+        {companyData.map((item: Data) => (
           <TemplateItem
             key={item.id}
             title={item.title}
@@ -87,4 +75,4 @@ const TemplatePage = () => {
   );
 };
 
-export default TemplatePage;
+export default TemplateCompanyPage;

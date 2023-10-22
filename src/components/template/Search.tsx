@@ -1,15 +1,24 @@
 import { css, styled } from "styled-components";
 import Input from "../common/Input";
 import { MdOutlineSearch } from "react-icons/md";
+import { ChangeEvent } from "react";
 
-interface SearchProps {}
+interface SearchProps {
+  onSearchChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  keyword: string;
+}
 
-const Search = ({}: SearchProps) => {
+const Search = ({ keyword, onSearchChange }: SearchProps) => {
   return (
     <SearchBlock>
       <SearchContent>
         <SearchButton />
-        <SearchInput $search placeholder="검색어를 입력하세요." />
+        <SearchInput
+          $search
+          placeholder="검색어를 입력하세요."
+          value={keyword}
+          onChange={onSearchChange}
+        />
       </SearchContent>
     </SearchBlock>
   );
@@ -47,7 +56,7 @@ const SearchButton = styled(MdOutlineSearch)`
   left: 40px;
   font-size: 20px;
   cursor: pointer;
-  color: ${({theme}) => theme.color.gray[5]};
+  color: ${({ theme }) => theme.color.gray[5]};
 `;
 
 export default Search;

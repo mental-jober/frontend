@@ -17,7 +17,7 @@ const TemplateListBlock = styled.div`
   width: 100%;
   min-width: 360px;
   max-width: 430px;
-  padding: 40px 20px;
+  padding: 0 20px;
 `;
 
 const TemplateListContent = styled.ul`
