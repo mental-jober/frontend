@@ -50,7 +50,7 @@ const Categories = ({ category, onSelect }: CategoriesProps) => {
         {categories.map((item) => (
           <CategoryItem
             key={item.name}
-            $active={category === item.name}
+            $active={category === item.query}
             onClick={() => onSelect(item.name)}
             href={item.query}
           >
