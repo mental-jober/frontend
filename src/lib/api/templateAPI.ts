@@ -39,6 +39,10 @@ export function getTemplate(type: string) {
   return fetchData(`/templates?type=${type}`, "get");
 }
 
+export function searchTemplate(keyword: string) {
+  return fetchData(`/templates?keyword=${keyword}`, "get");
+}
+
 export function postFavorite(id: number) {
   return fetchData(`/templates/favorite?templateId=${id}`, "post");
 }
