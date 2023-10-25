@@ -54,7 +54,7 @@ const EditPage = () => {
     getData(spaceWallId as number) as SpaceData,
   );
 
-  useSpaceTempSaveQuery(
+  const { refetch } = useSpaceTempSaveQuery(
     spaceWallId as number,
     modifiedData as TempSpaceData,
     spaceTempSaveQueryOption,
@@ -119,6 +119,7 @@ const EditPage = () => {
                 data,
               );
               setIsNewSpace(false);
+              refetch();
             }
           }
         }
@@ -149,6 +150,7 @@ const EditPage = () => {
     isNewSpace,
     setIsNewSpace,
     spaceType,
+    refetch,
   ]);
 
   return (
