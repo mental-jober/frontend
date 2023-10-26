@@ -27,11 +27,20 @@ import { modifySpaceData } from "@/lib/utils";
 
 const EditPage = () => {
   const { spaceWallId, setSpaceWallId } = useSpaceWallStore();
-  const [introType, setIntroType] = useState<string>("");
+  const [spaceType, setSpaceType] = useState<string | null>(null);
   const { addData, getData, getValue } = useSpaceStore();
   const { getSpaceComponents, setSpaceComponents } = useComponentStore();
   const { isNewSpace, setIsNewSpace } = useIsNewSpaceStore();
-  const { data: tempData } = useSpaceTempViewQuery(spaceWallId as number);
+
+  const spaceTempViewQueryOption = {
+    onSuccess: (data: { data: TempSpaceData }) => {
+      setSpaceType(data.data.profileImageUrl);
+    },
+  };
+  const { data: tempData } = useSpaceTempViewQuery(
+    spaceWallId as number,
+    spaceTempViewQueryOption,
+  );
   const { showToast } = useToastStore();
 
   const spaceTempSaveQueryOption = {
@@ -41,45 +50,11 @@ const EditPage = () => {
     },
   };
 
-  useEffect(() => {
-    const getProfileImage = () => {
-      const imageURL = getValue(spaceWallId as number, "profileImageUrl");
-      if (imageURL !== null) {
-        if (imageURL === "") {
-          setIntroType("project");
-        } else {
-          setIntroType("profile");
-        }
-      }
-    };
-    getProfileImage();
-  }, [getValue, spaceWallId]);
-
-  console.log(getData(spaceWallId as number));
-  console.log(introType);
-
-  const renderIntro = (introType: string) => {
-    if (introType) {
-      if (introType === "project") {
-        return <IntroProject />;
-      } else {
-        return <IntroProfile />;
-      }
-    }
-  };
-
   const modifiedData = modifySpaceData(
     getData(spaceWallId as number) as SpaceData,
   );
 
-  // const modifiedData = {
-  //   ...getData(spaceWallId as number),
-  //   componentTempList: getData(spaceWallId as number)?.componentList,
-  // };
-
-  // delete modifiedData.componentList;
-
-  useSpaceTempSaveQuery(
+  const { refetch } = useSpaceTempSaveQuery(
     spaceWallId as number,
     modifiedData as TempSpaceData,
     spaceTempSaveQueryOption,
@@ -112,6 +87,15 @@ const EditPage = () => {
   }, [spaceWallId, setSpaceWallId, paramSpaceWallId]);
 
   useEffect(() => {
+    if (isNewSpace) {
+      const type = getValue(spaceWallId as number, "profileImageUrl");
+      if (typeof type === "string") {
+        setSpaceType(type);
+      }
+    }
+  }, [getValue, isNewSpace, spaceWallId]);
+
+  useEffect(() => {
     const onCreateLayoutComponents = async () => {
       if (isNewSpace) {
         for (const type of composition) {
@@ -135,6 +119,7 @@ const EditPage = () => {
                 data,
               );
               setIsNewSpace(false);
+              refetch();
             }
           }
         }
@@ -164,12 +149,18 @@ const EditPage = () => {
     isSuccess,
     isNewSpace,
     setIsNewSpace,
+    spaceType,
+    refetch,
   ]);
 
   return (
     <>
       <Container>
-        {renderIntro(introType)}
+        {spaceType ? (
+          <IntroProfile />
+        ) : spaceType === "" ? (
+          <IntroProject />
+        ) : null}
         <Plates />
         <DraggableBlocks blockData={filteredBlockData} />
       </Container>
