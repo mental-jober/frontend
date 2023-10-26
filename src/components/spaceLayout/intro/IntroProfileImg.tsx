@@ -17,7 +17,9 @@ const IntroProfileImg = () => {
 
   return (
     <>
-      <PfImg src={profileImg} width={116} height={116} alt="프로필 이미지" />
+      {profileImg && (
+        <PfImg src={profileImg} width={116} height={116} alt="프로필 이미지" />
+      )}
       {pathName === `/space/${id}/edit` ? <IntroEditButton /> : null}
     </>
   );
