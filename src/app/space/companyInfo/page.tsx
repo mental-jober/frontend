@@ -1,7 +1,5 @@
 "use client";
 
-import Header from "@/components/common/Header";
-import Margin from "@/components/common/Margin";
 import LinkPage from "@/components/post/LinkPage";
 import PostLine from "@/components/post/PostLine";
 import PostTemplate from "@/components/post/PostTemplate";
@@ -44,11 +42,14 @@ const dummyData = [
 const CompanyInfoPage = () => {
   return (
     <>
+<<<<<<< HEAD
       {/* <div>
         <DropdownMenu items={items} />
       </div> */}
       <Header />
       <Margin />
+=======
+>>>>>>> 7b39adf0e102dc01d36334bf9a5d0623711b878f
       <CompanyInfoBlock>
         <IntroProfile />
         <SocialList>

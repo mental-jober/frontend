@@ -1,33 +1,56 @@
+"use client";
+
 import styled from "styled-components";
 import { PiTrash } from "react-icons/pi";
 import Chip from "../Chip";
 import ToggleSwitch from "@/components/common/ToggleSwitch";
 import { useState } from "react";
-import { BlockData } from "../SpaceProject";
+import useComponentStore, {
+  ComponentData,
+} from "@/lib/store/useComponentStore";
+import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
 
 interface BlockBottomProps {
-  data: BlockData;
+  data: ComponentData;
 }
 
 const BlockBottom = ({ data }: BlockBottomProps) => {
-  const [isHidden, setIsHidden] = useState<boolean>(data.hidden);
+  const { setComponentValue } = useComponentStore();
+  const { spaceWallId } = useSpaceWallStore();
+  const [visible, setVisible] = useState<boolean>(data.visible);
 
   return (
     <Bottom>
-      <Chip name={data.name} />
+      <Chip name={data.type} />
       <BotRight>
-        <StyledTrashIcon onClick={() => {}} />
+        <StyledTrashIcon
+          onClick={() => {
+            setComponentValue(
+              spaceWallId as number,
+              data.componentTempId,
+              "deleted",
+              true,
+            );
+          }}
+        />
         <ToggleSwitch
-          checked={!isHidden}
+          checked={!visible}
           onChange={() => {
-            console.log(data.id, isHidden);
-            setIsHidden((prev) => !prev);
+            setComponentValue(
+              spaceWallId as number,
+              data.componentTempId,
+              "visible",
+              !data.visible,
+            );
+            setVisible((prev) => !prev);
+            console.log(data.componentTempId, data.visible);
           }}
         />
       </BotRight>
     </Bottom>
   );
 };
+
 const Bottom = styled.div`
   display: flex;
   align-items: center;

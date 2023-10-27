@@ -1,11 +1,10 @@
 "use client";
 
-import Header from "@/components/common/Header";
-import styled from "styled-components";
-import { CARD_DATA } from "@/lib/constants";
+import { CARD_DATA, PlateName } from "@/lib/constants";
 import Image from "next/image";
 import { useState } from "react";
 import PreviewLayoutModal from "../modal/PreviewLayoutModal";
+import { usePageLayoutStore } from "@/lib/store/usePageLayoutStore";
 
 type TabType = "프로필형" | "프로젝트형";
 type CardProps = {
@@ -19,6 +18,8 @@ type PageLayoutProps = {
 };
 
 const PageLayout: React.FC<PageLayoutProps> = ({ TYPE }) => {
+  const setType = usePageLayoutStore((state) => state.setType);
+  const setComposition = usePageLayoutStore((state) => state.setComposition);
   const [selectedTab, setSelectedTab] = useState<TabType>("프로필형");
   const imageSrc =
     selectedTab === "프로필형" ? "/mini_profile.svg" : "/mini_project.svg";
@@ -35,16 +36,20 @@ const PageLayout: React.FC<PageLayoutProps> = ({ TYPE }) => {
     title: string,
     description: string,
     fileName: string,
+    composition: PlateName[],
   ) => {
     setPreviewData({ title, description, onPreview: () => {}, fileName });
     setIsPreviewOpen(true);
+    setType(
+      title === "이력서" || title === "회사소개" || title === "제품 소개"
+        ? "프로필형"
+        : "프로젝트형",
+    );
+    setComposition(composition);
   };
 
   return (
-    <div className="min-w-[360px] max-w-[430px] px-5 mx-auto flex flex-col w-full h-auto">
-      <HeaderWrapper>
-        <Header />
-      </HeaderWrapper>
+    <div className="min-w-[360px] max-w-[430px] px-5 flex flex-col w-full h-auto">
       <b className="mb-[10px] title2-bold">
         <p>{TYPE}의</p>
         <p>레이아웃을 선택해주세요</p>
@@ -96,7 +101,12 @@ const PageLayout: React.FC<PageLayoutProps> = ({ TYPE }) => {
             title={card.title}
             description={card.description}
             onPreview={() =>
-              handlePreview(card.title, card.description, card.fileName)
+              handlePreview(
+                card.title,
+                card.description,
+                card.fileName,
+                card.composition,
+              )
             }
             key={card.title}
             fileName={card.fileName}
@@ -137,12 +147,3 @@ const Card: React.FC<CardProps> = ({ title, description, onPreview }) => {
 };
 
 export default PageLayout;
-
-const HeaderWrapper = styled.div`
-  & > div {
-    margin-top : -58px;
-    margin-left : -20px;
-    /* left: 50%;
-    transform: translateX(-50%); */
-  }
-`;

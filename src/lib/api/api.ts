@@ -77,3 +77,15 @@ export const signupApi = async (
 export const logoutApi = async () => {
   return fetchData("logout", "post");
 };
+
+export const checkTokenApi = async () => {
+  return fetchData("check-token", "get");
+};
+
+export const getShareSpaceListApi = async () => {
+  return fetchData("my-spaces", "get");
+};
+
+export const getTempSpaceByIdApi = async (spaceWallId: number) => {
+  return fetchData(`spaceTemps/view/${spaceWallId}`, "get");
+};

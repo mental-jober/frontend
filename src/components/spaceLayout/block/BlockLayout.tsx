@@ -10,11 +10,12 @@ const BlockLayout = ({ children }: BlockLayoutProps) => {
 };
 
 const Wrapper = styled.div`
-  min-width: 320px;
-  max-width: 430px;
+  width: 100%;
   height: 111px;
   padding: 10px;
   display: flex;
+  min-width: 320px;
+  max-width: 400px;
   background: #fff;
   border-radius: 20px;
   flex-direction: column;

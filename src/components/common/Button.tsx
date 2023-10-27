@@ -1,9 +1,7 @@
 import { ButtonHTMLAttributes } from "react";
 import { css, styled } from "styled-components";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
-
-interface CustomProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   $normal?: boolean;
   $save?: boolean;
   $modalbtn?: boolean;
@@ -19,7 +17,7 @@ const Button = ({ ...props }: ButtonProps) => {
   return <StyledButton {...props} />;
 };
 
-const StyledButton = styled.button<CustomProps>`
+const StyledButton = styled.button<ButtonProps>`
   padding: 10px 20px;
   background: ${({ theme }) => theme.color.gray[0]};
   border-radius: 4px;

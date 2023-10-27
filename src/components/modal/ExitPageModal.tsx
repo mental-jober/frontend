@@ -4,7 +4,7 @@ import {
 } from "@/components/modal/CommonModal";
 import TitleHeader from "./AlertTitleHeader";
 import Button from "@/components/common/Button";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { useModal } from "../../../hooks/UseModalHook";
 
 const ExitPageModal = () => {
@@ -13,11 +13,15 @@ const ExitPageModal = () => {
   const { isOpen, onCloseModal, type } = useModal();
 
   const isModalOpen = isOpen && type === "ExitPage";
+  const { id, contId } = useParams();
 
   const onExit = () => {
-    if (pathName === "/test") {
+    if (
+      pathName === `/space/${id}/edit/${contId}/textEdit` ||
+      `/space/${id}/edit/profileEdit`
+    ) {
       onCloseModal();
-      router.push("/");
+      router.push(`/space/${id}/edit`);
     }
   };
   return (
@@ -28,10 +32,10 @@ const ExitPageModal = () => {
           text="저장하지 않으면 변경된 내용이 초기화됩니다."
         />
         <ButtonContainer>
-          <Button $leftbtn="true" onClick={onCloseModal}>
+          <Button $leftbtn onClick={onCloseModal}>
             머무르기
           </Button>
-          <Button $rightbtn="true" onClick={onExit}>
+          <Button $rightbtn onClick={onExit}>
             나가기
           </Button>
         </ButtonContainer>

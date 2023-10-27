@@ -14,7 +14,7 @@ const NotFoundMemberModal = () => {
         title="찾을 수 없는 회원입니다."
         text={`해당 이메일은 자버의 회원이 아닙니다.\n이메일을 확인해주세요.`}
       />
-      <Button $confirm="true" onClick={onCloseModal}>
+      <Button $confirm onClick={onCloseModal}>
         확인
       </Button>
     </AlertCommonModal>

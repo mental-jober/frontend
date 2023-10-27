@@ -1,6 +1,11 @@
-import Image from 'next/image';
+import Image from "next/image";
 import { useRef, MouseEvent } from "react";
 import { PiX } from "react-icons/pi";
+import { useRouter } from "next/navigation";
+import { createSpace } from "@/lib/api/spaceEditAPI";
+import useSpaceStore from "@/lib/store/useSpaceStore";
+import { usePageLayoutStore } from "@/lib/store/usePageLayoutStore";
+import { useIsNewSpaceStore } from "@/lib/store/useIsNewSpace";
 
 interface PreviewLayoutModalProps {
   isOpen: boolean;
@@ -18,6 +23,22 @@ const PreviewLayoutModal = ({
   imageSrc,
 }: PreviewLayoutModalProps) => {
   const modalRef = useRef(null);
+  const { addData } = useSpaceStore();
+  const router = useRouter();
+  const type = usePageLayoutStore((state) => state.type);
+  const { setIsNewSpace } = useIsNewSpaceStore();
+  const pageLayoutComposition = usePageLayoutStore(
+    (state) => state.composition,
+  );
+  const onClickApply = async () => {
+    const { data } = await createSpace({ parentSpaceWallId: null });
+    console.log("type :", type);
+    console.log("composition :", pageLayoutComposition);
+    console.log(data);
+    setIsNewSpace(true);
+    addData(data.id, data);
+    router.push(`/space/${data.id}/edit`);
+  };
 
   const modalClose = (e: MouseEvent) => {
     if (e.target === modalRef.current) {
@@ -52,11 +73,19 @@ const PreviewLayoutModal = ({
                 </p>
               </div>
               <div className="relative w-full h-[400px] rounded-2xl border-2 border-solid border-foundation-grey-100 overflow-y-auto thin-scrollbar">
-                <Image src={imageSrc} alt="예시 이미지"  className="absolute top-[0px] left-[0px] w-full h-auto" width={0} height={0} sizes="100vw"/>
+                <Image
+                  src={imageSrc}
+                  alt="예시 이미지"
+                  className="absolute top-[0px] left-[0px] w-full h-auto"
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                />
               </div>
             </div>
             <div className="flexable w-full px-5 mb-[34px]">
               <button
+                onClick={onClickApply}
                 className="flexable w-[280px] h-[44px] shrink-0 text2-medium text-white rounded-[10px] bg-foundation-blue-300 shadow-[0px_0px_18px_0px_rgba(83,120,230,0.18)]"
               >
                 사용하기

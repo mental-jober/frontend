@@ -1,21 +1,72 @@
-import { useRef, MouseEvent } from "react";
+import { useRef, MouseEvent, useState, ChangeEvent, useEffect } from "react";
 import styled from "styled-components";
 import { PiX } from "react-icons/pi";
 import Button from "@/components/common/Button";
 import { ModalClose, ModalContainer, ModalOverlay } from "./ModalParts";
 import { useModal } from "../../../hooks/UseModalHook";
+import { useParams } from "next/navigation";
+import { componentsSave } from "@/lib/api/componentsAPI";
+import useCompnetTempIdStore from "@/lib/store/useComponentTempIdStore";
+import { useComponentsViewQuery } from "@/queries/queries";
+import useComponentStore from "@/lib/store/useComponentStore";
 
 const AddLinkModal = () => {
   const { isOpen, onCloseModal, type } = useModal();
+  const [form, setForm] = useState({ title: "", text: "" });
+  const { componentTempId } = useCompnetTempIdStore();
+  const { setComponentValue } = useComponentStore();
+  const { id } = useParams();
+
+  const NumId = Number(id);
+  const NumContId = Number(componentTempId);
+
+  const { data } = useComponentsViewQuery(NumId, NumContId);
 
   const isModalOpen = isOpen && type === "AddLink";
+
+  useEffect(() => {
+    if (data) {
+      setForm({
+        title: data.data.title ? data.data.title : "",
+        text: data.data.content ? data.data.content : "",
+      });
+    }
+  }, [setForm, data, isOpen]);
 
   const modalRef = useRef(null);
 
   if (!isModalOpen) return null;
 
+  const onFormChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const modalClose = (e: MouseEvent) => {
     if (e.target === modalRef.current) onCloseModal();
+  };
+
+  const onSave = async () => {
+    if (!form.title || !form.text) {
+      return false;
+    }
+    const params = {
+      componentTempId: NumContId,
+      title: form.title,
+      content: form.text,
+    };
+
+    try {
+      await componentsSave(NumId, params);
+      setComponentValue(NumId, NumContId, "title", form.title);
+      setComponentValue(NumId, NumContId, "content", form.text);
+      onCloseModal();
+    } catch (error) {
+      console.error("error:", error);
+    }
   };
 
   return (
@@ -24,7 +75,7 @@ const AddLinkModal = () => {
         <ModalOverlay ref={modalRef} onClick={modalClose}>
           <AddLinkModalBox>
             <ModalClose>
-              <PiX size="18" />
+              <PiX size="18" onClick={modalClose} />
             </ModalClose>
             <AddLinkModdalHeader>
               <AddLinkModalTitle>링크추가</AddLinkModalTitle>
@@ -37,19 +88,25 @@ const AddLinkModal = () => {
                 <AddLinkModalText>텍스트</AddLinkModalText>
                 <AddLinkModalTextInput
                   type="text"
+                  name="title"
+                  value={form.title}
                   placeholder="텍스트를 입력하세요."
+                  onChange={onFormChange}
                 />
               </AddLinkModalTextBox>
               <AddLinkModalLinkBox>
                 <AddLinkModalLink>링크</AddLinkModalLink>
                 <AddLinkModalLinkInput
                   type="text"
+                  name="text"
+                  value={form.text}
+                  onChange={onFormChange}
                   placeholder="링크 URL을 입력하세요."
                 />
               </AddLinkModalLinkBox>
             </AddLinkModalForm>
             <BtnContainer>
-              <Button $save="true" type="submit" onClick={() => {}}>
+              <Button $save type="submit" onClick={() => onSave()}>
                 저장하기
               </Button>
             </BtnContainer>

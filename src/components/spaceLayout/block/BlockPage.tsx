@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
-// interface BlockPageProps {} //중간 배포 중에 interface에 타입 지정이 안되있어서 주석처리
+interface BlockPageProps {
+  content: string;
+}
 
-const BlockPage = () => {
-  return <PageBox>자버의 자회사 룰루</PageBox>;
+const BlockPage = ({ content }: BlockPageProps) => {
+  return <PageBox>{content ? content : "새 페이지"}</PageBox>;
 };
 
 const PageBox = styled.div`

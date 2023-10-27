@@ -1,15 +1,26 @@
 "use client";
 
-import Header from "@/components/common/Header";
 import Categories from "@/components/template/Categories";
 import CreateTemplate from "@/components/template/CreateTemplate";
 import Search from "@/components/template/Search";
 import TabList from "@/components/template/TabList";
 import TemplateItem from "@/components/template/TemplateItem";
 import TemplateList from "@/components/template/TemplateList";
-import { getTemplate } from "@/lib/api/templateAPI";
+import {
+  getFavorite,
+  getTemplate,
+  getTemplateAll,
+} from "@/lib/api/templateAPI";
 import { useCallback, useEffect, useState } from "react";
 import { styled } from "styled-components";
+
+export interface Data {
+  title: string;
+  id: number;
+  description: string;
+  hashtags: string[];
+  thumbnailUrl?: null;
+}
 
 const TemplatePage = () => {
   // State
@@ -18,6 +29,13 @@ const TemplatePage = () => {
   const onSelect = useCallback((category: string) => setCategory(category), []);
   const onSelectTab = useCallback((tabItem: string) => setTab(tabItem), []);
   const [scroll, setScroll] = useState(false);
+  const [allData, setAllData] = useState([]);
+  const [personData, setPersonData] = useState([]);
+  const [companyData, setCompanyData] = useState([]);
+  const [survayData, setSurvayData] = useState([]);
+  const [contractData, setContractData] = useState([]);
+  const [lawData, setLawData] = useState([]);
+  const [myTemp, setMyTemp] = useState([]);
 
   // Function
   const onScroll = () => {
@@ -28,9 +46,53 @@ const TemplatePage = () => {
     }
   };
 
-  const getTemplateData = useCallback(async () => {
-    const type = "전체";
-    await getTemplate(type);
+  const fetchTempAllData = useCallback(async () => {
+    await getTemplateAll().then((res) => {
+      console.log("템플릿 모음:", res.data.content);
+      setAllData(res.data.content);
+    });
+  }, []);
+
+  const fetchPersonData = useCallback(async () => {
+    await getTemplate("개인").then((res) => {
+      console.log("개인:", res.data.content);
+      setPersonData(res.data.content);
+    });
+  }, []);
+
+  const fetchCompanyData = useCallback(async () => {
+    await getTemplate("회사").then((res) => {
+      console.log("회사:", res.data.content);
+      setCompanyData(res.data.content);
+    });
+  }, []);
+
+  const fetchSurvayData = useCallback(async () => {
+    await getTemplate("설문").then((res) => {
+      console.log("설문:", res.data.content);
+      setSurvayData(res.data.content);
+    });
+  }, []);
+
+  const fetchContractData = useCallback(async () => {
+    await getTemplate("계약").then((res) => {
+      console.log("계약:", res.data.content);
+      setContractData(res.data.content);
+    });
+  }, []);
+
+  const fetchLawData = useCallback(async () => {
+    await getTemplate("법률").then((res) => {
+      console.log("법률:", res.data.content);
+      setLawData(res.data.content);
+    });
+  }, []);
+
+  const fetchMyTempData = useCallback(async () => {
+    await getFavorite().then((res) => {
+      console.log("내 템플릿:", res.data.content);
+      setMyTemp(res.data.content);
+    });
   }, []);
 
   useEffect(() => {
@@ -41,14 +103,58 @@ const TemplatePage = () => {
   }, []);
 
   useEffect(() => {
-    getTemplateData();
-  }, [getTemplateData]);
+    fetchTempAllData();
+    return () => {
+      fetchTempAllData();
+    };
+  }, [fetchTempAllData]);
+
+  useEffect(() => {
+    fetchPersonData();
+    return () => {
+      fetchPersonData();
+    };
+  }, [fetchPersonData]);
+
+  useEffect(() => {
+    fetchCompanyData();
+    return () => {
+      fetchCompanyData();
+    };
+  }, [fetchCompanyData]);
+
+  useEffect(() => {
+    fetchSurvayData();
+    return () => {
+      fetchSurvayData();
+    };
+  }, [fetchSurvayData]);
+
+  useEffect(() => {
+    fetchContractData();
+    return () => {
+      fetchContractData();
+    };
+  }, [fetchContractData]);
+
+  useEffect(() => {
+    fetchLawData();
+    return () => {
+      fetchLawData();
+    };
+  }, [fetchLawData]);
+
+  useEffect(() => {
+    fetchMyTempData();
+    return () => {
+      fetchMyTempData();
+    };
+  }, [fetchMyTempData]);
 
   // Render
   return (
     <>
       <HeaderBlock className={scroll ? "scrolled" : ""}>
-        <Header />
         <TabList tab={tab} onSelectTab={onSelectTab} />
         {tab === "collection" ? (
           <>
@@ -61,10 +167,76 @@ const TemplatePage = () => {
       </HeaderBlock>
       {tab === "collection" ? <HeaderMargin /> : <MyTemplateMargin />}
       <TemplateList>
-        <TemplateItem />
-        <TemplateItem />
-        <TemplateItem />
-        <TemplateItem />
+        {tab === "collection"
+          ? category === "all"
+            ? allData.map((item: Data) => (
+                <TemplateItem
+                  key={item.id}
+                  title={item.title}
+                  description={item.description}
+                  hashtags={item.hashtags}
+                  id={item.id}
+                />
+              ))
+            : category === "personal"
+            ? personData.map((item: Data) => (
+                <TemplateItem
+                  key={item.id}
+                  title={item.title}
+                  description={item.description}
+                  hashtags={item.hashtags}
+                  id={item.id}
+                />
+              ))
+            : category === "company"
+            ? companyData.map((item: Data) => (
+                <TemplateItem
+                  key={item.id}
+                  title={item.title}
+                  description={item.description}
+                  hashtags={item.hashtags}
+                  id={item.id}
+                />
+              ))
+            : category === "survay"
+            ? survayData.map((item: Data) => (
+                <TemplateItem
+                  key={item.id}
+                  title={item.title}
+                  description={item.description}
+                  hashtags={item.hashtags}
+                  id={item.id}
+                />
+              ))
+            : category === "contract"
+            ? contractData.map((item: Data) => (
+                <TemplateItem
+                  key={item.id}
+                  title={item.title}
+                  description={item.description}
+                  hashtags={item.hashtags}
+                  id={item.id}
+                />
+              ))
+            : category === "law" &&
+              lawData.map((item: Data) => (
+                <TemplateItem
+                  key={item.id}
+                  title={item.title}
+                  description={item.description}
+                  hashtags={item.hashtags}
+                  id={item.id}
+                />
+              ))
+          : myTemp.map((item: Data) => (
+              <TemplateItem
+                key={item.id}
+                title={item.title}
+                description={item.description}
+                hashtags={item.hashtags}
+                id={item.id}
+              />
+            ))}
       </TemplateList>
     </>
   );

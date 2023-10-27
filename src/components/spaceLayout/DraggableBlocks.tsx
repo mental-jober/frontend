@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   DragDropContext,
   Droppable,
@@ -8,24 +8,45 @@ import {
   DropResult,
 } from "react-beautiful-dnd";
 import Block from "./Block";
-import { BlockData } from "./SpaceProject";
+import useComponentStore, {
+  ComponentData,
+} from "@/lib/store/useComponentStore";
+import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
 
 interface DraggableBlocksProps {
-  blockData: BlockData[];
+  blockData: ComponentData[];
 }
 
 const DraggableBlocks = ({ blockData }: DraggableBlocksProps) => {
-  const [datas, setDatas] = useState<BlockData[]>(blockData);
+  const [datas, setDatas] = useState<ComponentData[]>(blockData);
+  const { setComponentValue, getSpaceComponents } = useComponentStore();
+  const { spaceWallId } = useSpaceWallStore();
+
+  useEffect(() => {
+    setDatas(blockData);
+  }, [blockData]);
 
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
 
     const { source, destination } = result;
-    const updatedDatas = [...datas];
+    const updatedDatas = datas;
     const [reorderedDatas] = updatedDatas.splice(source.index, 1);
     updatedDatas.splice(destination.index, 0, reorderedDatas);
+    const reorderdComponents = Object.values(updatedDatas).map(
+      (reorderedComponent, index) => {
+        setComponentValue(
+          spaceWallId as number,
+          reorderedComponent.componentTempId,
+          "sequence",
+          index,
+        );
+        return { ...reorderedComponent, sequence: index };
+      },
+    );
+    setDatas(reorderdComponents);
 
-    setDatas(updatedDatas);
+    console.log(getSpaceComponents(spaceWallId as number));
   };
 
   return (
@@ -35,7 +56,11 @@ const DraggableBlocks = ({ blockData }: DraggableBlocksProps) => {
           <div {...provided.droppableProps} ref={provided.innerRef}>
             {datas.map((data, idx) => (
               <>
-                <Draggable key={data.id} draggableId={data.id} index={idx}>
+                <Draggable
+                  key={data.componentTempId}
+                  draggableId={data.componentTempId.toString()}
+                  index={idx}
+                >
                   {(provided) => (
                     <div
                       {...provided.draggableProps}

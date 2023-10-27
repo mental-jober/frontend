@@ -4,14 +4,15 @@ import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import { PiPencilSimpleLine } from "react-icons/pi";
+import { PiLinkSimpleHorizontal } from "react-icons/pi";
 
-// TODO : 이름 바꾸기
 const PostTemplate = () => {
   return (
     <PostTemplateLayout>
       <PostTemplateBlock>
         <ContentList>
           <span>제목</span>
+          <PiLinkSimpleHorizontal />
           <span>내용</span>
         </ContentList>
         <StyledLink href="/space/profileConfirm">
@@ -49,14 +50,12 @@ const PostTemplateBlock = styled.div`
 const ContentList = styled.div`
   display: flex;
   padding: var(--space-4, 16px) 22px;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 28px;
   align-self: stretch;
   svg {
     width: 20px;
     height: 20px;
-    flex-direction: row;
   }
   span {
     color: #000;
@@ -67,6 +66,14 @@ const ContentList = styled.div`
     flex-direction: column;
     justify-content: center;
   }
+`;
+
+const IconWrapper = styled.div`
+  margin-left: auto; /* 아이콘을 오른쪽으로 이동시킴 */
+`;
+
+const PiLinkSimpleHorizontal = styled(PiLinkSimpleHorizontal)`
+  margin-left: 10px; /* 아이콘과 제목 사이 간격을 조절하기 위해 추가 */
 `;
 
 const StyledLink = styled(Link)`

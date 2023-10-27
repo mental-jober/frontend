@@ -1,7 +1,5 @@
 "use client";
 
-import Header from "@/components/common/Header";
-import Margin from "@/components/common/Margin";
 import LinkPage from "@/components/post/LinkPage";
 import PostLine from "@/components/post/PostLine";
 import PostTemplate from "@/components/post/PostTemplate";
@@ -31,8 +29,6 @@ const dummyData = [
 const SideProjectPage = () => {
   return (
     <>
-      <Header />
-      <Margin />
       <ResumeBlock>
         <IntroBackGround />
 
