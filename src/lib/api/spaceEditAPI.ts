@@ -1,4 +1,4 @@
-import { SpaceData } from "../store/useSpaceStore";
+import { ComponentData } from "../store/useComponentStore";
 import { fetchData } from "./api";
 
 interface NewSpaceData {
@@ -27,6 +27,24 @@ export interface SaveSpaceData {
   componentTempList: ComponentTempData[];
 }
 
+export interface BaseSpaceData {
+  url: string;
+  title: string;
+  description: string;
+  profileImageUrl: string;
+  backgroundImageUrl: string;
+  createMemberId: number;
+  pathIds: string;
+  authorized: boolean;
+  sequence: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface TempSpaceData extends BaseSpaceData {
+  componentTempList: ComponentData[];
+}
+
 export const createSpace = async (spaceData: NewSpaceData) => {
   return await fetchData("new-spaces", "post", spaceData);
 };
@@ -48,7 +66,7 @@ export const enterEdit = async (spaceWallId: string) => {
 
 export const saveEditSpace = async (
   spaceWallId: number,
-  spaceData: SpaceData,
+  spaceData: TempSpaceData,
 ) => {
   return await fetchData(`spaceTemps/save/${spaceWallId}`, "put", spaceData);
 };
@@ -57,9 +75,13 @@ export const getEditSpace = async (spaceWallId: number) => {
   return await fetchData(`spaceTemps/view/${spaceWallId}`, "get");
 };
 
-export const saveSpace = async (
+export const doneEditSpace = async (
   spaceWallId: number,
   spaceData: SaveSpaceData,
 ) => {
   return await fetchData(`spaceTemps/done/${spaceWallId}`, "put", spaceData);
+};
+
+export const saveSpace = async (spaceWallId: number, spaceData: unknown) => {
+  return await fetchData(`spaces/edit/${spaceWallId}`, "put", spaceData);
 };

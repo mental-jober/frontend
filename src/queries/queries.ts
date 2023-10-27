@@ -2,17 +2,17 @@
 import { useQuery } from "react-query";
 import { queryKey } from "./queryKeys";
 import { checkMembers } from "@/lib/api/memberAPI";
-import { enterEdit, getEditSpace, saveEditSpace } from "@/lib/api/spaceEditAPI";
+import {
+  TempSpaceData,
+  enterEdit,
+  getEditSpace,
+  saveEditSpace,
+} from "@/lib/api/spaceEditAPI";
 import { componentsView } from "@/lib/api/componentsAPI";
-import { SpaceData } from "@/lib/store/useSpaceStore";
 
 interface QueryOptions {
   [key: string]: unknown;
 }
-
-/* export const useExampleQuery = (params: string, options?: QueryOptions) => {
-  return useQuery([queryKey.EXAMPLE, params], exampleApi, { ...options });
-}; */
 
 export const useMemberCheckQuery = (
   space_wall_id: number,
@@ -52,7 +52,7 @@ export const useComponentsViewQuery = (
 
 export const useSpaceTempSaveQuery = (
   spaceWallId: number,
-  spaceData: SpaceData,
+  spaceData: TempSpaceData,
   options?: QueryOptions,
 ) => {
   return useQuery(

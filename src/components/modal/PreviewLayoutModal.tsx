@@ -23,7 +23,7 @@ const PreviewLayoutModal = ({
   imageSrc,
 }: PreviewLayoutModalProps) => {
   const modalRef = useRef(null);
-  const { addData } = useSpaceStore();
+  const { addData, setValue } = useSpaceStore();
   const router = useRouter();
   const type = usePageLayoutStore((state) => state.type);
   const { setIsNewSpace } = useIsNewSpaceStore();
@@ -37,6 +37,11 @@ const PreviewLayoutModal = ({
     console.log(data);
     setIsNewSpace(true);
     addData(data.id, data);
+    setValue(
+      data.id,
+      "profileImageUrl",
+      type === "프로필형" ? "/default_profile.png" : "",
+    );
     router.push(`/space/${data.id}/edit`);
   };
 

@@ -1,13 +1,16 @@
+import Link from "next/link";
 import { css, styled } from "styled-components";
 
 const list = [
   {
     name: "collection",
     text: "템플릿 모음",
+    query: "/template",
   },
   {
     name: "myTemplate",
     text: "내 템플릿",
+    query: "/template/my-template",
   },
 ];
 
@@ -22,8 +25,9 @@ const TabList = ({ tab, onSelectTab }: TabListProps) => {
       {list.map((item) => (
         <TabItem
           key={item.name}
-          $active={tab === item.name}
+          $active={tab === item.query}
           onClick={() => onSelectTab(item.name)}
+          href={item.query}
         >
           {item.text}
         </TabItem>
@@ -41,7 +45,7 @@ const TabBlock = styled.div`
   justify-content: space-between;
 `;
 
-const TabItem = styled.div<{ $active: boolean }>`
+const TabItem = styled(Link)<{ $active: boolean }>`
   width: 100%;
   height: inherit;
   display: flex;

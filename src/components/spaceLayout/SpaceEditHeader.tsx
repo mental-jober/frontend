@@ -3,32 +3,49 @@
 import { PiList, PiClockClockwise } from "react-icons/pi";
 import styled from "styled-components";
 import Button from "../common/Button";
-import { useState } from 'react';
-import DndPage from '../pageLayout/DndPage';
+import { useState } from "react";
+import DndPage from "../pageLayout/DndPage";
 import { GrFormPrevious } from "react-icons/gr";
 // import { useRouter } from "next/navigation";
-// import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
-// import useSpaceStore, { SpaceData } from "@/lib/store/useSpaceStore";
-// import { SaveSpaceData, saveSpace } from "@/lib/api/spaceEditAPI";
+import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
+import useSpaceStore, { SpaceData } from "@/lib/store/useSpaceStore";
+import {
+  SaveSpaceData,
+  doneEditSpace,
+  saveSpace,
+} from "@/lib/api/spaceEditAPI";
+import { useUserStore } from "@/lib/store/useUserStore";
 
 const SpaceEditHeader = () => {
   // const router = useRouter();
-  // const { spaceWallId, spaceWallTempId } = useSpaceWallStore();
-  // const { getData } = useSpaceStore();
-  // const space = getData(spaceWallId as number) as SpaceData;
-  // const spaceData = {
-  //   title: space?.title,
-  //   description: space?.description,
-  //   profileImageUrl: space?.profileImageUrl,
-  //   backgroundImageUrl: space?.backgroundImageUrl,
-  //   spaceWallId,
-  //   spaceWallTempId,
-  //   componentTempList: space?.componentList,
-  // };
+  const { spaceWallId, spaceWallTempId } = useSpaceWallStore();
+  const { getData } = useSpaceStore();
+  const { id } = useUserStore().user;
+  const space = getData(spaceWallId as number) as SpaceData;
+  const spaceData = {
+    title: space?.title,
+    description: space?.description,
+    profileImageUrl: space?.profileImageUrl,
+    backgroundImageUrl: space?.backgroundImageUrl,
+    spaceWallId,
+    spaceWallTempId,
+    componentTempList: space?.componentList,
+  };
 
   const onClickComplete = () => {
     // router.push(`/`);
-    // saveSpace(spaceWallId as number, spaceData as SaveSpaceData);
+    doneEditSpace(spaceWallId as number, spaceData as SaveSpaceData);
+    saveSpace(spaceWallId as number, {
+      createMember: id,
+      url: "",
+      title: space?.title,
+      description: space?.description,
+      profileImageUrl: space?.profileImageUrl,
+      backgroundImageUrl: space?.backgroundImageUrl,
+      pathIds: "1,2,3,4",
+      authorized: true,
+      sequence: 1,
+    });
   };
 
   const [showDndPage, setShowDndPage] = useState(false); // 상태 추가
@@ -39,23 +56,36 @@ const SpaceEditHeader = () => {
 
   return (
     <>
-    <SpaceEditHeaderIcons>
-      <StyledListIcon onClick={toggleDndPage} />
-      <RightIcons>
-        <HistoryButton></HistoryButton>
-        <PreviewButton>미리보기</PreviewButton>
-        <CompleteButton onClick={onClickComplete}>완료</CompleteButton>
-      </RightIcons>
-    </SpaceEditHeaderIcons>
+      <SpaceEditHeaderIcons>
+        <StyledListIcon onClick={toggleDndPage} />
+        <RightIcons>
+          <HistoryButton></HistoryButton>
+          <PreviewButton>미리보기</PreviewButton>
+          <CompleteButton onClick={onClickComplete}>완료</CompleteButton>
+        </RightIcons>
+      </SpaceEditHeaderIcons>
 
-     {/* 조건부 렌더링 */}
-     {showDndPage && (
-        <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1000, backgroundColor: 'white' }}>
-          <div className='mt-10'>
-          <DndPage />
+      {/* 조건부 렌더링 */}
+      {showDndPage && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            zIndex: 1000,
+            backgroundColor: "white",
+          }}
+        >
+          <div className="mt-10">
+            <DndPage />
           </div>
           {/* 뒤로가기 버튼 */}
-          <button style={{ position: 'absolute', top: 0, left: 0, zIndex: 1001 }} onClick={toggleDndPage}>
+          <button
+            style={{ position: "absolute", top: 0, left: 0, zIndex: 1001 }}
+            onClick={toggleDndPage}
+          >
             <GrFormPrevious />
           </button>
         </div>

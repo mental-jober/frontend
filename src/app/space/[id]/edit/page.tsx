@@ -4,7 +4,7 @@ import DraggableBlocks from "@/components/spaceLayout/DraggableBlocks";
 import IntroProfile from "@/components/spaceLayout/IntroProfile";
 import IntroProject from "@/components/spaceLayout/IntroProject";
 import Plates from "@/components/spaceLayout/Plates";
-import { createBlock } from "@/lib/api/spaceEditAPI";
+import { TempSpaceData, createBlock } from "@/lib/api/spaceEditAPI";
 import { useToastStore } from "@/lib/store/store.module";
 import useComponentStore, {
   ComponentData,
@@ -21,15 +21,26 @@ import {
 import ToastUi from "@/components/toast/ToastUi";
 
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { modifySpaceData } from "@/lib/utils";
 
 const EditPage = () => {
   const { spaceWallId, setSpaceWallId } = useSpaceWallStore();
-  const { addData, getData } = useSpaceStore();
+  const [spaceType, setSpaceType] = useState<string | null>(null);
+  const { addData, getData, getValue } = useSpaceStore();
   const { getSpaceComponents, setSpaceComponents } = useComponentStore();
   const { isNewSpace, setIsNewSpace } = useIsNewSpaceStore();
-  const { data: tempData } = useSpaceTempViewQuery(spaceWallId as number);
+
+  const spaceTempViewQueryOption = {
+    onSuccess: (data: { data: TempSpaceData }) => {
+      setSpaceType(data.data.profileImageUrl);
+    },
+  };
+  const { data: tempData } = useSpaceTempViewQuery(
+    spaceWallId as number,
+    spaceTempViewQueryOption,
+  );
   const { showToast } = useToastStore();
 
   const spaceTempSaveQueryOption = {
@@ -38,13 +49,19 @@ const EditPage = () => {
       showToast("임시 저장 중 입니다.");
     },
   };
-  useSpaceTempSaveQuery(
-    spaceWallId as number,
+
+  const modifiedData = modifySpaceData(
     getData(spaceWallId as number) as SpaceData,
+  );
+
+  const { refetch } = useSpaceTempSaveQuery(
+    spaceWallId as number,
+    modifiedData as TempSpaceData,
     spaceTempSaveQueryOption,
   );
+
   const paramSpaceWallId = useParams().id;
-  const { type, composition } = usePageLayoutStore();
+  const { composition } = usePageLayoutStore();
   const enterEditQueryOption = {
     refetchOnWindowFocus: false,
   };
@@ -61,12 +78,22 @@ const EditPage = () => {
     .sort((a, b) => a.sequence - b.sequence);
 
   useEffect(() => {
-    if (typeof paramSpaceWallId === "string") {
-      if (spaceWallId !== parseInt(paramSpaceWallId)) {
-        setSpaceWallId(parseInt(paramSpaceWallId));
-      }
+    if (
+      typeof paramSpaceWallId === "string" &&
+      spaceWallId !== parseInt(paramSpaceWallId)
+    ) {
+      setSpaceWallId(parseInt(paramSpaceWallId));
     }
   }, [spaceWallId, setSpaceWallId, paramSpaceWallId]);
+
+  useEffect(() => {
+    if (isNewSpace) {
+      const type = getValue(spaceWallId as number, "profileImageUrl");
+      if (typeof type === "string") {
+        setSpaceType(type);
+      }
+    }
+  }, [getValue, isNewSpace, spaceWallId]);
 
   useEffect(() => {
     const onCreateLayoutComponents = async () => {
@@ -92,6 +119,7 @@ const EditPage = () => {
                 data,
               );
               setIsNewSpace(false);
+              refetch();
             }
           }
         }
@@ -121,12 +149,18 @@ const EditPage = () => {
     isSuccess,
     isNewSpace,
     setIsNewSpace,
+    spaceType,
+    refetch,
   ]);
 
   return (
     <>
       <Container>
-        {type === "프로젝트형" ? <IntroProject /> : <IntroProfile />}
+        {spaceType ? (
+          <IntroProfile />
+        ) : spaceType === "" ? (
+          <IntroProject />
+        ) : null}
         <Plates />
         <DraggableBlocks blockData={filteredBlockData} />
       </Container>

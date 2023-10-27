@@ -3,7 +3,7 @@
 import TemplateHeader from "@/components/template/TemplateHeader";
 import TemplateItem from "@/components/template/TemplateItem";
 import TemplateList from "@/components/template/TemplateList";
-import { getTemplateAll } from "@/lib/api/templateAPI";
+import { getFavorite } from "@/lib/api/templateAPI";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 
 export interface Data {
@@ -14,14 +14,14 @@ export interface Data {
   thumbnailUrl?: null;
 }
 
-const TemplatePage = () => {
+const MyTemplatePage = () => {
   // State
   const [category, setCategory] = useState("/template");
-  const [tab, setTab] = useState("/template");
+  const [tab, setTab] = useState("/template/my-template");
   const onSelect = useCallback((category: string) => setCategory(category), []);
   const onSelectTab = useCallback((tabItem: string) => setTab(tabItem), []);
   const [scroll, setScroll] = useState(false);
-  const [allData, setAllData] = useState([]);
+  const [myTemp, setMyTemp] = useState([]);
 
   // search test
   const [keyword, setKeyword] = useState("");
@@ -39,10 +39,10 @@ const TemplatePage = () => {
     }
   };
 
-  const fetchTempAllData = useCallback(async () => {
-    await getTemplateAll().then((res) => {
-      console.log("템플릿 모음:", res.data.content);
-      setAllData(res.data.content);
+  const fetchMyTempData = useCallback(async () => {
+    await getFavorite().then((res) => {
+      console.log("내 템플릿:", res.data.content);
+      setMyTemp(res.data.content);
     });
   }, []);
 
@@ -54,11 +54,11 @@ const TemplatePage = () => {
   }, []);
 
   useEffect(() => {
-    fetchTempAllData();
+    fetchMyTempData();
     return () => {
-      fetchTempAllData();
+      fetchMyTempData();
     };
-  }, [fetchTempAllData]);
+  }, [fetchMyTempData]);
 
   // Render
   return (
@@ -73,7 +73,7 @@ const TemplatePage = () => {
         onSelect={onSelect}
       />
       <TemplateList>
-        {allData.map((item: Data) => (
+        {myTemp.map((item: Data) => (
           <TemplateItem
             key={item.id}
             title={item.title}
@@ -87,4 +87,4 @@ const TemplatePage = () => {
   );
 };
 
-export default TemplatePage;
+export default MyTemplatePage;

@@ -30,7 +30,9 @@ const Header = () => {
 
   return (
     <>
-      {pathname === "/" || pathname === "/auth/login" ? null : (
+      {pathname === "/" ||
+      pathname === "/auth/login" ||
+      pathname === "/auth/signup" ? null : (
         <HeaderBlock>
           <HeaderContent>{renderHeader()}</HeaderContent>
         </HeaderBlock>
