@@ -75,9 +75,13 @@ export const getEditSpace = async (spaceWallId: number) => {
   return await fetchData(`spaceTemps/view/${spaceWallId}`, "get");
 };
 
-export const saveSpace = async (
+export const doneEditSpace = async (
   spaceWallId: number,
   spaceData: SaveSpaceData,
 ) => {
   return await fetchData(`spaceTemps/done/${spaceWallId}`, "put", spaceData);
+};
+
+export const saveSpace = async (spaceWallId: number, spaceData: unknown) => {
+  return await fetchData(`spaces/edit/${spaceWallId}`, "put", spaceData);
 };
