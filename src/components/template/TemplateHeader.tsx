@@ -33,7 +33,10 @@ const TemplateHeader = ({
         {tab === "/template" ? (
           <>
             <Categories category={category} onSelect={onSelect} />
-            <Search onSearchChange={onSearchChange} keyword={keyword} />
+            <Search
+              onSearchChange={onSearchChange}
+              keyword={keyword}
+            />
           </>
         ) : (
           <CreateTemplate />
