@@ -21,7 +21,7 @@ const TemplateItem = ({ title, description, hashtags, id }: Data) => {
   const onClick = useCallback(async () => {
     if (toggle === false) {
       await postFavorite(id).then((res) => {
-        console.log(res.message);
+        console.log(res);
       });
     } else {
       await removeFavorite().then((res) => {

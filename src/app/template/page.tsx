@@ -3,7 +3,7 @@
 import TemplateHeader from "@/components/template/TemplateHeader";
 import TemplateItem from "@/components/template/TemplateItem";
 import TemplateList from "@/components/template/TemplateList";
-import { getTemplateAll } from "@/lib/api/templateAPI";
+import { getTemplateAll, searchTemplate } from "@/lib/api/templateAPI";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 
 export interface Data {
@@ -18,14 +18,14 @@ const TemplatePage = () => {
   // State
   const [category, setCategory] = useState("/template");
   const [tab, setTab] = useState("/template");
-  const onSelect = useCallback((category: string) => setCategory(category), []);
-  const onSelectTab = useCallback((tabItem: string) => setTab(tabItem), []);
   const [scroll, setScroll] = useState(false);
   const [allData, setAllData] = useState([]);
-
-  // search test
+  const [searchData, setSearchData] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [search, setSearch] = useState(false);
 
+  const onSelect = useCallback((category: string) => setCategory(category), []);
+  const onSelectTab = useCallback((tabItem: string) => setTab(tabItem), []);
   const onSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setKeyword(event.target.value);
   }, []);
@@ -46,6 +46,15 @@ const TemplatePage = () => {
     });
   }, []);
 
+  const fetchSearchData = useCallback(async () => {
+    setSearch(true);
+    searchTemplate(keyword).then((res) => {
+      console.log(res.data.content);
+      setSearchData(res.data.content);
+    });
+  }, [keyword]);
+
+  // Side Effect
   useEffect(() => {
     window.addEventListener("scroll", onScroll);
     return () => {
@@ -60,6 +69,13 @@ const TemplatePage = () => {
     };
   }, [fetchTempAllData]);
 
+  useEffect(() => {
+    fetchSearchData();
+    return () => {
+      fetchSearchData();
+    };
+  }, [fetchSearchData]);
+
   // Render
   return (
     <>
@@ -73,15 +89,25 @@ const TemplatePage = () => {
         onSelect={onSelect}
       />
       <TemplateList>
-        {allData.map((item: Data) => (
-          <TemplateItem
-            key={item.id}
-            title={item.title}
-            description={item.description}
-            hashtags={item.hashtags}
-            id={item.id}
-          />
-        ))}
+        {search
+          ? searchData.map((item: Data) => (
+              <TemplateItem
+                key={item.id}
+                title={item.title}
+                description={item.description}
+                hashtags={item.hashtags}
+                id={item.id}
+              />
+            ))
+          : allData.map((item: Data) => (
+              <TemplateItem
+                key={item.id}
+                title={item.title}
+                description={item.description}
+                hashtags={item.hashtags}
+                id={item.id}
+              />
+            ))}
       </TemplateList>
     </>
   );
