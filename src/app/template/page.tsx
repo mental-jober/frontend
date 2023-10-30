@@ -4,7 +4,6 @@ import TemplateHeader from "@/components/template/TemplateHeader";
 import TemplateItem from "@/components/template/TemplateItem";
 import TemplateList from "@/components/template/TemplateList";
 import { getTemplateAll, searchTemplate } from "@/lib/api/templateAPI";
-import { useRouter } from "next/navigation";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 
 export interface Data {
@@ -16,8 +15,6 @@ export interface Data {
 }
 
 const TemplatePage = () => {
-  const router = useRouter();
-
   // State
   const [category, setCategory] = useState("/template");
   const [tab, setTab] = useState("/template");
