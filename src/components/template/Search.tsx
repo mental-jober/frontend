@@ -4,8 +4,8 @@ import { MdOutlineSearch } from "react-icons/md";
 import { ChangeEvent } from "react";
 
 interface SearchProps {
-  onSearchChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  keyword: string;
+  onSearchChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  keyword?: string;
 }
 
 const Search = ({ keyword, onSearchChange }: SearchProps) => {
