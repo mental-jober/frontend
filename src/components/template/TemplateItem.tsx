@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import Button from "../common/Button";
 import { PiHeart, PiHeartFill } from "react-icons/pi";
 // import { MdOutlineSearch } from "react-icons/md";
-import { useCallback, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { Data } from "@/app/template/page";
 import { postFavorite, removeFavorite } from "@/lib/api/templateAPI";
 import useSpaceWallStore from "@/lib/store/useSpaceWallStore";
@@ -21,7 +21,8 @@ const TemplateItem = ({ title, description, hashtags, id }: Data) => {
   const onClick = useCallback(async () => {
     if (toggle === false) {
       await postFavorite(id).then((res) => {
-        console.log(res);
+        console.log(res.message);
+        console.log(res.code);
       });
     } else {
       await removeFavorite().then((res) => {
@@ -153,4 +154,4 @@ const HeartFill = styled(PiHeartFill)`
   }
 `;
 
-export default TemplateItem;
+export default memo(TemplateItem);

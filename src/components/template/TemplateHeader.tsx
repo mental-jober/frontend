@@ -10,8 +10,8 @@ interface TemplateHeaderProps {
   scroll: boolean;
   tab: string;
   onSelectTab: (tabItem: string) => void;
-  keyword: string;
-  onSearchChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  keyword?: string;
+  onSearchChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   category: string;
   onSelect: (category: string) => void;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { getTemplate } from "@/lib/api/templateAPI";
+import { getTemplate, searchTemplate } from "@/lib/api/templateAPI";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Data } from "../page";
 import TemplateItem from "@/components/template/TemplateItem";
@@ -13,8 +13,10 @@ const TemplateSurvayPage = () => {
   const onSelect = useCallback((category: string) => setCategory(category), []);
   const onSelectTab = useCallback((tabItem: string) => setTab(tabItem), []);
   const [scroll, setScroll] = useState(false);
-  const [survayData, setSurvayData] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [search, setSearch] = useState(false);
+  const [searchData, setSearchData] = useState([]);
+  const [survayData, setSurvayData] = useState([]);
 
   const onScroll = () => {
     if (window.scrollY > 0) {
@@ -24,15 +26,23 @@ const TemplateSurvayPage = () => {
     }
   };
 
-  const onSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(event.target.value);
-  }, []);
-
   const fetchSurvayData = useCallback(async () => {
-    await getTemplate("설문").then((res) => {
-      console.log("설문:", res.data.content);
+    await getTemplate("개인").then((res) => {
+      console.log(res.data.content);
       setSurvayData(res.data.content);
     });
+  }, []);
+
+  const fetchSearchData = useCallback(async () => {
+    setSearch(true);
+    searchTemplate(keyword).then((res) => {
+      console.log(res.data.content);
+      setSearchData(res.data.content);
+    });
+  }, [keyword]);
+
+  const onSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setKeyword(event.target.value);
   }, []);
 
   useEffect(() => {
@@ -49,6 +59,13 @@ const TemplateSurvayPage = () => {
     };
   }, [fetchSurvayData]);
 
+  useEffect(() => {
+    fetchSearchData();
+    return () => {
+      fetchSearchData();
+    };
+  }, [fetchSearchData]);
+
   return (
     <>
       <TemplateHeader
@@ -61,15 +78,25 @@ const TemplateSurvayPage = () => {
         onSelect={onSelect}
       />
       <TemplateList>
-        {survayData.map((item: Data) => (
-          <TemplateItem
-            key={item.id}
-            title={item.title}
-            description={item.description}
-            hashtags={item.hashtags}
-            id={item.id}
-          />
-        ))}
+        {search
+          ? searchData.map((item: Data) => (
+              <TemplateItem
+                key={item.id}
+                title={item.title}
+                description={item.description}
+                hashtags={item.hashtags}
+                id={item.id}
+              />
+            ))
+          : survayData.map((item: Data) => (
+              <TemplateItem
+                key={item.id}
+                title={item.title}
+                description={item.description}
+                hashtags={item.hashtags}
+                id={item.id}
+              />
+            ))}
       </TemplateList>
     </>
   );

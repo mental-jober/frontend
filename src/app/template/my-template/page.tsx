@@ -4,7 +4,7 @@ import TemplateHeader from "@/components/template/TemplateHeader";
 import TemplateItem from "@/components/template/TemplateItem";
 import TemplateList from "@/components/template/TemplateList";
 import { getFavorite } from "@/lib/api/templateAPI";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export interface Data {
   title: string;
@@ -22,13 +22,6 @@ const MyTemplatePage = () => {
   const onSelectTab = useCallback((tabItem: string) => setTab(tabItem), []);
   const [scroll, setScroll] = useState(false);
   const [myTemp, setMyTemp] = useState([]);
-
-  // search test
-  const [keyword, setKeyword] = useState("");
-
-  const onSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(event.target.value);
-  }, []);
 
   // Function
   const onScroll = () => {
@@ -65,8 +58,6 @@ const MyTemplatePage = () => {
     <>
       <TemplateHeader
         tab={tab}
-        keyword={keyword}
-        onSearchChange={onSearchChange}
         scroll={scroll}
         onSelectTab={onSelectTab}
         category={category}

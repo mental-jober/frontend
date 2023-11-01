@@ -1,6 +1,6 @@
 "use client";
 
-import { getTemplate } from "@/lib/api/templateAPI";
+import { getTemplate, searchTemplate } from "@/lib/api/templateAPI";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Data } from "../page";
 import TemplateItem from "@/components/template/TemplateItem";
@@ -13,8 +13,10 @@ const TemplatePersonPage = () => {
   const onSelect = useCallback((category: string) => setCategory(category), []);
   const onSelectTab = useCallback((tabItem: string) => setTab(tabItem), []);
   const [scroll, setScroll] = useState(false);
-  const [personData, setPersonData] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [search, setSearch] = useState(false);
+  const [searchData, setSearchData] = useState([]);
+  const [personData, setPersonData] = useState([]);
 
   const onScroll = () => {
     if (window.scrollY > 0) {
@@ -24,15 +26,23 @@ const TemplatePersonPage = () => {
     }
   };
 
-  const onSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(event.target.value);
-  }, []);
-
   const fetchPersonData = useCallback(async () => {
     await getTemplate("개인").then((res) => {
-      console.log("개인:", res.data.content);
+      console.log(res.data.content);
       setPersonData(res.data.content);
     });
+  }, []);
+
+  const fetchSearchData = useCallback(async () => {
+    setSearch(true);
+    searchTemplate(keyword).then((res) => {
+      console.log(res.data.content);
+      setSearchData(res.data.content);
+    });
+  }, [keyword]);
+
+  const onSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setKeyword(event.target.value);
   }, []);
 
   useEffect(() => {
@@ -49,6 +59,13 @@ const TemplatePersonPage = () => {
     };
   }, [fetchPersonData]);
 
+  useEffect(() => {
+    fetchSearchData();
+    return () => {
+      fetchSearchData();
+    };
+  }, [fetchSearchData]);
+
   return (
     <>
       <TemplateHeader
@@ -61,15 +78,25 @@ const TemplatePersonPage = () => {
         onSelect={onSelect}
       />
       <TemplateList>
-        {personData.map((item: Data) => (
-          <TemplateItem
-            key={item.id}
-            title={item.title}
-            description={item.description}
-            hashtags={item.hashtags}
-            id={item.id}
-          />
-        ))}
+        {search
+          ? searchData.map((item: Data) => (
+              <TemplateItem
+                key={item.id}
+                title={item.title}
+                description={item.description}
+                hashtags={item.hashtags}
+                id={item.id}
+              />
+            ))
+          : personData.map((item: Data) => (
+              <TemplateItem
+                key={item.id}
+                title={item.title}
+                description={item.description}
+                hashtags={item.hashtags}
+                id={item.id}
+              />
+            ))}
       </TemplateList>
     </>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { getTemplate } from "@/lib/api/templateAPI";
+import { getTemplate, searchTemplate } from "@/lib/api/templateAPI";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Data } from "../page";
 import TemplateItem from "@/components/template/TemplateItem";
@@ -15,6 +15,8 @@ const TemplateContractPage = () => {
   const [scroll, setScroll] = useState(false);
   const [lawData, setLawData] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [search, setSearch] = useState(false);
+  const [searchData, setSearchData] = useState([]);
 
   const onScroll = () => {
     if (window.scrollY > 0) {
@@ -35,6 +37,14 @@ const TemplateContractPage = () => {
     });
   }, []);
 
+  const fetchSearchData = useCallback(async () => {
+    setSearch(true);
+    searchTemplate(keyword).then((res) => {
+      console.log(res.data.content);
+      setSearchData(res.data.content);
+    });
+  }, [keyword]);
+
   useEffect(() => {
     window.addEventListener("scroll", onScroll);
     return () => {
@@ -49,6 +59,13 @@ const TemplateContractPage = () => {
     };
   }, [fetchLawData]);
 
+  useEffect(() => {
+    fetchSearchData();
+    return () => {
+      fetchSearchData();
+    };
+  }, [fetchSearchData]);
+
   return (
     <>
       <TemplateHeader
@@ -61,15 +78,25 @@ const TemplateContractPage = () => {
         onSelect={onSelect}
       />
       <TemplateList>
-        {lawData.map((item: Data) => (
-          <TemplateItem
-            key={item.id}
-            title={item.title}
-            description={item.description}
-            hashtags={item.hashtags}
-            id={item.id}
-          />
-        ))}
+        {search
+          ? searchData.map((item: Data) => (
+              <TemplateItem
+                key={item.id}
+                title={item.title}
+                description={item.description}
+                hashtags={item.hashtags}
+                id={item.id}
+              />
+            ))
+          : lawData.map((item: Data) => (
+              <TemplateItem
+                key={item.id}
+                title={item.title}
+                description={item.description}
+                hashtags={item.hashtags}
+                id={item.id}
+              />
+            ))}
       </TemplateList>
     </>
   );

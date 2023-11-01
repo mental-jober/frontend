@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { memo } from "react";
 import { css, styled } from "styled-components";
 
 const list = [
@@ -62,4 +63,4 @@ const TabItem = styled(Link)<{ $active: boolean }>`
     `}
 `;
 
-export default TabList;
+export default memo(TabList);
