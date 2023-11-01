@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, memo } from "react";
 import { styled } from "styled-components";
 
 interface TemplateListProps {
@@ -28,4 +28,4 @@ const TemplateListContent = styled.ul`
   gap: 10px;
 `;
 
-export default TemplateList;
+export default memo(TemplateList);
